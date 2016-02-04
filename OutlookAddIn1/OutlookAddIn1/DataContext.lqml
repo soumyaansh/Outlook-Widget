@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database Name="main" EntityNamespace="UserContext" ContextNamespace="UserContext" Class="UserDataContext" xmlns:ed="http://devart.com/schemas/EntityDeveloper/1.0" ed:Guid="6a9c4dc7-b373-4022-bf66-1feeed37ee71" Provider="Devart.Data.SQLite.Linq.Provider.SQLiteDataProvider, Devart.Data.SQLite.Linq" Extended="true" xmlns="http://schemas.devart.com/linqconnect/mapping">
+  <Connection Mode="ConnectionString" ConnectionString="Data Source=C:\Users\WittyParrot\AppData\Local\WittyParrotWidget\userDB.sqlite" Provider="Devart.Data.SQLite" />
+  <Table Name="&quot;main&quot;.comments" Member="Comments">
+    <Type Name="Comment" ed:Guid="bc26bba8-9bfd-44a6-9a1c-497950a7440b">
+      <Column Name="comment_id" Member="CommentId" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="68ef085d-608c-41b0-8fee-0746c47e1d94" />
+      <Column Name="comment" Member="Comment1" Type="System.String" DbType="TEXT" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="b69360bd-9d65-4d41-875d-b8554078d95f" />
+      <Column Name="widget_id" Member="WidgetId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="facf43c1-55a3-4464-b8af-825c5fecb125" />
+      <Column Name="creator" Member="Creator" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="7b2816fc-2454-4088-b278-04a83b238871" />
+      <Column Name="creation_date" Member="CreationDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="6ac78340-9f03-4fe3-a601-c352f5267b1b" />
+      <Column Name="modifier" Member="Modifier" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="139c9f74-10aa-441d-a82d-59c16356d6e3" />
+      <Column Name="modification_date" Member="ModificationDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="47d759de-2c4c-4963-ba7e-c81b6681058c" />
+      <Column Name="is_owner" Member="IsOwner" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="a4c612d2-2480-4682-ba3d-93f960432277" />
+      <Column Name="sync_status" Member="SyncStatus" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="0250f653-df53-40ed-822e-c49e44361583" />
+      <Column Name="error_type" Member="ErrorType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="360375a8-9b23-4a75-a85a-b6ff8ddc5d78" />
+      <Column Name="error_code" Member="ErrorCode" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="49b12e10-9bd0-4c6e-9265-dcf6cda1a592" />
+      <Column Name="retry_count" Member="RetryCount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="562441e5-82ef-4a17-8d3d-019728f8cdcf" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.contacts" Member="Contacts">
+    <Type Name="Contact" ed:Guid="5db2205d-1bd3-4363-9a16-cfe4fd44f046">
+      <Column Name="useremail" Member="Useremail" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="e155d2aa-d130-43df-83f1-8503e8644082" />
+      <Column Name="user_fname" Member="UserFname" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="6b619c01-12ad-44c5-b7aa-40be0535e718" />
+      <Column Name="user_lname" Member="UserLname" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="42b0811c-8266-4b9c-8791-127ecab1e20c" />
+      <Column Name="company" Member="Company" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="a528c126-af05-49bc-bd4f-652edef31c3e" />
+      <Column Name="enterprise_id" Member="EnterpriseId" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="9fe60946-494b-4c6b-b6c5-83b1708b9d7d" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.content_expiry" Member="ContentExpiries">
+    <Type Name="ContentExpiry" ed:Guid="02cd6189-d2e3-42e5-8fea-94033ef2cf51">
+      <Column Name="id" Member="Id" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="91f94848-1d10-4aa9-94d4-e0cef8b70bdb" />
+      <Column Name="type" Member="Type" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="cb0acb97-cd0d-4ab8-a0fd-69e1d154d787" />
+      <Column Name="expiry_date" Member="ExpiryDate" Type="System.String" DbType="VARCHAR NOT NULL" CanBeNull="false" UpdateCheck="Never" ed:ValidateRequired="true" ed:Guid="6d10f659-1d77-4268-9cfb-46c2ed2f1c12" />
+      <Column Name="first_alert_date" Member="FirstAlertDate" Type="System.String" DbType="VARCHAR NOT NULL" CanBeNull="false" UpdateCheck="Never" ed:ValidateRequired="true" ed:Guid="5a6b60b9-dc43-4686-b70e-2210a18c3edb" />
+      <Column Name="second_alert_date" Member="SecondAlertDate" Type="System.String" DbType="VARCHAR NOT NULL" CanBeNull="false" UpdateCheck="Never" ed:ValidateRequired="true" ed:Guid="d458602b-d93f-4445-af87-3cb84edbec33" />
+      <Column Name="sync_status" Member="SyncStatus" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="44cee161-ef88-4f5f-b524-252bc81af146" />
+      <Column Name="error_type" Member="ErrorType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="d971185a-0bc9-4248-9534-eeb809c080be" />
+      <Column Name="error_code" Member="ErrorCode" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="bbbfd219-a5cc-446e-9f1b-5573ed9b1c32" />
+      <Column Name="retry_count" Member="RetryCount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="b0c3a6d0-6a2e-4640-bbb1-53c93617cbca" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.docs" Member="Docs">
+    <Type Name="Doc" ed:Guid="e3a17a10-e799-477d-9410-ef984a51af85">
+      <Column Name="doc_id" Member="DocId" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="14ce3751-78d3-4d6b-b751-b206d75c4183" />
+      <Column Name="inline_id" Member="InlineId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="acea5a8b-14a3-40ca-bd9d-06dd2c27c8bb" />
+      <Column Name="file_name" Member="FileName" Type="System.String" DbType="TEXT" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="fc1d5e1f-5e82-4bd9-8acc-34f5017fff69" />
+      <Column Name="mime_type" Member="MimeType" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="069f6019-ed2f-445b-bbcc-92503c0f2663" />
+      <Column Name="file_url" Member="FileUrl" Type="System.String" DbType="TEXT" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="6f7ead06-1770-4250-afab-4c62934cb89d" />
+      <Column Name="thumbnail_url" Member="ThumbnailUrl" Type="System.String" DbType="TEXT" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="10aac4dd-8147-4302-a06b-d6944c242220" />
+      <Column Name="version" Member="Version" Type="System.Double" DbType="REAL" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="95a50fff-9563-4726-a7dc-35401100a135" />
+      <Column Name="size" Member="Size" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="967277dc-f16b-4829-8c2d-55309c8c4d66" />
+      <Column Name="creator" Member="Creator" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="754d39fa-1f87-4488-9ff9-0886d42a909b" />
+      <Column Name="creation_date" Member="CreationDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="99f0d9e8-d036-4e37-8b54-e2131dcf49ab" />
+      <Column Name="modifier" Member="Modifier" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="a9644274-a297-4350-92b1-875d9500c0e7" />
+      <Column Name="company" Member="Company" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="f1b28f04-02f9-4722-bb52-757b86b6a9f4" />
+      <Column Name="modification_date" Member="ModificationDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="91b8a239-b48a-4d88-b0e8-104fc0299616" />
+      <Column Name="tags" Member="Tags" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="b53fba52-af9c-4254-a90b-e4178634a304" />
+      <Column Name="notes" Member="Notes" Type="System.String" DbType="TEXT" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="989786a2-d1d7-4ac9-998a-65f44708d0b6" />
+      <Column Name="wit_ids" Member="WitIds" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="cc77558a-f9da-46ad-8f5e-ed9a04e8878c" />
+      <Column Name="local_path" Member="LocalPath" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="48d79b0a-0175-4926-9828-ff44914870f8" />
+      <Column Name="container_dir_path" Member="ContainerDirPath" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="2b3ea395-5a67-481d-87e6-918f5eb224c9" />
+      <Column Name="permission" Member="Permission" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="ac976403-d25b-4bd2-a460-4576fa251873" />
+      <Column Name="can_further_perm" Member="CanFurtherPerm" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="43edd292-1cb4-457e-aad5-12256e2359aa" />
+      <Column Name="folder_id" Member="FolderId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="5c3abae6-6463-4226-a484-51b4244b5cf9" />
+      <Column Name="folder_type" Member="FolderType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="0d825c91-2824-4c53-a94c-05b349398df0" />
+      <Column Name="widget_type" Member="WidgetType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="67cf58e9-c4d6-4495-b16f-5220d040f8ab" />
+      <Column Name="is_inline" Member="IsInline" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="b0dca14a-a00b-43fb-864e-0af15f8e489a" />
+      <Column Name="label" Member="Label" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="39eb66d8-7dd6-4e05-9fee-a26ff890ce09" />
+      <Column Name="is_fav" Member="IsFav" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="669b79c8-1dd8-40cb-80aa-fbb7ea3d9f8a" />
+      <Column Name="sync_status" Member="SyncStatus" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="1f546887-415f-497d-a90c-0c35ea89d32e" />
+      <Column Name="ratingtotal" Member="Ratingtotal" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="39195489-c93a-44dc-9074-0d5c006196e5" />
+      <Column Name="ratingcount" Member="Ratingcount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="3429ee50-bd1b-404e-b4c1-71415d166907" />
+      <Column Name="is_sharedbyme" Member="IsSharedbyme" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="c42172d7-ffaa-41fc-a28f-2959ded8bc49" />
+      <Column Name="public_url" Member="PublicUrl" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="897f3c49-1a26-4f4f-ac3e-b3cfdfadbbd2" />
+      <Column Name="error_type" Member="ErrorType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="ca39e828-b0df-45f4-95d9-c7ea5972f366" />
+      <Column Name="error_code" Member="ErrorCode" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="048930e4-a099-44da-a4c6-7e870bb0b4ba" />
+      <Column Name="retry_count" Member="RetryCount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="f3e31e98-f775-4564-90f4-b94a0e58386b" />
+      <Column Name="modification_date_new" Member="ModificationDateNew" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="656fe542-0d86-4387-899f-fa7d57ae6153" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.event_records" Member="EventRecords">
+    <Type Name="EventRecord" ed:Guid="3b888f54-4738-49af-9d76-137cc30ca009">
+      <Column Name="id" Member="Id" Type="System.Int64" AutoSync="OnInsert" DbType="INTEGER NOT NULL" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="3b4691da-1fa0-4e80-bad0-401a22b5977e" />
+      <Column Name="analytics_json" Member="AnalyticsJson" Type="System.Byte[]" DbType="BLOB" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="3139c977-0b0c-4426-932a-a4a25b82ce22" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.folders" Member="Folders">
+    <Type Name="Folder" ed:Guid="3ef1f323-caf4-48d8-912a-cddbe9b10f46">
+      <Column Name="folder_id" Member="FolderId" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="9dc1aaae-59e1-40fc-9800-17e4b1bf59e3" />
+      <Column Name="folder_name" Member="FolderName" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="26b37ef5-82ad-4a8b-8495-826f57f9ea07" />
+      <Column Name="folder_parent_id" Member="FolderParentId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="f2ef13fc-72ec-4560-8fe6-20d06872a4f6" />
+      <Column Name="folder_type" Member="FolderType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="69e5c345-f771-44e6-9e0f-8a84794ef37c" />
+      <Column Name="widget_type" Member="WidgetType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="9586e96c-7e20-4f64-8b54-e7cb29eaf19c" />
+      <Column Name="item_count" Member="ItemCount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="cc9cff85-ce67-44a4-b732-e455f3394876" />
+      <Column Name="folder_level" Member="FolderLevel" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="a4b93925-1ae9-44e8-9045-48e91d9a20e7" />
+      <Column Name="is_system_folder" Member="IsSystemFolder" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="d6fb6a91-8d26-4711-a5ce-1677c2668883" />
+      <Column Name="creation_date" Member="CreationDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="c46787e4-c1e3-46f0-8de8-229e1e5d3d40" />
+      <Column Name="modification_date" Member="ModificationDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="7ff71b4b-9f43-4d24-be77-3d9cdaefbb96" />
+      <Column Name="creator" Member="Creator" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="d93a4c78-6c18-48ab-bab8-5bc6dcbbeb1b" />
+      <Column Name="modifier" Member="Modifier" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="4aefa63a-4d87-498f-9a8b-209edd41c083" />
+      <Column Name="company" Member="Company" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="9cb6b3e4-caf9-4a6f-9b20-c2955ee9a6ed" />
+      <Column Name="permission" Member="Permission" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="fe212d36-441d-408b-87bb-3ec94e03e5f8" />
+      <Column Name="can_further_perm" Member="CanFurtherPerm" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="b6277b61-1db6-4b0d-a1c5-1168f98a4844" />
+      <Column Name="sync_status" Member="SyncStatus" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="957c0cdf-6e43-4e45-b0cd-f66073636a30" />
+      <Column Name="ratingtotal" Member="Ratingtotal" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="ed1373d1-10a1-44b7-b44a-547b3fbda978" />
+      <Column Name="ratingcount" Member="Ratingcount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="7733ebd2-ca5a-4a9c-a866-37f55d875a90" />
+      <Column Name="is_sharedbyme" Member="IsSharedbyme" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="9ca8b9f7-90e8-45c0-9e19-d414a79fc87e" />
+      <Column Name="error_type" Member="ErrorType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="c7e06c77-3190-46ed-bee2-766e8fb22312" />
+      <Column Name="error_code" Member="ErrorCode" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="f95a4f15-ce52-4106-8fd2-47f7b40a2cd6" />
+      <Column Name="retry_count" Member="RetryCount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="7c2d443f-7177-4b15-87b9-7058aff3f6c7" />
+      <Column Name="folder_name_identifier" Member="FolderNameIdentifier" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="ebea6c68-7f7f-4206-8bd2-146077c5ccb5" />
+      <Column Name="local_sync_path" Member="LocalSyncPath" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="827d3e5e-bb46-4180-ad72-1607b56cffb6" />
+      <Column Name="workspace_id" Member="WorkspaceId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="3fbc8a03-266c-4a65-994d-b2202224fb84" />
+      <Column Name="enterprise_id" Member="EnterpriseId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="7f86162a-968a-4166-ad03-0dbd51066da1" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.group_contacts" Member="GroupContacts">
+    <Type Name="GroupContact" ed:Guid="2f9eec8b-6aa4-46b8-9d3e-579eb8fe15fe">
+      <Column Name="id" Member="Id" Type="System.Object" DbType="INTEGER ASC" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="e1816df1-cce1-4159-a1bf-955f4baaee3d" />
+      <Column Name="group_id" Member="GroupId" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="e0a09994-aa6b-46a4-a71c-d339b3363fe0" />
+      <Column Name="username" Member="Username" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="97c18e05-bc5d-4eb9-8946-fce6b379f5a7" />
+      <Column Name="from_group_id" Member="FromGroupId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="a4e3ae40-5ae1-4d5b-b9f8-26db8950a04a" />
+      <Column Name="sync_status" Member="SyncStatus" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="b1a017e2-446d-42d4-8c0e-cf4ffa97ecf8" />
+      <Column Name="error_type" Member="ErrorType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="a3fa8ed9-5ab5-455b-b697-a4953ae46403" />
+      <Column Name="error_code" Member="ErrorCode" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="7a3155c3-a219-47f4-9440-dd3aaf5bd8df" />
+      <Column Name="retry_count" Member="RetryCount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="ba67bb73-1320-4e83-9e67-3d02fca84deb" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.groups" Member="Groups">
+    <Type Name="Group" ed:Guid="683b14e4-244b-476b-8ac4-34e405b40c22">
+      <Column Name="group_id" Member="GroupId" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="e122068c-5f43-4445-816f-91d2a4807d6d" />
+      <Column Name="group_name" Member="GroupName" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="bb3c6278-590f-438c-9fe7-edda5a756b5d" />
+      <Column Name="workspace" Member="Workspace" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="8e95016f-e4b3-4658-a5d1-5abb99d44df9" />
+      <Column Name="item_count" Member="ItemCount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="bc01f0ff-b082-4443-a9f6-9169cfaf123c" />
+      <Column Name="creation_date" Member="CreationDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="890191ae-469b-40e2-9320-216f96107001" />
+      <Column Name="modification_date" Member="ModificationDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="12c33ffa-b70f-4b62-a5e2-d4a5a5568961" />
+      <Column Name="creator" Member="Creator" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="2d57f0fb-1b9c-431c-985e-e6572ef522ce" />
+      <Column Name="modifier" Member="Modifier" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="beb6870c-d1fc-4c74-b2ff-5ebc4853eb0a" />
+      <Column Name="company" Member="Company" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="d1fe5526-3b6d-4673-acfc-579c702e0d6a" />
+      <Column Name="enterprise_id" Member="EnterpriseId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="d759d661-d6f0-4dd9-86b3-88ca11ad0ec4" />
+      <Column Name="creator_id" Member="CreatorId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="8aa4e4e6-c7a8-4e96-9f60-3562dc508a29" />
+      <Column Name="sync_status" Member="SyncStatus" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="8edd0f34-074d-403d-83c6-a6eca3eb4822" />
+      <Column Name="error_type" Member="ErrorType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="184e7beb-712b-4b3a-b57f-60fa1b566d91" />
+      <Column Name="error_code" Member="ErrorCode" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="faa51816-1d15-4656-9e3e-f373940d58b7" />
+      <Column Name="retry_count" Member="RetryCount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="b6ec6a59-e02e-4f3b-854b-80c420644499" />
+      <Column Name="valid_users" Member="ValidUsers" Type="System.String" DbType="TEXT" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="cc384807-dc1f-4c44-b2d0-9d74b388e23b" />
+      <Column Name="invalid_users" Member="InvalidUsers" Type="System.String" DbType="TEXT" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="e3656271-995d-4f7d-b66a-04e83e5e1604" />
+      <Column Name="is_system" Member="IsSystem" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="54f45e5f-19e0-4da4-9814-e5c4096f9914" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.notification_actions" Member="NotificationActions">
+    <Type Name="NotificationAction" ed:Guid="5ca1aff5-1e30-468b-bdc3-7cef95282c22">
+      <Column Name="id" Member="Id" Type="System.Int64" AutoSync="OnInsert" DbType="INTEGER NOT NULL" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="9100cd25-dfd7-4641-bbf5-e01f30f37bd3" />
+      <Column Name="action_id" Member="ActionId" Type="System.String" DbType="VARCHAR NOT NULL" CanBeNull="false" UpdateCheck="Never" ed:ValidateRequired="true" ed:Guid="66bd917a-e3c4-4066-8667-d2e713320c22" />
+      <Column Name="notification_id" Member="NotificationId" Type="System.String" DbType="VARCHAR NOT NULL" CanBeNull="false" UpdateCheck="Never" ed:ValidateRequired="true" ed:Guid="13f1fa3b-67d5-431a-9376-61d878676859" />
+      <Column Name="name" Member="Name" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="af6efb44-5910-4478-9f79-0eb8d1966e55" />
+      <Column Name="params" Member="Params" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="6a97045d-18fb-4cc0-bd90-119054edaf67" />
+      <Column Name="api" Member="Api" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="5c228ffb-0928-46aa-9fa7-6aeebc994d9e" />
+      <Column Name="api_base" Member="ApiBase" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="adce794a-92bd-4bc3-a037-12c2122410e4" />
+      <Column Name="sync_status" Member="SyncStatus" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="54aa7e0f-99bb-4506-95de-2fd2740c19e7" />
+      <Column Name="error_type" Member="ErrorType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="deff6dae-b497-4502-be8c-2b81323946bc" />
+      <Column Name="error_code" Member="ErrorCode" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="27e723c7-c1ff-42e9-bbee-16c8bfeb1624" />
+      <Column Name="retry_count" Member="RetryCount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="13c9b059-49d8-4e00-92c5-8898b571927c" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.notifications" Member="Notifications">
+    <Type Name="Notification" ed:Guid="854b7527-3f6b-4ce4-b63c-43ff5aa6b5bf">
+      <Column Name="notification_id" Member="NotificationId" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="a76f2bc4-998d-4ef3-95ee-98817e0c3cb6" />
+      <Column Name="message" Member="Message" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="78021652-bed4-4624-af4e-fe3e37a87a2c" />
+      <Column Name="type" Member="Type" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="dfb717ce-5a05-42e2-9933-a3483dc18797" />
+      <Column Name="sender" Member="Sender" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="a66198b7-f28d-4c85-983f-01c0a7e8f068" />
+      <Column Name="receiver" Member="Receiver" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="80096d86-1ff1-47b9-b914-9581ba520413" />
+      <Column Name="obj_id" Member="ObjId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="31761134-89a2-4d9a-8f5f-2921d5f7e71f" />
+      <Column Name="creation_date" Member="CreationDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="80ed247e-2e60-4551-bc71-3c291240eebe" />
+      <Column Name="sync_date" Member="SyncDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="c789e380-f9ea-4f44-8d15-29cf3b9c8349" />
+      <Column Name="is_read" Member="IsRead" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="a9c645e0-24cd-4491-bc1d-944c88ad8bb4" />
+      <Column Name="sync_status" Member="SyncStatus" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="27baa561-5706-46b6-8ad6-d28ebce05158" />
+      <Column Name="error_type" Member="ErrorType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="f6cdcc54-437b-499d-b759-c1ae7b9f509c" />
+      <Column Name="error_code" Member="ErrorCode" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="96ae4bbd-40c7-481b-8a5c-2d89cdcf182b" />
+      <Column Name="retry_count" Member="RetryCount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="af91f9e1-c3d7-4175-9c67-3c7f0e4d5329" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.package" Member="Packages">
+    <Type Name="Package" ed:Guid="ef090de0-7264-4294-a1e2-65f900fe4b21">
+      <Column Name="package_id" Member="PackageId" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="a480da3f-7160-4e1d-a7f8-1aac30c9b799" />
+      <Column Name="package_name" Member="PackageName" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" DefaultValue="'None'" ed:ValidateRequired="false" ed:Guid="d8e8ea48-a4e2-4a31-9a18-42a1f0d8c5ee" />
+      <Column Name="package_type" Member="PackageType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="15ecd0ab-2471-4280-894b-a6ed071131c0" />
+      <Column Name="base_package" Member="BasePackage" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="20172d00-5072-49c1-9a39-13aa3594f8ce" />
+      <Column Name="package_desc" Member="PackageDesc" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" DefaultValue="'None'" ed:ValidateRequired="false" ed:Guid="bc0dbf59-6837-477a-a533-96ed360e7ac1" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.package_feature" Member="PackageFeatures">
+    <Type Name="PackageFeature" ed:Guid="ffc5ab75-8295-4f0e-9915-556f2f0ba2eb">
+      <Column Name="packagef__id" Member="PackagefId" Type="System.Int64" AutoSync="OnInsert" DbType="INTEGER NOT NULL" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="cf286656-200b-4844-9c50-8f5d6eb8b9c3" />
+      <Column Name="package_id" Member="PackageId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="542be904-3f86-4e5d-973a-7cb976be6f9b" />
+      <Column Name="feature_id" Member="FeatureId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="e49febe1-8663-4e02-b5bf-d23f932c76c8" />
+      <Column Name="feature_name" Member="FeatureName" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="7ef09b59-d738-464f-a76d-086b66303903" />
+      <Column Name="is_enabled" Member="IsEnabled" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="6b5026b7-edf8-463b-8673-5b394709d8ec" />
+      <Column Name="is_hidden" Member="IsHidden" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="4450b6bd-5029-4a66-ab99-edeec3dfab83" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.socialmedia" Member="Socialmedias">
+    <Type Name="Socialmedia" ed:Guid="184b0827-e653-4308-9321-ef03baecdd1b">
+      <Column Name="socialMediaType" Member="SocialMediaType" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="7883c031-710e-4166-b69f-8a0296eb9e69" />
+      <Column Name="is_user_oauth_done" Member="IsUserOauthDone" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="89b05e80-8cf1-4b05-bb03-4f8493c332a0" />
+      <Column Name="user_oauth_token" Member="UserOauthToken" Type="System.String" DbType="TEXT" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="74a12911-3b19-4d9e-9add-bebe35089006" />
+      <Column Name="user_oauth_token_expire_in" Member="UserOauthTokenExpireIn" Type="System.Object" DbType="NUMBER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="9e70f53a-4efa-475a-9ba2-4071a308109c" />
+      <Column Name="user_oauth_token_secret_key" Member="UserOauthTokenSecretKey" Type="System.String" DbType="TEXT" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="7141250f-37ba-474a-95d1-18e5940ee9cd" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.taggroups" Member="Taggroups">
+    <Type Name="Taggroup" ed:Guid="c89365f8-5cca-42c7-bf5c-d3b9ef036680">
+      <Column Name="taggroup_id" Member="TaggroupId" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="aa9c6341-0ea5-4656-8233-2d2dd39b3f19" />
+      <Column Name="name" Member="Name" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="3c0370a9-99d0-4d21-bcfd-185f4340cd4c" />
+      <Column Name="parent_id" Member="ParentId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="f53d3631-6987-4725-9469-9229bbac5b33" />
+      <Column Name="parent_name" Member="ParentName" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="e305fc7d-cd96-48d7-b32c-232ce53c0461" />
+      <Column Name="enterprise_id" Member="EnterpriseId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="e9705281-c4fd-4d52-a6ce-339bdcf4e397" />
+      <Column Name="source" Member="Source" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="b3d09e22-e721-49dd-807e-ec4aed2ae8d7" />
+      <Column Name="status" Member="Status" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="5811e56b-212b-44a7-8a1b-04084d97f888" />
+      <Column Name="workspace" Member="Workspace" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="e21f1a43-1ab4-46b9-99e0-8ba72ca7ebf5" />
+      <Column Name="creation_date" Member="CreationDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="7c6698c1-83f4-441a-9746-6d495de0b69f" />
+      <Column Name="modification_date" Member="ModificationDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="482257a0-6380-4dff-bd54-bcefe288df62" />
+      <Column Name="creator" Member="Creator" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="8bf4c3ab-b344-4b9d-8a98-1a62428fc410" />
+      <Column Name="modifier" Member="Modifier" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="af355ef6-fab9-4b7c-8559-f9621ca623eb" />
+      <Column Name="company" Member="Company" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="5dc2a040-35c0-4ad2-bed6-acce3181ebf9" />
+      <Column Name="permission" Member="Permission" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="0b150be9-d6ef-4435-8fcb-6147695acd62" />
+      <Column Name="sync_status" Member="SyncStatus" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="f2b38a5c-fbe1-413f-928a-8bf8bbc58f7d" />
+      <Column Name="error_type" Member="ErrorType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="783b5471-8d5f-4afb-b31a-d21791016ecf" />
+      <Column Name="error_code" Member="ErrorCode" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="50c13ddd-e953-475d-b9f6-038d421df7da" />
+      <Column Name="retry_count" Member="RetryCount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="5e2cd6f3-8bf8-493b-892d-dc393cc648ee" />
+      <Column Name="level" Member="Level" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="6dfbe995-f570-46da-aa0e-f2ef2c5ea671" />
+      <Column Name="is_system" Member="IsSystem" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="2a034bca-907b-47d3-85a6-93e15e3150f0" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.tags" Member="Tags">
+    <Type Name="Tag" ed:Guid="36c1ab5c-1187-4609-a16d-c07b1d35af27">
+      <Column Name="id" Member="Id" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="46065cc6-5e3a-44b2-a1bc-bff817f55af1" />
+      <Column Name="name" Member="Name" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="ee941841-2f08-463e-b897-4aeff3b505d0" />
+      <Column Name="parent_id" Member="ParentId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="9f3aa39a-4ce5-48e3-8549-e62a0902edc2" />
+      <Column Name="parent_name" Member="ParentName" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="9bc0f1a1-5c75-4098-86c1-318a957958fc" />
+      <Column Name="enterprise_id" Member="EnterpriseId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="653e182a-1f48-4dea-a1af-b3660dd0cf55" />
+      <Column Name="source" Member="Source" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="484ddc8b-b79b-4369-a59d-f6254151208b" />
+      <Column Name="status" Member="Status" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="e53933f3-dd96-49a8-b715-f252cddb9c58" />
+      <Column Name="workspace" Member="Workspace" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="c0678492-e53e-4a3c-9cac-c03d41e8eed6" />
+      <Column Name="creation_date" Member="CreationDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="7b384855-0560-4ec6-9574-43e226e315b2" />
+      <Column Name="modification_date" Member="ModificationDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="f47929ca-89fc-4d59-9fbd-a2d29e925cb2" />
+      <Column Name="creator" Member="Creator" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="82d910cc-bb78-4c68-9954-8db8201c2ce7" />
+      <Column Name="modifier" Member="Modifier" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="ce80b6a6-49a9-4f57-874c-a7689cebbcd3" />
+      <Column Name="company" Member="Company" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="c35dc591-a3c5-448c-b5f7-b5a17dbd0594" />
+      <Column Name="permission" Member="Permission" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="e9ae17d4-54df-43fd-bf03-0894f40b5c8c" />
+      <Column Name="sync_status" Member="SyncStatus" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="26bacb80-1d02-4359-93fd-c592f2997669" />
+      <Column Name="error_type" Member="ErrorType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="05c11b58-1262-48d0-b76b-74348a9b875f" />
+      <Column Name="error_code" Member="ErrorCode" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="63d0e77c-6f1b-479d-a020-c36704ca6c45" />
+      <Column Name="retry_count" Member="RetryCount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="c3ecb770-4776-48bd-b75d-317087e647d5" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.top_wits" Member="TopWits">
+    <Type Name="TopWit" ed:Guid="16486e3a-da05-4b19-8419-fca16362419a">
+      <Column Name="id" Member="Id" Type="System.Int64" AutoSync="OnInsert" DbType="INTEGER NOT NULL" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="60710596-e082-44f7-8f2d-bacc2df358da" />
+      <Column Name="from_date" Member="FromDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="4fab1b20-521c-476d-b734-3a149dcd2b21" />
+      <Column Name="to_date" Member="ToDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="bf0c7eea-5099-4e3a-81e6-edbc958888c8" />
+      <Column Name="count" Member="Count" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="6daa05e8-508c-44e0-b040-8448dcb0aa43" />
+      <Column Name="usage" Member="Usage" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="4897c2b8-995f-4540-910c-8fbb26b95028" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.user_defaults" Member="UserDefaults">
+    <Type Name="UserDefault" ed:Guid="12b4c3d4-33a7-4875-852e-74a5ae6c00e3">
+      <Column Name="id" Member="Id" Type="System.Int64" AutoSync="OnInsert" DbType="INTEGER NOT NULL" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="65758438-e6f3-413a-bf45-c69f3e656bbf" />
+      <Column Name="font_family" Member="FontFamily" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" DefaultValue="'Arial'" ed:ValidateRequired="false" ed:Guid="6ca0c7e3-aaae-46df-a7fa-5b07ca893068" />
+      <Column Name="font_size" Member="FontSize" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="12" ed:ValidateRequired="false" ed:Guid="f86562a4-42e9-4f44-8b96-399a8cacb97e" />
+      <Column Name="font_color" Member="FontColor" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" DefaultValue="'#000000'" ed:ValidateRequired="false" ed:Guid="2590cc7d-b448-444d-9c90-3e8422e2a9c4" />
+      <Column Name="is_useondrag" Member="IsUseondrag" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="b0e3b702-57cf-4ffb-9d8d-97eea45d9951" />
+      <Column Name="font_settings" Member="FontSettings" Type="System.Byte[]" DbType="BLOB" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="57f2ed77-cb0a-4834-880c-5c7b48015895" />
+      <Column Name="desktop_settings" Member="DesktopSettings" Type="System.Byte[]" DbType="BLOB" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="56371061-f4ae-44a7-a12c-294ff7c822e2" />
+      <Column Name="widget_settings" Member="WidgetSettings" Type="System.Byte[]" DbType="BLOB" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="3bbe45a8-10a0-4f50-a1f0-76cd68f29347" />
+      <Column Name="sync_status" Member="SyncStatus" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="86cbc693-3159-4080-a8bc-cd75ec73d8b7" />
+      <Column Name="error_type" Member="ErrorType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="d67fe5eb-9c51-4d61-9693-4d71c6d74ca0" />
+      <Column Name="error_code" Member="ErrorCode" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="c8f33a99-702d-4c2e-a535-233ec4b049e7" />
+      <Column Name="retry_count" Member="RetryCount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="371b8e06-2438-42b5-82ae-02ca277d2176" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.user_package" Member="UserPackages">
+    <Type Name="UserPackage" ed:Guid="deaf9eb9-7078-4e13-a76b-83ff2e1921b0">
+      <Column Name="id" Member="Id" Type="System.Int64" AutoSync="OnInsert" DbType="INTEGER NOT NULL" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="f4f07f0c-e0eb-4dc5-8a45-779f083300c7" />
+      <Column Name="package_attr" Member="PackageAttr" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" DefaultValue="'None'" ed:ValidateRequired="false" ed:Guid="30369630-db49-48dd-8ea6-9e2fe5ffe2ab" />
+      <Column Name="package_value" Member="PackageValue" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" DefaultValue="'None'" ed:ValidateRequired="false" ed:Guid="f3ee88c7-72ca-44fc-8094-d0fbc4d1aa18" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.wit_attachments" Member="WitAttachments">
+    <Type Name="WitAttachment" ed:Guid="e005a8b5-4dec-4299-8aed-e0ee36ea6a1c">
+      <Column Name="id" Member="Id" Type="System.Object" DbType="INTEGER ASC" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="b5cca97c-9fb5-43d6-ae45-4ebfd6988cc5" />
+      <Column Name="file_id" Member="FileId" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="14a388d0-c85e-4ffc-8660-e3ef2d84db1d" />
+      <Column Name="file_association_id" Member="FileAssociationId" Type="System.String" DbType="VARCHAR NOT NULL" CanBeNull="false" UpdateCheck="Never" ed:ValidateRequired="true" ed:Guid="a3451474-531b-4bfd-8d0a-0aad963243f9" />
+      <Column Name="wit_id" Member="WitId" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="a968f0d8-d6c6-4b5e-8b96-66b068831758" />
+      <Column Name="sync_status" Member="SyncStatus" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="5742d467-2122-4891-aa7b-8dabb9b3226a" />
+      <Column Name="is_inline" Member="IsInline" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="6ebc900b-eaad-41a8-8810-229dfc28506f" />
+      <Column Name="error_type" Member="ErrorType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="6d7c71d3-22ed-478b-8f93-ceb214ac791f" />
+      <Column Name="error_code" Member="ErrorCode" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="2da5df6c-fa4b-4013-939d-4a9013cc24ca" />
+      <Column Name="retry_count" Member="RetryCount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="14711a17-e1d8-479e-a203-134924437793" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.wit_tags" Member="WitTags">
+    <Type Name="WitTag" ed:Guid="57a6c7da-24a8-433c-b9fd-9c6659c3bb2c">
+      <Column Name="id" Member="Id" Type="System.Object" DbType="INTEGER ASC" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="e9b40754-6cb5-4ba9-9177-c7abe5534fdc" />
+      <Column Name="tag_id" Member="TagId" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="9a94ba8c-10bd-4e02-ad6d-522cb915ff85" />
+      <Column Name="wit_id" Member="WitId" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="611541cc-c0e2-41b5-abf6-95434cbae883" />
+      <Column Name="sync_status" Member="SyncStatus" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="2a155331-5001-4a32-8e12-48f52ae29d96" />
+      <Column Name="error_type" Member="ErrorType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="03d1e8d1-5798-4178-a105-26aa0a133455" />
+      <Column Name="error_code" Member="ErrorCode" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="823d3da5-1cd8-4df0-b4a3-f2aadfbeefdc" />
+      <Column Name="retry_count" Member="RetryCount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="aeba2b76-863b-46f2-a641-c5a81517e2c1" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.wits" Member="Wits">
+    <Type Name="Wit" ed:Guid="cbdb7774-be36-4762-8baf-5c0c6f503920">
+      <Column Name="wit_id" Member="WitId" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="4901ef82-299c-4b98-bb0e-b1a56e281de6" />
+      <Column Name="wit_name" Member="WitName" Type="System.String" DbType="TEXT" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="d47d4226-6624-4ba6-87f6-0c7a7592c7f5" />
+      <Column Name="wit_content" Member="WitContent" Type="System.Byte[]" DbType="BLOB" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="4cba6bb1-d3b4-4d8a-8e8b-6db1267d06df" />
+      <Column Name="wit_desc" Member="WitDesc" Type="System.String" DbType="TEXT" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="f92a4603-0429-4777-b451-091eb4ae74e2" />
+      <Column Name="wit_status" Member="WitStatus" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="17ae3e49-466b-4992-9a75-01d710df587f" />
+      <Column Name="wit_tags" Member="WitTags" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="8b5b1eb0-93f0-4262-ab65-636cd68aaead" />
+      <Column Name="wit_fvrts" Member="WitFvrts" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="bbd57b4d-418c-4523-a2c0-fc9aa837208d" />
+      <Column Name="wit_size" Member="WitSize" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="751d1c4f-7fd2-4bd6-9ee6-460ce925d426" />
+      <Column Name="wit_notes" Member="WitNotes" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="92715dfe-cf38-420e-8099-3c213dfeedfe" />
+      <Column Name="modification_date" Member="ModificationDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="104b1700-b738-4693-995d-0c0ada9abeea" />
+      <Column Name="creation_date" Member="CreationDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="3f328968-9752-4324-8766-d7e73e65ea1f" />
+      <Column Name="creator" Member="Creator" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="edf3f63c-5c0e-407a-95ff-d6bdba81f087" />
+      <Column Name="modifier" Member="Modifier" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="913ad4b4-ccf6-4379-a8e8-8d1415e6a289" />
+      <Column Name="company" Member="Company" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="14162f60-6a9d-4971-ba9b-9477aee575b1" />
+      <Column Name="last_used" Member="LastUsed" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="6422ada7-efb0-4c09-81d0-af5aa6dd2747" />
+      <Column Name="num_used" Member="NumUsed" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="2826f694-f422-4134-a1fb-13d4b3cd665e" />
+      <Column Name="link_id" Member="LinkId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="391f8f9f-9e66-4985-98aa-113ba280b274" />
+      <Column Name="folder_id" Member="FolderId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="6edb5423-3bb0-4e71-bea0-bfcb8e3191b7" />
+      <Column Name="folder_type" Member="FolderType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="02f5d838-1554-4e4d-84b6-c4a1b5c7fd1c" />
+      <Column Name="widget_type" Member="WidgetType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="5304f555-0698-4add-9b22-6740351fccb9" />
+      <Column Name="files_count" Member="FilesCount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="1ddfdd4c-bb7c-4a08-abc0-0e1fab7b09d7" />
+      <Column Name="inline_count" Member="InlineCount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="6eeaf33d-791d-46b4-af44-c4f432d9d8b3" />
+      <Column Name="version" Member="Version" Type="System.Double" DbType="REAL" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="fbb22885-b6a5-4c7d-aa5e-f39debf2bf48" />
+      <Column Name="permission" Member="Permission" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="50e9e855-01b7-409e-bbb9-9bc2c46dd9eb" />
+      <Column Name="can_further_perm" Member="CanFurtherPerm" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="03b6c8ab-6b44-4c68-bc09-19c09be8d427" />
+      <Column Name="label" Member="Label" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="12e50fbc-7a15-4805-b917-429250ee19b6" />
+      <Column Name="ratingtotal" Member="Ratingtotal" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="e1331c9b-d3f4-4f0d-bcd4-b485df1cf916" />
+      <Column Name="ratingcount" Member="Ratingcount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="c817b9bf-e86a-4ce9-b2ae-d3e0dbf43473" />
+      <Column Name="sync_status" Member="SyncStatus" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="2ec1014e-0d03-4f18-8800-f8a62681e762" />
+      <Column Name="full_text" Member="FullText" Type="System.String" DbType="TEXT" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="5d0f59d8-962d-4d92-b3e7-21796079263a" />
+      <Column Name="is_sharedbyme" Member="IsSharedbyme" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="1fb9957c-b5c0-4b11-8865-582fb80a938b" />
+      <Column Name="error_type" Member="ErrorType" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="ccd6554f-c07c-4a6c-859f-a32deecea271" />
+      <Column Name="error_code" Member="ErrorCode" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="6509a08e-be3c-4fad-bac8-6ff4e0027e6c" />
+      <Column Name="retry_count" Member="RetryCount" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="89898c44-7693-4fde-a8ea-4967542eee66" />
+      <Column Name="update_message" Member="UpdateMessage" Type="System.String" DbType="TEXT" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="c20d0d31-e3a9-46b9-a8e0-2386475f980f" />
+      <Column Name="combo_wits" Member="ComboWits" Type="System.String" DbType="TEXT" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="5abd6482-1f22-4bed-8663-b90a005d17db" />
+      <Column Name="related_wits" Member="RelatedWits" Type="System.String" DbType="TEXT" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="0e5b7d2d-5dc3-4f7b-8ef3-67f859d85c2a" />
+      <Column Name="expiry_date" Member="ExpiryDate" Type="System.String" DbType="TEXT" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="140f889e-c087-43d8-87b2-d2b3c1585080" />
+      <Column Name="first_alert_date" Member="FirstAlertDate" Type="System.String" DbType="TEXT" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="5d89549f-e6c1-4fe6-bfff-1a911def78cd" />
+      <Column Name="second_alert_date" Member="SecondAlertDate" Type="System.String" DbType="TEXT" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="16f83a47-d589-47cb-b4c7-970fd8db4b80" />
+      <Column Name="local_sync_path" Member="LocalSyncPath" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="4f80030a-1c3e-4beb-9baf-db9941b0b374" />
+      <Column Name="loggedIn_user_permission" Member="LoggedInUserPermission" Type="System.Byte[]" DbType="BLOB" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="d1272a28-645d-43b2-8b5e-6e27e8a11cd2" />
+      <Column Name="workspace_Id" Member="WorkspaceId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="5844e788-2d61-4909-8cc3-161f81d3b229" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.wits_usage" Member="WitsUsages">
+    <Type Name="WitsUsage" ed:Guid="dab08b0f-88b7-4ae1-9956-d44cd68e2838">
+      <Column Name="wit_id" Member="WitId" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="7bf69d14-233a-400d-a78e-f18e87cc92e8" />
+      <Column Name="text_used" Member="TextUsed" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="c5af5409-40ba-4b50-8aa8-d9e7f54f3b7d" />
+      <Column Name="files_used" Member="FilesUsed" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="d27b5cba-a5ab-48b3-ae65-8fcb58c366bd" />
+      <Column Name="days7_used" Member="Days7Used" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="b5b2b994-38c9-493c-b7ec-063f97155a8b" />
+      <Column Name="days30_used" Member="Days30Used" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="ae2289a1-d911-4b0c-bad6-19a7b81f2f47" />
+      <Column Name="shared_text_used" Member="SharedTextUsed" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="60e1ef3f-aff0-4fe3-9363-41eb40409c89" />
+      <Column Name="shared_files_used" Member="SharedFilesUsed" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="75d140ea-b161-4619-a7b4-63ecbf31f560" />
+      <Column Name="shared_days7_used" Member="SharedDays7Used" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="d12ab0e8-df91-44a2-8e81-1bb47e07b32d" />
+      <Column Name="shared_days30_used" Member="SharedDays30Used" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="5d6c947a-fec4-448a-8f7a-421dde9c35ba" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.witsusagegraph_data" Member="WitsusagegraphData">
+    <Type Name="WitsusagegraphDatum" ed:Guid="d158853f-8c5a-49db-ac74-16e3386b8a84">
+      <Column Name="id" Member="Id" Type="System.Int64" AutoSync="OnInsert" DbType="INTEGER NOT NULL" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="ea70db6f-4e31-46a2-aa46-4b02fec99fce" />
+      <Column Name="graph_id" Member="GraphId" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="ee25047b-ef9c-443d-a22f-029d27152e75" />
+      <Column Name="&quot;key&quot;" Member="Key" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="81ab5b1c-a34d-4355-b1f3-1f1c5c7f4129" />
+      <Column Name="ttd_personal" Member="TtdPersonal" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="15cb6ee5-2580-4553-a838-c05e980029f1" />
+      <Column Name="ttd_shared" Member="TtdShared" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="a62f63b7-2df4-477f-a4b1-d2c15c1f8a7b" />
+      <Column Name="ttd_enterprise" Member="TtdEnterprise" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="2d1cf3cf-e481-442f-87a3-edbcd81dcb89" />
+      <Column Name="ttd_premium" Member="TtdPremium" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="51fc85ed-c589-44b0-b18e-757fd1514dae" />
+      <Column Name="total_wc" Member="TotalWc" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="0b0f89cd-b084-4fc2-934b-213c1dd83b0d" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.wits_usagegraphs" Member="WitsUsagegraphs">
+    <Type Name="WitsUsagegraph" ed:Guid="5f421d1f-9a29-49b9-a3de-bf22ac6107fd">
+      <Column Name="id" Member="Id" Type="System.Int64" AutoSync="OnInsert" DbType="INTEGER NOT NULL" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="d5ea15be-64b2-429e-a720-833954732a3f" />
+      <Column Name="from_date" Member="FromDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="b94fe69a-de74-4c26-8c69-1d2373ac8011" />
+      <Column Name="to_date" Member="ToDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="ee31690c-61c0-4ae9-a306-946163e37fd9" />
+      <Column Name="step_size" Member="StepSize" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="7152ae44-d2ac-4b85-ab8d-9910bd1a5031" />
+      <Column Name="num_data" Member="NumData" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="59e27d69-ab75-47ce-b459-785112c2d6e7" />
+      <Column Name="start_offset" Member="StartOffset" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="9918a565-d845-41ae-8cd7-572e413e1e8c" />
+      <Column Name="type" Member="Type" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="e729b75b-c8a8-4ae9-9607-1bd037c49252" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.userworkspaces" Member="Userworkspaces">
+    <Type Name="Userworkspace" ed:Guid="64e25bbd-eadf-401b-9192-b7d9e469c39f">
+      <Column Name="workspace_id" Member="WorkspaceId" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="988af0a8-1756-44bd-8628-15d77899a7d7" />
+      <Column Name="name" Member="Name" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="a8cfb237-b405-41f6-81f0-22f8c09a8ff8" />
+      <Column Name="enterpriseId" Member="EnterpriseId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="f287b019-a0eb-4201-8cc5-36614f867481" />
+      <Column Name="sequenceNumber" Member="SequenceNumber" Type="System.Int64" DbType="INTEGER" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="c410f74f-3a10-438d-b4be-fb1001737b0a" />
+      <Column Name="description" Member="Description" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="22bb79d6-c4a2-4513-aeba-a8da49addd3d" />
+      <Column Name="createdDate" Member="CreatedDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="37fcb395-4f82-4920-b940-92f6ab53bd02" />
+      <Column Name="modifiedDate" Member="ModifiedDate" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="560166d1-f72b-4a81-b66e-0a735a37cdde" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.createdby" Member="Createdbies">
+    <Type Name="Createdby" ed:Guid="5a61cfec-6494-4de5-81e8-843ded93d5b2">
+      <Column Name="createdby_id" Member="CreatedbyId" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="0dfbcc35-a61f-4f7d-acb9-8a2c1df577ac" />
+      <Column Name="firstName" Member="FirstName" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="58fb71f5-ae28-47d0-b220-7e3176d30768" />
+      <Column Name="lastName" Member="LastName" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="72ae7e5d-9656-4112-bd7f-601cae04fbd7" />
+      <Column Name="email" Member="Email" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="6157758b-5796-47c4-99b9-aad3426cd418" />
+      <Column Name="elementType" Member="ElementType" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="a32a30bd-7ff7-494c-9024-568f4590b2aa" />
+      <Column Name="elementTypeId" Member="ElementTypeId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="5e980b48-314a-4685-bea0-b231083eadaa" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.modifiedby" Member="Modifiedbies">
+    <Type Name="Modifiedby" ed:Guid="5e4e2b27-2583-49d7-9ba6-f4e002c29fe5">
+      <Column Name="id" Member="Id" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="d339c8eb-c13c-4eaf-aa53-dbbf1a9e0067" />
+      <Column Name="firstName" Member="FirstName" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="871820c2-11ac-46c5-ab44-d40282ebf460" />
+      <Column Name="lastName" Member="LastName" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="13da657a-cc1f-400f-9eee-d3efc6d79454" />
+      <Column Name="email" Member="Email" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="77fc42d7-0f42-4d91-855a-6a033173006b" />
+      <Column Name="elementType" Member="ElementType" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="5e130d01-838e-4468-96d6-d2593a395a25" />
+      <Column Name="elementTypeId" Member="ElementTypeId" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="067143d7-1afc-4577-a411-341f86f5ba1c" />
+    </Type>
+  </Table>
+  <Table Name="&quot;main&quot;.permission" Member="Permissions">
+    <Type Name="Permission" ed:Guid="f98e8eb6-7d78-431a-a349-84d3250efa71">
+      <Column Name="code" Member="Code" Type="System.String" DbType="VARCHAR NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="c2d60a7a-2347-4e39-b65e-4dc54a3aafb9" />
+      <Column Name="name" Member="Name" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="38966c36-807c-487d-9d09-dadaac791c73" />
+      <Column Name="description" Member="Description" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="d4ac8599-0d45-4aba-ac40-3f15ff7b7ed3" />
+      <Column Name="authority" Member="Authority" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="7603554d-e240-446a-8893-50cb51fde5d5" />
+    </Type>
+  </Table>
+</Database>

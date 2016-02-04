@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="disconnectedicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\disconnectedicon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="animatedCircle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\animatedCircle.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="connectedicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\connectedicon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\wp.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="plus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\plus.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="users" xml:space="preserve">
+    <value>CREATE TABLE users(username VARCHAR PRIMARY KEY,user_fname VARCHAR DEFAULT NULL,user_lname VARCHAR DEFAULT NULL,password TEXT,last_login VARCHAR DEFAULT NULL,is_remember_password INTEGER,db_path VARCHAR DEFAULT NULL,user_ticket VARCHAR DEFAULT NULL,avatar_url VARCHAR DEFAULT NULL,last_sync_datetime VARCHAR,avatar_file_path VARCHAR,is_active INTEGER DEFAULT 0,mailtowit_id VARCHAR DEFAULT NULL,enterprise_id VARCHAR DEFAULT NULL)</value>
+  </data>
+  <data name="user_profiles" xml:space="preserve">
+    <value>CREATE TABLE user_profiles(username VARCHAR PRIMARY KEY,user_fname VARCHAR,user_lname VARCHAR,avatar_url VARCHAR,timestamp VARCHAR,company VARCHAR,avatar_file_path VARCHAR)</value>
+  </data>
+  <data name="users_insert" xml:space="preserve">
+    <value>INSERT INTO users(username,user_fname,user_lname,password,last_login,is_remember_password,db_path,user_ticket,avatar_url,last_sync_datetime,avatar_file_path,is_active,mailtowit_id,enterprise_id) values (@username,@user_fname,@user_lname,@password,@last_login,@is_remember_password,@db_path,@user_ticket,@avatar_url,@last_sync_datetime,@avatar_file_path,@is_active,@mailtowit_id,@enterprise_id)</value>
+  </data>
+  <data name="user_profiles_insert" xml:space="preserve">
+    <value>INSERT INTO user_profiles(username,
+user_fname,
+user_lname,
+avatar_url,
+timestamp,
+company,
+avatar_file_path)
+VALUES
+(@username,
+@user_fname,
+@user_lname,
+@avatar_url,
+@timestamp,
+@company,
+@avatar_file_path)</value>
+  </data>
+  <data name="comments" xml:space="preserve">
+    <value>CREATE TABLE comments
+  (
+     comment_id        VARCHAR PRIMARY KEY,
+     comment           TEXT DEFAULT NULL,
+     widget_id         VARCHAR DEFAULT NULL,
+     creator           VARCHAR DEFAULT NULL,
+     creation_date     VARCHAR DEFAULT NULL,
+     modifier          VARCHAR DEFAULT NULL,
+     modification_date VARCHAR DEFAULT NULL,
+     is_owner          INTEGER DEFAULT 0,
+     sync_status       INTEGER DEFAULT 0,
+     error_type        INTEGER DEFAULT 0,
+     error_code        INTEGER DEFAULT 0,
+     retry_count       INTEGER DEFAULT 0
+  )</value>
+  </data>
+  <data name="contacts" xml:space="preserve">
+    <value>CREATE TABLE contacts(useremail VARCHAR PRIMARY KEY,user_fname VARCHAR DEFAULT NULL,user_lname VARCHAR DEFAULT NULL,company VARCHAR DEFAULT NULL,enterprise_id INTEGER DEFAULT NULL)</value>
+  </data>
+  <data name="content_expiry" xml:space="preserve">
+    <value>CREATE TABLE content_expiry
+  (
+     id                VARCHAR PRIMARY KEY,
+     type              INTEGER DEFAULT 0,
+     expiry_date       VARCHAR NOT NULL,
+     first_alert_date  VARCHAR NOT NULL,
+     second_alert_date VARCHAR NOT NULL,
+     sync_status       INTEGER DEFAULT 0,
+     error_type        INTEGER DEFAULT 0,
+     error_code        INTEGER DEFAULT 0,
+     retry_count       INTEGER DEFAULT 0)</value>
+  </data>
+  <data name="docs" xml:space="preserve">
+    <value>CREATE TABLE docs
+  (
+     doc_id               VARCHAR PRIMARY KEY,
+     inline_id             VARCHAR DEFAULT NULL,
+     file_name             TEXT DEFAULT NULL,
+     mime_type             VARCHAR DEFAULT NULL,
+     file_url              TEXT DEFAULT NULL,
+     thumbnail_url         TEXT DEFAULT NULL,
+     version               REAL DEFAULT 0,
+     size                  INTEGER DEFAULT 0,
+     creator               VARCHAR DEFAULT NULL,
+     creation_date         VARCHAR DEFAULT NULL,
+     modifier              VARCHAR DEFAULT NULL,
+     company               VARCHAR DEFAULT NULL,
+     modification_date     VARCHAR DEFAULT NULL,
+     tags                  VARCHAR DEFAULT NULL,
+     notes                 TEXT DEFAULT NULL,
+     wit_ids               VARCHAR DEFAULT NULL,
+     local_path            VARCHAR DEFAULT NULL,
+     container_dir_path    VARCHAR DEFAULT NULL,
+     permission            INTEGER DEFAULT 0,
+     can_further_perm      INTEGER DEFAULT 0,
+     folder_id             VARCHAR DEFAULT NULL,
+     folder_type           INTEGER DEFAULT 0,
+     widget_type           INTEGER DEFAULT 0,
+     is_inline             INTEGER DEFAULT 0,
+     label                 INTEGER DEFAULT 0,
+     is_fav                INTEGER DEFAULT 0,
+     sync_status           INTEGER DEFAULT 0,
+     ratingtotal           INTEGER DEFAULT 0,
+     ratingcount           INTEGER DEFAULT 0,
+     is_sharedbyme         INTEGER DEFAULT NULL,
+     public_url            VARCHAR DEFAULT NULL,
+     error_type            INTEGER DEFAULT 0,
+     error_code            INTEGER DEFAULT 0,
+     retry_count           INTEGER DEFAULT 0,
+     modification_date_new VARCHAR DEFAULT NULL
+  )</value>
+  </data>
+  <data name="event_records" xml:space="preserve">
+    <value>CREATE TABLE event_records
+  (
+     id INTEGER PRIMARY KEY ASC,
+	 analytics_json BLOB DEFAULT NULL
+   )</value>
+  </data>
+  <data name="folders" xml:space="preserve">
+    <value>CREATE TABLE folders
+  (
+     id                    VARCHAR PRIMARY KEY,
+	 name                  VARCHAR DEFAULT NULL,
+     type                  VARCHAR DEFAULT NULL,
+     workspace_id          VARCHAR DEFAULT NULL,
+     enterprise_id         VARCHAR DEFAULT NULL,
+	 folderType            VARCHAR DEFAULT NULL,  
+     parentId              VARCHAR DEFAULT NULL,
+     children              VARCHAR DEFAULT NULL,
+     hasChildren           INTEGER DEFAULT 0,
+     updateNumber          INTEGER DEFAULT 0    
+  )</value>
+  </data>
+  <data name="groups" xml:space="preserve">
+    <value>CREATE TABLE groups(group_id VARCHAR PRIMARY KEY,group_name VARCHAR,workspace INTEGER DEFAULT 0,item_count INTEGER DEFAULT 0,creation_date VARCHAR DEFAULT NULL,modification_date VARCHAR DEFAULT NULL,creator VARCHAR DEFAULT NULL,modifier VARCHAR DEFAULT NULL,company VARCHAR DEFAULT NULL,enterprise_id VARCHAR DEFAULT NULL,creator_id VARCHAR DEFAULT NULL,sync_status INTEGER DEFAULT 0,error_type INTEGER DEFAULT 0,error_code INTEGER DEFAULT 0,retry_count INTEGER DEFAULT 0,valid_users TEXT DEFAULT NULL,invalid_users TEXT DEFAULT NULL,is_system INTEGER DEFAULT 0)</value>
+  </data>
+  <data name="group_contacts" xml:space="preserve">
+    <value>CREATE TABLE group_contacts(id INTEGER ASC, group_id VARCHAR NOT NULL, username VARCHAR NOT NULL, from_group_id VARCHAR DEFAULT NULL,sync_status INTEGER DEFAULT 0, error_type INTEGER DEFAULT 0,error_code INTEGER DEFAULT 0,retry_count INTEGER DEFAULT 0, PRIMARY KEY (group_id, username))</value>
+  </data>
+  <data name="notifications" xml:space="preserve">
+    <value>CREATE TABLE notifications(notification_id VARCHAR PRIMARY KEY NOT NULL, message VARCHAR, type INTEGER DEFAULT 0, sender VARCHAR , receiver VARCHAR , obj_id VARCHAR , creation_date VARCHAR , sync_date VARCHAR , is_read INTEGER DEFAULT 0, sync_status INTEGER DEFAULT 0,error_type INTEGER DEFAULT 0,error_code INTEGER DEFAULT 0,retry_count INTEGER DEFAULT 0)</value>
+  </data>
+  <data name="notification_actions" xml:space="preserve">
+    <value>CREATE TABLE notification_actions(id INTEGER PRIMARY KEY ASC, action_id VARCHAR NOT NULL, notification_id VARCHAR NOT NULL, name VARCHAR DEFAULT NULL, params VARCHAR DEFAULT NULL, api VARCHAR DEFAULT NULL, api_base INTEGER DEFAULT 0,sync_status INTEGER DEFAULT 0,error_type INTEGER DEFAULT 0,error_code INTEGER DEFAULT 0,retry_count INTEGER DEFAULT 0)</value>
+  </data>
+  <data name="package" xml:space="preserve">
+    <value>CREATE TABLE package(package_id VARCHAR PRIMARY KEY,package_name VARCHAR DEFAULT 'None',package_type INTEGER DEFAULT 0,base_package INTEGER DEFAULT 0,package_desc VARCHAR DEFAULT 'None')</value>
+  </data>
+  <data name="package_feature" xml:space="preserve">
+    <value>CREATE TABLE package_feature(packagef__id INTEGER PRIMARY KEY ASC,package_id VARCHAR DEFAULT NULL,feature_id VARCHAR DEFAULT NULL,feature_name VARCHAR DEFAULT NULL,is_enabled INTEGER DEFAULT 0,is_hidden INTEGER DEFAULT 0)</value>
+  </data>
+  <data name="socialmedia" xml:space="preserve">
+    <value>CREATE TABLE socialmedia(id VARCHAR PRIMARY KEY,socialMediaType VARCHAR, is_user_oauth_done INTEGER DEFAULT 0,user_oauth_token TEXT DEFAULT NULL,user_oauth_token_expire_in NUMBER DEFAULT 0,user_oauth_token_secret_key TEXT DEFAULT NULL)</value>
+  </data>
+  <data name="taggroups" xml:space="preserve">
+    <value>CREATE TABLE taggroups(taggroup_id VARCHAR PRIMARY KEY,name VARCHAR,parent_id VARCHAR,parent_name VARCHAR,enterprise_id VARCHAR,source INTEGER DEFAULT 0,status INTEGER DEFAULT 0,workspace INTEGER DEFAULT 0,creation_date VARCHAR DEFAULT NULL,modification_date VARCHAR DEFAULT NULL,creator VARCHAR DEFAULT NULL,modifier VARCHAR DEFAULT NULL,company VARCHAR DEFAULT NULL,permission INTEGER DEFAULT 0,sync_status INTEGER DEFAULT 0,error_type INTEGER DEFAULT 0,error_code INTEGER DEFAULT 0,retry_count INTEGER DEFAULT 0,level INTEGER DEFAULT 0,is_system INTEGER DEFAULT 0)</value>
+  </data>
+  <data name="tags" xml:space="preserve">
+    <value>CREATE TABLE tags(id VARCHAR PRIMARY KEY,name VARCHAR,parent_id VARCHAR,parent_name VARCHAR,enterprise_id VARCHAR,source INTEGER DEFAULT 0,status INTEGER DEFAULT 0,workspace INTEGER DEFAULT 0,creation_date VARCHAR DEFAULT NULL,modification_date VARCHAR DEFAULT NULL,creator VARCHAR DEFAULT NULL,modifier VARCHAR DEFAULT NULL,company VARCHAR DEFAULT NULL,permission INTEGER DEFAULT 0,sync_status INTEGER DEFAULT 0,error_type INTEGER DEFAULT 0,error_code INTEGER DEFAULT 0,retry_count INTEGER DEFAULT 0)</value>
+  </data>
+  <data name="top_wits" xml:space="preserve">
+    <value>CREATE TABLE top_wits(id INTEGER PRIMARY KEY ASC,from_date VARCHAR,to_date VARCHAR,count INTEGER,usage VARCHAR)</value>
+  </data>
+  <data name="user_defaults" xml:space="preserve">
+    <value>CREATE TABLE user_defaults(id INTEGER PRIMARY KEY ASC,font_family VARCHAR DEFAULT 'Arial',font_size INTEGER DEFAULT 12,font_color VARCHAR DEFAULT '#000000',is_useondrag INTEGER DEFAULT 0,font_settings BLOB DEFAULT NULL,desktop_settings BLOB DEFAULT NULL,widget_settings BLOB DEFAULT NULL,sync_status INTEGER DEFAULT 0,error_type INTEGER DEFAULT 0,error_code INTEGER DEFAULT 0,retry_count INTEGER DEFAULT 0)</value>
+  </data>
+  <data name="user_package" xml:space="preserve">
+    <value>CREATE TABLE user_package(id INTEGER PRIMARY KEY ASC,package_attr VARCHAR DEFAULT 'None',package_value VARCHAR DEFAULT 'None')</value>
+  </data>
+  <data name="wits" xml:space="preserve">
+    <value>CREATE TABLE wits
+  (
+     id                VARCHAR PRIMARY KEY,
+     name              VARCHAR DEFAULT NULL,
+     type              VARCHAR DEFAULT NULL,
+     enterprise_id     VARCHAR DEFAULT NULL,
+     workspace_id      VARCHAR DEFAULT NULL,
+     parent_id         VARCHAR DEFAULT NULL,
+     children          VARCHAR DEFAULT NULL,
+     haschildren       INTEGER DEFAULT 0,
+     updatenumber      INTEGER DEFAULT 0,
+     ratingcount       INTEGER DEFAULT 0,
+     ratingaggregation INTEGER DEFAULT 0,
+     desc              VARCHAR DEFAULT NULL,
+     isfavorite        INTEGER DEFAULT 0,
+     wittype           VARCHAR DEFAULT NULL,
+     status            VARCHAR DEFAULT NULL,
+     label             VARCHAR DEFAULT NULL
+  )</value>
+  </data>
+  <data name="witsusagegraph_data" xml:space="preserve">
+    <value>CREATE TABLE witsusagegraph_data(id INTEGER PRIMARY KEY ASC,graph_id INTEGER,key INTEGER,ttd_personal INTEGER,ttd_shared INTEGER,ttd_enterprise INTEGER,ttd_premium INTEGER,total_wc INTEGER)</value>
+  </data>
+  <data name="wits_usage" xml:space="preserve">
+    <value>CREATE TABLE wits_usage(id VARCHAR PRIMARY KEY,text_used INTEGER DEFAULT 0,files_used INTEGER DEFAULT 0,days7_used INTEGER DEFAULT 0,days30_used INTEGER DEFAULT 0,shared_text_used INTEGER DEFAULT 0,shared_files_used INTEGER DEFAULT 0,shared_days7_used INTEGER DEFAULT 0,shared_days30_used INTEGER DEFAULT 0)</value>
+  </data>
+  <data name="wits_usagegraphs" xml:space="preserve">
+    <value>CREATE TABLE wits_usagegraphs(id INTEGER PRIMARY KEY,from_date VARCHAR,to_date VARCHAR,step_size VARCHAR,num_data INTEGER,start_offset INTEGER,type VARCHAR)</value>
+  </data>
+  <data name="wit_attachments" xml:space="preserve">
+    <value>CREATE TABLE wit_attachments(id INTEGER ASC, file_id VARCHAR NOT NULL, file_association_id VARCHAR NOT NULL, wit_id VARCHAR NOT NULL, sync_status INTEGER DEFAULT 0, is_inline INTEGER DEFAULT 0, error_type INTEGER DEFAULT 0,error_code INTEGER DEFAULT 0,retry_count INTEGER DEFAULT 0, PRIMARY KEY (file_id, wit_id))</value>
+  </data>
+  <data name="wit_tags" xml:space="preserve">
+    <value>CREATE TABLE wit_tags(id INTEGER ASC, tag_id VARCHAR NOT NULL, wit_id VARCHAR NOT NULL, sync_status INTEGER DEFAULT 0, error_type INTEGER DEFAULT 0,error_code INTEGER DEFAULT 0,retry_count INTEGER DEFAULT 0, PRIMARY KEY (tag_id, wit_id))</value>
+  </data>
+  <data name="createdby" xml:space="preserve">
+    <value>CREATE TABLE createdby(createdby_id VARCHAR PRIMARY KEY,firstName VARCHAR DEFAULT NULL,lastName VARCHAR DEFAULT NULL,email VARCHAR DEFAULT NULL,elementType VARCHAR DEFAULT NULL,elementTypeId VARCHAR DEFAULT NULL)</value>
+  </data>
+  <data name="modifiedby" xml:space="preserve">
+    <value>CREATE TABLE modifiedby(id VARCHAR PRIMARY KEY,firstName VARCHAR DEFAULT NULL,lastName VARCHAR DEFAULT NULL,email VARCHAR DEFAULT NULL,elementType VARCHAR DEFAULT NULL,elementTypeId VARCHAR DEFAULT NULL)</value>
+  </data>
+  <data name="permission" xml:space="preserve">
+    <value>CREATE TABLE permission(code VARCHAR PRIMARY KEY,name VARCHAR DEFAULT NULL,description VARCHAR DEFAULT NULL,authority VARCHAR DEFAULT NULL);</value>
+  </data>
+  <data name="userworkspaces" xml:space="preserve">
+    <value>CREATE TABLE userworkspaces(id VARCHAR PRIMARY KEY,name VARCHAR DEFAULT NULL,enterpriseId VARCHAR DEFAULT NULL,sequenceNumber INTEGER,description VARCHAR DEFAULT NULL,createdDate VARCHAR DEFAULT NULL,modifiedDate VARCHAR DEFAULT NULL)</value>
+  </data>
+  <data name="userworkspaces_insert" xml:space="preserve">
+    <value>INSERT OR REPLACE INTO userworkspaces (id ,name ,enterpriseId,sequenceNumber,description ,createdDate ,modifiedDate) values (@id,@name,@enterpriseId,@sequenceNumber,@description ,@createdDate ,@modifiedDate)</value>
+  </data>
+  <data name="userworkspaces_select" xml:space="preserve">
+    <value>SELECT * from userworkspaces</value>
+  </data>
+  <data name="socialmedia_insert" xml:space="preserve">
+    <value>INSERT OR REPLACE INTO socialmedia(id,socialMediaType,is_user_oauth_done,user_oauth_token,user_oauth_token_expire_in,user_oauth_token_secret_key) values (@id,@socialMediaType,@is_user_oauth_done,@user_oauth_token,@user_oauth_token_expire_in,@user_oauth_token_secret_key)</value>
+  </data>
+  <data name="folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\folder.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folders_insert" xml:space="preserve">
+    <value>INSERT OR REPLACE INTO folders(id,name,type,workspace_id,enterprise_id,folderType,parentId,children,hasChildren,updateNumber) values (@id,@name,@type,@workspace_id,@enterprise_id,@folderType,@parentId,@children,@hasChildren,@updateNumber)</value>
+  </data>
+  <data name="folders_select" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ws" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\ws.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="greyfolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\greyfolder.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="greyopenfolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\greyopenfolder.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wits_insert" xml:space="preserve">
+    <value>INSERT OR REPLACE INTO wits(id ,name ,type ,enterprise_id,workspace_id,parent_id ,children ,hasChildren, updateNumber, ratingCount ,ratingAggregation, desc, isFavorite, witType, status, label) 
+values (@id ,@name ,@type ,@enterprise_id ,@workspace_id ,@parent_id,@children ,@hasChildren ,@updateNumber ,@ratingCount ,@ratingAggregation ,@desc ,@isFavorite ,@witType ,@status ,@label)</value>
+  </data>
+</root>
