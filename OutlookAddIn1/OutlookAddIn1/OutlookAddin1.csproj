@@ -27,15 +27,38 @@
     <NoStandardLibraries>false</NoStandardLibraries>
     <RootNamespace>_OutlookAddIn1</RootNamespace>
     <AssemblyName>OutlookAddIn1</AssemblyName>
-    <LoadBehavior>3</LoadBehavior>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <DefineConstants>VSTO40</DefineConstants>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <BootstrapperComponentsLocation>HomeSite</BootstrapperComponentsLocation>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <PublishUrl>C:\Users\WittyParrot\Desktop\widget\</PublishUrl>
+    <InstallUrl />
+    <TargetCulture>en</TargetCulture>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>days</UpdateIntervalUnits>
+    <IsWebBootstrapper>False</IsWebBootstrapper>
+    <ProductName>OutlookAddIn1</ProductName>
+    <PublisherName />
+    <SupportUrl />
+    <FriendlyName>OutlookAddIn1</FriendlyName>
+    <OfficeApplicationDescription />
+    <LoadBehavior>3</LoadBehavior>
   </PropertyGroup>
   <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.VSTORuntime.4.0">
       <Visible>False</Visible>
       <ProductName>Microsoft Visual Studio 2010 Tools for Office Runtime %28x86 and x64%29</ProductName>
@@ -209,55 +232,94 @@
     <Compile Include="Auth\AccessToken.cs" />
     <Compile Include="Auth\AccessTokenDao.cs" />
     <Compile Include="CheckNetConnection.cs" />
+    <Compile Include="CustomButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomListViewItem.cs" />
+    <Compile Include="CustomRichTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CustomTreeNode.cs" />
+    <Compile Include="Model\AttachmentDetail.cs" />
+    <Compile Include="Model\TagVo.cs" />
+    <Compile Include="Model\WitsInfo.cs" />
+    <Compile Include="TextBoxControls\CustomContainerTextBoxPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TextBoxControls\CustomMailButtonPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="witcontrols\ControlFactory.cs" />
+    <Compile Include="witcontrols\CustomAcronymPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="witcontrols\CustomWitButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="witcontrols\CustomWitIconButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="witcontrols\CustomWitPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DataContext.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataContext.lqml</DependentUpon>
     </Compile>
-    <Compile Include="Folder.cs" />
-    <Compile Include="FolderDao.cs" />
+    <Compile Include="Exceptions\ErrorCodeEnum.cs" />
+    <Compile Include="Exceptions\RestCallException.cs" />
+    <Compile Include="Exceptions\WittyParrotException.cs" />
+    <Compile Include="Model\Folder.cs" />
+    <Compile Include="Dao\FolderDao.cs" />
     <Compile Include="LoggedInUserPermission.cs" />
     <Compile Include="MainDBConnector.cs" />
-    <Compile Include="RestClientFolder.cs" />
-    <Compile Include="RestClientWits.cs" />
-    <Compile Include="StringUtils.cs" />
-    <Compile Include="PermissionDao.cs" />
+    <Compile Include="Rest\RestClientFolder.cs" />
+    <Compile Include="Rest\RestClientWits.cs" />
+    <Compile Include="Dao\PermissionDao.cs" />
     <Compile Include="PermissionService.cs" />
-    <Compile Include="RoleDao.cs" />
-    <Compile Include="RoleService.cs" />
-    <Compile Include="UserDao.cs" />
+    <Compile Include="Dao\RoleDao.cs" />
+    <Compile Include="Dao\UserDao.cs" />
     <Compile Include="UserDBConnector.cs" />
-    <Compile Include="UserProfileDao.cs" />
-    <Compile Include="CreatedBy.cs" />
-    <Compile Include="CustomizedTreeView.cs">
+    <Compile Include="Dao\UserProfileDao.cs" />
+    <Compile Include="Model\CreatedBy.cs" />
+    <Compile Include="CustomTreeView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Feature.cs" />
-    <Compile Include="ModifiedBy.cs" />
-    <Compile Include="UserProfileService.cs" />
+    <Compile Include="Model\Feature.cs" />
+    <Compile Include="Model\ModifiedBy.cs" />
+    <Compile Include="Service\UserProfileService.cs" />
     <Compile Include="MyUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="MyUserControl.Designer.cs">
       <DependentUpon>MyUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="PackageDetail.cs" />
-    <Compile Include="Permission.cs" />
+    <Compile Include="Model\PackageDetail.cs" />
+    <Compile Include="Model\Permission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Role.cs" />
-    <Compile Include="RootObject.cs" />
-    <Compile Include="UserPackage.cs" />
-    <Compile Include="UserProfile.cs" />
-    <Compile Include="UserService.cs" />
-    <Compile Include="UserWorkspace.cs" />
-    <Compile Include="UserWorkspaceDao.cs" />
-    <Compile Include="UserWorkspaceService.cs" />
+    <Compile Include="Model\Role.cs" />
+    <Compile Include="Model\RootObject.cs" />
+    <Compile Include="Model\UserPackage.cs" />
+    <Compile Include="Model\UserProfile.cs" />
+    <Compile Include="Service\UserService.cs" />
+    <Compile Include="Model\UserWorkspace.cs" />
+    <Compile Include="Dao\UserWorkspaceDao.cs" />
+    <Compile Include="Mail\TextToEmailBody.cs" />
+    <Compile Include="Utilities\Common.cs" />
     <Compile Include="Utilities\GUIDGenerator.cs" />
-    <Compile Include="Wits.cs" />
-    <Compile Include="WitsDao.cs" />
+    <Compile Include="Utilities\RestUtils.cs" />
+    <Compile Include="Utilities\StringUtils.cs" />
+    <Compile Include="Model\Wits.cs" />
+    <Compile Include="Dao\WitsDao.cs" />
     <EmbeddedResource Include="MyUserControl.resx">
       <DependentUpon>MyUserControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -285,6 +347,7 @@
       <Generator>DevartLinqToSqlGenerator</Generator>
       <LastGenOutput>DataContext.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Images\WittyParrot.lnk" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -299,7 +362,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="RestClientLogin.cs" />
+    <Compile Include="Rest\RestClientLogin.cs" />
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -344,6 +407,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\greyopenfolder.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\wp.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="controls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\animatedCircle.gif" />
+    <EmbeddedResource Include="Icons\connectedicon.ico" />
+    <EmbeddedResource Include="Icons\disconnectedicon.ico" />
+    <EmbeddedResource Include="Icons\folder.ico" />
+    <EmbeddedResource Include="Icons\greyfolder.ico" />
+    <EmbeddedResource Include="Icons\greyopenfolder.ico" />
+    <EmbeddedResource Include="Icons\plus.ico" />
+    <EmbeddedResource Include="Icons\righticon.ico" />
+    <EmbeddedResource Include="Icons\ws.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blackfolder.ico" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _OutlookAddIn1.Exceptions
 {
-    class RestCallException
+    class RestCallException : Exception
     {
         public RestCallException(string errorInfo, string errorDetails)
         {

@@ -26,6 +26,7 @@ namespace _OutlookAddIn1
             myCustomTaskPane = this.CustomTaskPanes.Add(myUserControl1, "Witty Parrot");
             myCustomTaskPane.Visible = true;
             myCustomTaskPane.Width = 450;
+            //myCustomTaskPane.Height = 900;
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)

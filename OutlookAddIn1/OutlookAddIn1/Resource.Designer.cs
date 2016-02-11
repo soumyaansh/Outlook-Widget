@@ -71,6 +71,16 @@ namespace _OutlookAddIn1 {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon blackfolder {
+            get {
+                object obj = ResourceManager.GetObject("blackfolder", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CREATE TABLE comments
         ///  (
         ///     comment_id        VARCHAR PRIMARY KEY,
@@ -166,6 +176,51 @@ namespace _OutlookAddIn1 {
         internal static string docs {
             get {
                 return ResourceManager.GetString("docs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to connect to the remote server..
+        /// </summary>
+        internal static string ERROR_0 {
+            get {
+                return ResourceManager.GetString("ERROR_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK (along with invalid user Ids in the response body).
+        /// </summary>
+        internal static string ERROR_200 {
+            get {
+                return ResourceManager.GetString("ERROR_200", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bad Request.
+        /// </summary>
+        internal static string ERROR_400 {
+            get {
+                return ResourceManager.GetString("ERROR_400", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Username and Password combination. .
+        /// </summary>
+        internal static string ERROR_BadRequest {
+            get {
+                return ResourceManager.GetString("ERROR_BadRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mandatory parameter is missing..
+        /// </summary>
+        internal static string ERROR_E99_003 {
+            get {
+                return ResourceManager.GetString("ERROR_E99_003", resourceCulture);
             }
         }
         
@@ -292,6 +347,15 @@ namespace _OutlookAddIn1 {
         internal static string notifications {
             get {
                 return ResourceManager.GetString("notifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
             }
         }
         
@@ -473,11 +537,54 @@ namespace _OutlookAddIn1 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CREATE TABLE wit_attachments(id INTEGER ASC, file_id VARCHAR NOT NULL, file_association_id VARCHAR NOT NULL, wit_id VARCHAR NOT NULL, sync_status INTEGER DEFAULT 0, is_inline INTEGER DEFAULT 0, error_type INTEGER DEFAULT 0,error_code INTEGER DEFAULT 0,retry_count INTEGER DEFAULT 0, PRIMARY KEY (file_id, wit_id)).
+        ///   Looks up a localized string similar to CREATE TABLE wit_attachments
+        ///(
+        ///id INTEGER ASC, 
+        ///file_id VARCHAR NOT NULL, 
+        ///wit_id VARCHAR NOT NULL, 
+        ///file_name VARCHAR NOT NULL, 
+        ///file_mime_type VARCHAR NOT NULL, 
+        ///file_association_id VARCHAR NOT NULL, 
+        ///seq_number VARCHAR NOT NULL, 
+        ///is_inline INTEGER DEFAULT 0, 
+        ///source VARCHAR NOT NULL,
+        ///extention VARCHAR NOT NULL,
+        ///fileSize VARCHAR NOT NULL, 
+        ///attachment_type VARCHAR NOT NULL, 
+        ///PRIMARY KEY (file_id, wit_id)
+        ///).
         /// </summary>
         internal static string wit_attachments {
             get {
                 return ResourceManager.GetString("wit_attachments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INSERT INTO wit_attachments
+        ///            (file_id,
+        ///             wit_id,
+        ///             file_name,
+        ///             file_mime_type,
+        ///             file_association_id,
+        ///             seq_number,
+        ///             is_inline,
+        ///             source,
+        ///             extention,
+        ///             fileSize,
+        ///             attachment_type)
+        ///VALUES      (@file_id,
+        ///             @wit_id,
+        ///             @file_name,
+        ///             @file_mime_type,
+        ///             @file_association_id,
+        ///             @seq_number,
+        ///             @is_inline,
+        ///   [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string wit_attachments_insert {
+            get {
+                return ResourceManager.GetString("wit_attachments_insert", resourceCulture);
             }
         }
         

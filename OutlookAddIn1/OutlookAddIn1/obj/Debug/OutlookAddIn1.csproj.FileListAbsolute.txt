@@ -1,3 +1,7 @@
+C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\obj\Debug\_OutlookAddIn1.MyUserControl.resources
+C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\obj\Debug\_OutlookAddIn1.Properties.Resources.resources
+C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\obj\Debug\_OutlookAddIn1.Resource.resources
+C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\obj\Debug\OutlookAddIn1.csproj.GenerateResource.Cache
 C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\bin\Debug\OutlookAddIn1.dll.config
 C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\bin\Debug\OutlookAddIn1.dll
 C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\bin\Debug\OutlookAddIn1.pdb
@@ -37,10 +41,6 @@ C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\Outlook
 C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\bin\Debug\Microsoft.Office.Tools.Outlook.xml
 C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
 C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\bin\Debug\Microsoft.Office.Tools.Outlook.v4.0.Utilities.xml
-C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\obj\Debug\_OutlookAddIn1.MyUserControl.resources
-C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\obj\Debug\_OutlookAddIn1.Properties.Resources.resources
-C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\obj\Debug\_OutlookAddIn1.Resource.resources
-C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\obj\Debug\OutlookAddIn1.csproj.GenerateResource.Cache
 C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\obj\Debug\OutlookAddIn1.dll
 C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\obj\Debug\OutlookAddIn1.pdb
 C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\obj\Debug\OutlookAddIn1.csprojResolveAssemblyReference.cache
