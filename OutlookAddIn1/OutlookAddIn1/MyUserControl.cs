@@ -24,6 +24,7 @@ namespace _OutlookAddIn1
         String folderIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\blackfolder.ico";
         String mailIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\mail.ico";
         String backIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\back.ico";
+        String replyIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\reply.ico";
         String logoutIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\logout.ico";
         List<CustomWitPanel> witChildPanels;
 
@@ -221,7 +222,7 @@ namespace _OutlookAddIn1
             }
 
             // make the backgroud color silver so that if clicks for wits
-            // backgroud should not look odd
+            // backgroud should should not look odd
             this.BackColor = System.Drawing.Color.Silver;
 
 
@@ -316,193 +317,8 @@ namespace _OutlookAddIn1
             }
 
         }
+   
 
-        //
-        private void myTreeView_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
-            CustomTreeNode selectedNode = (CustomTreeNode)e.Node;
-            CustomTreeView treeView = (CustomTreeView)e.Node.TreeView;
-
-            // get the folders
-            FolderDao folderDao = new FolderDao();
-            List<Folder> childFolders = folderDao.getChildFolders(selectedNode.fieldId);
-
-            if (childFolders.Count > 0)
-            {
-                selectedNode.Nodes.Clear();
-                foreach (var folder in childFolders)
-                {
-                    CustomTreeNode childNode = new CustomTreeNode();
-                    childNode.fieldId = folder.id;
-                    childNode.fieldType = folder.type;
-                    childNode.Text = folder.name;
-                    selectedNode.Nodes.Add(childNode);
-
-                }
-            }
-            //else(wits.Count > 0)
-            else if ((childFolders == null || childFolders.Count == 0))
-            {
-                selectedNode.Nodes.Clear();
-                // get the wits 
-                WitsDao witsDao = new WitsDao();
-                List<Wits> wits = witsDao.getWits(selectedNode.fieldId);
-                witsPanel.Controls.Clear();
-
-                pnlMenu.Visible = false;
-                witsPanel.Visible = true;
-
-               
-                foreach (var wit in wits)
-                {             
-                    CustomWitButton witButton = new CustomWitButton();
-                    witButton.Text = wit.name;
-                    witButton.fieldType = wit.type;
-                    witButton.fieldId = wit.id;
-                    witButton.Click += witHandler;
-
-                    CustomWitPanel childWitPanel = new CustomWitPanel();
-                    childWitPanel.Controls.Add(witButton);
-                    
-                    // add to the clicked panel
-                    childWitPanel.Parent = witsPanel;
-                    witsPanel.ResumeLayout();
-                    //witsPanel.Controls.Add(l);
-
-                }
-
-
-                //--------------menu panel for back and forth---------------------
-                Panel containerWitPanel = new FlowLayoutPanel();
-                containerWitPanel.AutoSize = true;
-                containerWitPanel.Dock = System.Windows.Forms.DockStyle.Top;
-                containerWitPanel.BackColor = System.Drawing.Color.Gray;
-
-                containerWitPanel.Name = "containerWitPanel";
-                containerWitPanel.Size = new System.Drawing.Size(200, 30);
-                containerWitPanel.TabIndex = 1;
-                containerWitPanel.Height = 10;
-
-                CustomWitIconButton backButton = new CustomWitIconButton(backIcon, AnchorStyles.Left);
-                backButton.Click += backButtonHandler;
-                containerWitPanel.Controls.Add(backButton);
-
-                //CustomWitIconButton logoutButton = new CustomWitIconButton(logoutIcon, AnchorStyles.Left);
-                //containerWitPanel.Controls.Add(logoutButton);
-
-                witsPanel.Controls.Add(containerWitPanel);
-            }
-
-        }
-
-        protected void witClick(object sender, EventArgs e)
-        {
-            //var controls  = witsPanel.Controls;
-            Label witLabel = sender as Label;
-            Panel textBoxContainerPanel = new Panel();
-            textBoxContainerPanel.Controls.Add(witLabel);
-            textBoxContainerPanel.Location = witLabel.Location;
-            RichTextBox tb = new RichTextBox();
-            
-            tb.AppendText("hello");
-            textBoxContainerPanel.Controls.Add(tb);
-            witsPanel.Controls.Add(textBoxContainerPanel);
-
-        } 
-
-
-        private void backButtonHandler(object sender, EventArgs e)
-        {
-            witsPanel.Visible = false;
-            pnlMenu.Visible = true;
-        }
-
-        private void witHandler(object sender, EventArgs e) {
-
-
-            CustomWitButton clickedWitButton = new CustomWitButton();
-            Panel clcikedPanel = (Panel)((Button)sender).Parent;
-            clickedWitButton = (CustomWitButton)sender;
-            var type = clickedWitButton.fieldType;
-
-            if (clickedWitButton.Parent.Controls.Count > 1)
-            {
-                clcikedPanel.Controls.Clear();
-                clcikedPanel.Controls.Add(clickedWitButton);
-
-            }else if(clickedWitButton.Parent.Controls.Count == 1) { 
-  
-           
-                WitsDao witDao = new WitsDao();
-                Wits wit = witDao.getWit(clickedWitButton.fieldId);
-
-                // append wit description in the text box 
-                CustomRichTextBox textBox = new CustomRichTextBox();
-                textBox.AppendText(" \u2028");
-                textBox.AppendText(wit.desc == null ? "" : wit.desc);
-                textBox.SelectAll();
-                textBox.SelectionAlignment = HorizontalAlignment.Left;
-               
-
-                // try to add button in the richtextbox
-                CustomWitIconButton textMailButton = new CustomWitIconButton(mailIcon,AnchorStyles.Left);   
-                textMailButton.Click += textMailButtonHandler;
-                Label bround = new Label();
-                bround.Size = new System.Drawing.Size(500, 20);
-                bround.BackColor = System.Drawing.Color.Silver;
-                textBox.Controls.Add(textMailButton);
-                textBox.Controls.Add(bround);
-                //textBox.Controls.Add(textMailButton);
-
-                // create richTextboxPanel
-                Panel childTextBoxPanel = new Panel();
-                childTextBoxPanel.AutoSize = true;
-                childTextBoxPanel.Dock = System.Windows.Forms.DockStyle.Top;
-                childTextBoxPanel.Location = new System.Drawing.Point(0, 0);
-                childTextBoxPanel.Name = "childTextBoxPanel";
-                //childTextBoxPanel.BackColor = System.Drawing.Color.Silver;
-                childTextBoxPanel.Size = new System.Drawing.Size(200, 104);
-                childTextBoxPanel.TabIndex = 1;
-                childTextBoxPanel.Controls.Add(textBox);
-
-                // create ButtonPanel
-                CustomMailButtonPanel mailButtonsPanel = new CustomMailButtonPanel();
-
-                //mailButtonsPanel.Controls.Add(textMailButton);
-                
-
-                clcikedPanel.Controls.Add(childTextBoxPanel);
-               // clcikedPanel.Controls.Add(textMailButton);
-                clcikedPanel.Controls.Add(clickedWitButton);
-                
-            }
-
-        }
-
-        void textMailButtonHandler(object sender, EventArgs e)
-        {
-            Button clickedMailButton = new Button();
-            clickedMailButton = (Button)sender;
-            RichTextBox richTextBox = (RichTextBox)((Button)sender).Parent;
-            //CustomMailButtonPanel cus =  (CustomMailButtonPanel)clickedMailButton.Parent;
-            //CustomWitPanel cusWitPanel = (CustomWitPanel)cus.Parent;
-
-           // foreach (var control in cusWitPanel.Controls) {
-
-                //if (control is Panel) {
-
-                   // Panel rcihPanel = (Panel)control.;
-                    
-                   // MessageBox.Show(rcihPanel);
-                
-            
-            TextToEmailBody mail = new TextToEmailBody();
-            mail.SendEmailUsingOutLook(richTextBox.Text);
-
-
-             //Panel containerPanel = (Panel)clcikedPanel.Parent;
-        }
 
         void workspacePanelHandler(object sender, EventArgs e)
         {           
