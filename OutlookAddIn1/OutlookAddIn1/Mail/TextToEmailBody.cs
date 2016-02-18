@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Outlook;
 using System.Windows.Forms;
+using _OutlookAddIn1.Model;
+using System.IO;
 
 namespace _OutlookAddIn1
 {
     public class TextToEmailBody
     {
-        public void SendEmailUsingOutLook(string witBody)
+        public void SendEmailUsingOutLook(string witBody,String witName, List<Docs> docs)
         {
 
             Microsoft.Office.Interop.Outlook.Application outlookApplication =
@@ -20,13 +22,25 @@ namespace _OutlookAddIn1
             (Microsoft.Office.Interop.Outlook.MailItem)outlookApplication.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olMailItem);
 
             email.BodyFormat = Microsoft.Office.Interop.Outlook.OlBodyFormat.olFormatRichText;
-            email.Body = witBody;
+            email.Subject = witName;
+            email.HTMLBody = witBody;
+
+            if (docs != null && docs.Count > 0) {
+
+                foreach (var doc in docs) {
+                    if (doc.docId != null)
+                    {
+                        email.Attachments.Add(doc.localPath + "" + doc.fileName, Microsoft.Office.Interop.Outlook.OlAttachmentType.olByValue, 100000, Type.Missing);
+                    }
+                }
+            }
+           
 
             email.Display(true);
 
         }
 
-        public void replyEmailUsingOutLook(string witBody)
+        public void replyEmailUsingOutLook(string witBody,String witName, List<Docs> docs)
         {            
             Microsoft.Office.Interop.Outlook.Application outlookApp = new Microsoft.Office.Interop.Outlook.Application();
 
@@ -36,16 +50,32 @@ namespace _OutlookAddIn1
 
                 if (selectedMail is Microsoft.Office.Interop.Outlook.MailItem)
                 {
-                    Microsoft.Office.Interop.Outlook.MailItem mailItem = (selectedMail as Microsoft.Office.Interop.Outlook.MailItem);
-                    String htmlBody = mailItem.HTMLBody;
-                    String Body = mailItem.Body;
+                    Microsoft.Office.Interop.Outlook.MailItem mail = (selectedMail as Microsoft.Office.Interop.Outlook.MailItem);
+                    Microsoft.Office.Interop.Outlook.MailItem reply = mail.Reply();
+                   
+                    Microsoft.Office.Interop.Outlook.MailItem email =
+                    (Microsoft.Office.Interop.Outlook.MailItem)outlookApp.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olMailItem);
 
-                    var newBody = "<br>" + witBody + "<br> <br>" + mailItem.HTMLBody;
-                    mailItem.HTMLBody = newBody;
+                    email.BodyFormat = Microsoft.Office.Interop.Outlook.OlBodyFormat.olFormatRichText;
+                    email.HTMLBody = witBody + reply.Body;
+                   
+                    email.To = mail.SenderEmailAddress;
+                    email.Subject = reply.Subject;
 
-                    mailItem.Reply();
-                    mailItem.Display(true);
-                    //MessageBox.Show(mailItem.Subject);
+                    if (docs != null && docs.Count > 0)
+                    {
+
+                        foreach (var doc in docs)
+                        {
+                            if (doc.docId != null)
+                            {
+                                email.Attachments.Add(doc.localPath + "" + doc.fileName, Microsoft.Office.Interop.Outlook.OlAttachmentType.olByValue, 100000, Type.Missing);
+                            }
+                        }
+                    }
+
+                    email.Display(true);
+                   
                 }
             }
 

@@ -228,7 +228,6 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="AttachmentDetail.cs" />
     <Compile Include="Auth\AccessToken.cs" />
     <Compile Include="Auth\AccessTokenDao.cs" />
     <Compile Include="CheckNetConnection.cs" />
@@ -247,8 +246,14 @@
     </Compile>
     <Compile Include="CustomTreeNode.cs" />
     <Compile Include="Model\AttachmentDetail.cs" />
+    <Compile Include="Model\Docs.cs" />
     <Compile Include="Model\TagVo.cs" />
     <Compile Include="Model\WitsInfo.cs" />
+    <Compile Include="Settings1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings1.settings</DependentUpon>
+    </Compile>
     <Compile Include="TextBoxControls\CustomContainerTextBoxPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -367,6 +372,10 @@
       <SubType>Code</SubType>
     </Compile>
     <None Include="Resources\test.db" />
+    <None Include="Settings1.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
+    </None>
     <None Include="ThisAddIn.Designer.xml">
       <DependentUpon>ThisAddIn.cs</DependentUpon>
     </None>
@@ -427,6 +436,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\blackfolder.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logout.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grayfolder.ico" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

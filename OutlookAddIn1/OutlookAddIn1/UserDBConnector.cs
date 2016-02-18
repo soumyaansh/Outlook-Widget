@@ -10,21 +10,27 @@ using System.Windows.Forms;
 using System.Resources;
 using System.Data.SqlClient;
 using System.IO;
+using _OutlookAddIn1.Utilities;
 
 namespace _OutlookAddIn1
 {
     class UserDBConnector
     {
+        public  String userName = null;
+        public  String appPath = null;
         private UserService userService;
         private UserProfileService userProfileService;
-
         private SQLiteConnection sql_con;
         private SQLiteCommand sql_cmd;
-        String path = "C:\\Users\\WittyParrot\\AppData\\Local\\WittyParrotWidget";
-        String connectionUserDBPath = "Data Source=" + "C:\\Users\\WittyParrot\\AppData\\Local\\WittyParrotWidget" + "\\userDB.sqlite;Version=3;";
 
-        private void ExecuteUserDBQuery(string txtQuery)
+        public UserDBConnector(String username) {
+            userName = username;
+        }
+
+
+        private void ExecuteUserDBQuery(string txtQuery,String path)
         {
+            String connectionUserDBPath = "Data Source=" + path + "\\userDB.sqlite;Version=3;";
             sql_con = new SQLiteConnection(connectionUserDBPath);
             sql_con.Open();
             sql_cmd = sql_con.CreateCommand();
@@ -33,12 +39,28 @@ namespace _OutlookAddIn1
             sql_con.Close();
         }
 
-       
+        public String prepareAppLocalSchema()
+        {
+            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var path = Path.Combine(appDataPath, "wpoutlookwidget" +@"\" +userName.ToString().GetHashCode() + @"\");
+          
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+               
+            }
+
+            // saving into properties settings as a global variable
+            Common.path = path;
+            appPath = path;
+            return path;
+        }
 
 
         public void prepareUserDBSchema(RootObject rootObj)
         {
-
+            String path = prepareAppLocalSchema();
             userService = new UserService();
             userProfileService = new UserProfileService();
 
@@ -81,43 +103,43 @@ namespace _OutlookAddIn1
                 var createdbyQuery = Resource.ResourceManager.GetString("createdby");
                 var modifiedbyQuery = Resource.ResourceManager.GetString("modifiedby");
                 var permissionQuery = Resource.ResourceManager.GetString("permission");
-                
+
 
                 // create table 
-                this.ExecuteUserDBQuery(commentQuery);
-                this.ExecuteUserDBQuery(contactsQuery);
-                
-                this.ExecuteUserDBQuery(contentExpiryQuery);
-                this.ExecuteUserDBQuery(docsQuery);
-                this.ExecuteUserDBQuery(eventRecordsQuery);
-                this.ExecuteUserDBQuery(foldersQuery);
+                this.ExecuteUserDBQuery(commentQuery, path);
+                this.ExecuteUserDBQuery(contactsQuery, path);
 
-                this.ExecuteUserDBQuery(groupContactsuery);
-                this.ExecuteUserDBQuery(groupsQuery);
-                this.ExecuteUserDBQuery(notificationActionsQuery);
-                this.ExecuteUserDBQuery(notificationsQuery);
-                this.ExecuteUserDBQuery(packageQuery);
+                this.ExecuteUserDBQuery(contentExpiryQuery, path);
+                this.ExecuteUserDBQuery(docsQuery, path);
+                this.ExecuteUserDBQuery(eventRecordsQuery, path);
+                this.ExecuteUserDBQuery(foldersQuery, path);
 
-                this.ExecuteUserDBQuery(packageFeatureQuery);
-                this.ExecuteUserDBQuery(socialMediaQuery);
-                this.ExecuteUserDBQuery(tagGroupsQuery);
-                this.ExecuteUserDBQuery(tagsQuery);
-                this.ExecuteUserDBQuery(topWitsQuery);
+                this.ExecuteUserDBQuery(groupContactsuery, path);
+                this.ExecuteUserDBQuery(groupsQuery, path);
+                this.ExecuteUserDBQuery(notificationActionsQuery, path);
+                this.ExecuteUserDBQuery(notificationsQuery, path);
+                this.ExecuteUserDBQuery(packageQuery, path);
 
-                this.ExecuteUserDBQuery(userDefaultsQuery);
-                this.ExecuteUserDBQuery(userPackagesuery);
-                this.ExecuteUserDBQuery(witAttachmentQuery);
-                this.ExecuteUserDBQuery(witTagsQuery);
-                
-                this.ExecuteUserDBQuery(witsQuery);
-                this.ExecuteUserDBQuery(witsUsageQuery);
-                this.ExecuteUserDBQuery(witsUsageGraphDataQuery);
-                this.ExecuteUserDBQuery(witsUsageGraphsQuery);
+                this.ExecuteUserDBQuery(packageFeatureQuery, path);
+                this.ExecuteUserDBQuery(socialMediaQuery, path);
+                this.ExecuteUserDBQuery(tagGroupsQuery, path);
+                this.ExecuteUserDBQuery(tagsQuery, path);
+                this.ExecuteUserDBQuery(topWitsQuery, path);
 
-                this.ExecuteUserDBQuery(userWorkspacesQuery);
-                this.ExecuteUserDBQuery(createdbyQuery);
-                this.ExecuteUserDBQuery(modifiedbyQuery);
-                this.ExecuteUserDBQuery(permissionQuery);
+                this.ExecuteUserDBQuery(userDefaultsQuery, path);
+                this.ExecuteUserDBQuery(userPackagesuery, path);
+                this.ExecuteUserDBQuery(witAttachmentQuery, path);
+                this.ExecuteUserDBQuery(witTagsQuery, path);
+
+                this.ExecuteUserDBQuery(witsQuery, path);
+                this.ExecuteUserDBQuery(witsUsageQuery, path);
+                this.ExecuteUserDBQuery(witsUsageGraphDataQuery, path);
+                this.ExecuteUserDBQuery(witsUsageGraphsQuery, path);
+
+                this.ExecuteUserDBQuery(userWorkspacesQuery, path);
+                this.ExecuteUserDBQuery(createdbyQuery, path);
+                this.ExecuteUserDBQuery(modifiedbyQuery, path);
+                this.ExecuteUserDBQuery(permissionQuery, path);
 
                 // insert values 
 

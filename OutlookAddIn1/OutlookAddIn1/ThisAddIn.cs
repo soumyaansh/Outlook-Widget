@@ -14,6 +14,7 @@ namespace _OutlookAddIn1
         private MyUserControl myUserControl1;
         private Microsoft.Office.Tools.CustomTaskPane myCustomTaskPane;
 
+
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
             showWpWidget();
@@ -22,11 +23,10 @@ namespace _OutlookAddIn1
 
         private void showWpWidget() {
 
-            myUserControl1 = new MyUserControl();
-            myCustomTaskPane = this.CustomTaskPanes.Add(myUserControl1, "Witty Parrot");
+            myUserControl1 = new MyUserControl();       
+            myCustomTaskPane = this.CustomTaskPanes.Add(myUserControl1, "WittyParrot");         
             myCustomTaskPane.Visible = true;
             myCustomTaskPane.Width = 450;
-            //myCustomTaskPane.Height = 900;
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)

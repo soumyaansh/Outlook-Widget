@@ -8,7 +8,8 @@ namespace _OutlookAddIn1
 {
     public class LoggedInUserPermission
     {
-        public int mask { get; set; }
+        public LoggedInUserPermission() { }
+        public int? mask { get; set; }
         public bool owner { get; set; }
         public bool canFurtherShare { get; set; }
         public bool canComment { get; set; }

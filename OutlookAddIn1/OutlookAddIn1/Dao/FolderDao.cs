@@ -17,9 +17,14 @@ namespace _OutlookAddIn1
     class FolderDao
     {
 
-        public String connectionUserDBPath = "Data Source=" + "C:\\Users\\WittyParrot\\AppData\\Local\\WittyParrotWidget" + "\\userDB.sqlite;Version=3;";
+        
         SQLiteConnection sql_con;
         SQLiteCommand sql_cmd;
+        public String connectionUserDBPath = null;
+
+        public FolderDao(String path) {
+            connectionUserDBPath = "Data Source=" + path + "\\userDB.sqlite;Version=3;";
+        }
 
 
         public void saveAllFolders(List<Folder> folders)

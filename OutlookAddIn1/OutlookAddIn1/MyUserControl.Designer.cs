@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace _OutlookAddIn1
 {
@@ -40,15 +41,16 @@ namespace _OutlookAddIn1
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.myCustomListView = new _OutlookAddIn1.CustomListView();
-            this.myCustomTreeView = new _OutlookAddIn1.CustomTreeView();
-            this.myRichTextBox = new _OutlookAddIn1.CustomRichTextBox();
             this.pnlMenu = new _OutlookAddIn1.CustomPanel();
             this.witsPanel = new _OutlookAddIn1.CustomPanel();
-           
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.myRichTextBox = new _OutlookAddIn1.CustomRichTextBox();
+            this.myCustomTreeView = new _OutlookAddIn1.CustomTreeView();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.witsPanel.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -135,73 +137,78 @@ namespace _OutlookAddIn1
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
-            // myCustomListView
-            // 
-            this.myCustomListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.myCustomListView.Alignment = System.Windows.Forms.ListViewAlignment.Left;
-            this.myCustomListView.AutoArrange = false;
-            this.myCustomListView.BackColor = System.Drawing.Color.White;
-            this.myCustomListView.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            this.myCustomListView.ForeColor = System.Drawing.Color.Gray;
-            this.myCustomListView.FullRowSelect = true;
-            this.myCustomListView.GridLines = true;
-            this.myCustomListView.HideSelection = false;
-            this.myCustomListView.HotTracking = true;
-            this.myCustomListView.HoverSelection = true;
-            this.myCustomListView.Location = new System.Drawing.Point(0, 0);
-            this.myCustomListView.Name = "myCustomListView";
-            this.myCustomListView.Size = new System.Drawing.Size(460, 635);
-            this.myCustomListView.TabIndex = 10;
-            this.myCustomListView.UseCompatibleStateImageBehavior = false;
-            // 
-            // myCustomTreeView
-            // 
-            this.myCustomTreeView.BackColor = System.Drawing.Color.Silver;
-            this.myCustomTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.myCustomTreeView.Font = new System.Drawing.Font("Arial", 10F);
-            this.myCustomTreeView.ForeColor = System.Drawing.Color.Gray;
-            this.myCustomTreeView.FullRowSelect = true;
-            this.myCustomTreeView.HideSelection = false;
-            this.myCustomTreeView.HotTracking = true;
-            this.myCustomTreeView.Indent = 10;
-            this.myCustomTreeView.LineColor = System.Drawing.Color.Empty;
-            this.myCustomTreeView.Location = new System.Drawing.Point(3, 3);
-            this.myCustomTreeView.Name = "myCustomTreeView";
-            this.myCustomTreeView.ShowLines = false;
-            this.myCustomTreeView.ShowPlusMinus = false;
-            this.myCustomTreeView.Size = new System.Drawing.Size(417, 300);
-            this.myCustomTreeView.TabIndex = 9;
-            this.myCustomTreeView.treeNode = null;
-            this.myCustomTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.myCustomTreeView_AfterSelect);
-           
-         
-            // 
             // pnlMenu
             // 
             this.pnlMenu.AutoScroll = true;
             this.pnlMenu.AutoSize = true;
-            this.pnlMenu.BackColor = System.Drawing.Color.Silver;
+            this.pnlMenu.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlMenu.Location = new System.Drawing.Point(0, 1200);
+            this.pnlMenu.Location = new System.Drawing.Point(0, 745);
             this.pnlMenu.Name = "pnlMenu";
-            this.pnlMenu.Size = new System.Drawing.Size(460, 0);
+            this.pnlMenu.Size = new System.Drawing.Size(700, 0);
             this.pnlMenu.TabIndex = 1;
             // 
             // witsPanel
             // 
             this.witsPanel.AutoScroll = true;
             this.witsPanel.BackColor = System.Drawing.Color.Silver;
-          
+            this.witsPanel.Controls.Add(this.statusStrip1);
             this.witsPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.witsPanel.Location = new System.Drawing.Point(0, 0);
             this.witsPanel.Name = "witsPanel";
-            this.witsPanel.Size = new System.Drawing.Size(460, 800);
+            this.witsPanel.Size = new System.Drawing.Size(460, 745);
             this.witsPanel.TabIndex = 1;
             this.witsPanel.Visible = false;
             // 
-            // webBrowser1
+            // statusStrip1
             // 
-         
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBar1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 717);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(460, 28);
+            this.statusStrip1.TabIndex = 0;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 22);
+            // 
+            // myRichTextBox
+            // 
+            this.myRichTextBox.BackColor = System.Drawing.Color.White;
+            this.myRichTextBox.Font = new System.Drawing.Font("Arial", 10F);
+            this.myRichTextBox.Location = new System.Drawing.Point(0, 0);
+            this.myRichTextBox.Name = "myRichTextBox";
+            this.myRichTextBox.ReadOnly = true;
+            this.myRichTextBox.Size = new System.Drawing.Size(460, 650);
+            this.myRichTextBox.TabIndex = 9;
+            this.myRichTextBox.Text = "";
+            // hide it as we are not using it anymore
+            this.myRichTextBox.Visible = false;
+
+            // 
+            // myCustomTreeView
+            // 
+            this.myCustomTreeView.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.myCustomTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.myCustomTreeView.Font = new System.Drawing.Font("Arial", 8F);
+            this.myCustomTreeView.ForeColor = System.Drawing.Color.Gray;
+            this.myCustomTreeView.FullRowSelect = true;
+            this.myCustomTreeView.HideSelection = false;
+            this.myCustomTreeView.HotTracking = true;
+            this.myCustomTreeView.Indent = 10;
+            this.myCustomTreeView.LineColor = System.Drawing.Color.Gray;
+            this.myCustomTreeView.Location = new System.Drawing.Point(3, 3);
+            this.myCustomTreeView.Name = "myCustomTreeView";
+            this.myCustomTreeView.ShowLines = true;
+            this.myCustomTreeView.ShowPlusMinus = true;
+            this.myCustomTreeView.Size = new System.Drawing.Size(450, 300);
+            this.myCustomTreeView.TabIndex = 9;
+            this.myCustomTreeView.treeNode = null;
+            this.myCustomTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.myCustomTreeView_AfterSelect);
             // 
             // MyUserControl
             // 
@@ -221,11 +228,14 @@ namespace _OutlookAddIn1
             this.Controls.Add(this.witsPanel);
             this.Controls.Add(this.myRichTextBox);
             this.Name = "MyUserControl";
-            this.Size = new System.Drawing.Size(460, 613);
+            this.Size = new System.Drawing.Size(460, 700);
             this.Load += new System.EventHandler(this.MyUserControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.witsPanel.ResumeLayout(false);
+            this.witsPanel.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -243,10 +253,10 @@ namespace _OutlookAddIn1
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         public CustomTreeView myCustomTreeView;
-        public CustomListView myCustomListView;
         public CustomRichTextBox myRichTextBox;
-      
         public CustomPanel pnlMenu;
         public CustomPanel witsPanel;
+        private StatusStrip statusStrip1;
+        private ToolStripProgressBar toolStripProgressBar1;
     }
 }

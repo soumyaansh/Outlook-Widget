@@ -161,21 +161,48 @@ namespace _OutlookAddIn1 {
         /// <summary>
         ///   Looks up a localized string similar to CREATE TABLE docs
         ///  (
-        ///     doc_id               VARCHAR PRIMARY KEY,
-        ///     inline_id             VARCHAR DEFAULT NULL,
-        ///     file_name             TEXT DEFAULT NULL,
+        ///     doc_id                VARCHAR PRIMARY KEY,
+        ///     file_name             TEXT    DEFAULT NULL,
         ///     mime_type             VARCHAR DEFAULT NULL,
-        ///     file_url              TEXT DEFAULT NULL,
-        ///     thumbnail_url         TEXT DEFAULT NULL,
-        ///     version               REAL DEFAULT 0,
         ///     size                  INTEGER DEFAULT 0,
-        ///     creator               VARCHAR DEFAULT NULL,
-        ///     creation_date         VARCHAR DEFAULT NULL,
-        ///     mod [rest of string was truncated]&quot;;.
+        ///     wit_id                VARCHAR DEFAULT NULL,
+        ///     local_path            VARCHAR DEFAULT NULL,
+        ///     container_dir_path    VARCHAR DEFAULT NULL
+        ///  ).
         /// </summary>
         internal static string docs {
             get {
                 return ResourceManager.GetString("docs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INSERT
+        ///or     REPLACE
+        ///into   docs
+        ///       (
+        ///              doc_id ,
+        ///              file_name ,
+        ///              mime_type ,
+        ///              size,
+        ///              wit_id ,
+        ///              local_path,
+        ///              container_dir_path
+        ///       )
+        ///       VALUES
+        ///       (
+        ///              @doc_id ,
+        ///              @file_name ,
+        ///              @mime_type ,
+        ///              @size,
+        ///              @wit_id ,
+        ///              @local_path,
+        ///              @container_dir_path
+        ///       ).
+        /// </summary>
+        internal static string docs_insert {
+            get {
+                return ResourceManager.GetString("docs_insert", resourceCulture);
             }
         }
         
@@ -288,19 +315,9 @@ namespace _OutlookAddIn1 {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon greyfolder {
+        internal static System.Drawing.Icon grayfolder {
             get {
-                object obj = ResourceManager.GetObject("greyfolder", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon greyopenfolder {
-            get {
-                object obj = ResourceManager.GetObject("greyopenfolder", resourceCulture);
+                object obj = ResourceManager.GetObject("grayfolder", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -320,6 +337,16 @@ namespace _OutlookAddIn1 {
         internal static string groups {
             get {
                 return ResourceManager.GetString("groups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon logout {
+            get {
+                object obj = ResourceManager.GetObject("logout", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -392,6 +419,16 @@ namespace _OutlookAddIn1 {
         internal static System.Drawing.Icon plus {
             get {
                 object obj = ResourceManager.GetObject("plus", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon refresh {
+            get {
+                object obj = ResourceManager.GetObject("refresh", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -539,19 +576,18 @@ namespace _OutlookAddIn1 {
         /// <summary>
         ///   Looks up a localized string similar to CREATE TABLE wit_attachments
         ///(
-        ///id INTEGER ASC, 
-        ///file_id VARCHAR NOT NULL, 
+        ///id VARCHAR PRIMARY KEY,
+        ///file_id VARCHAR NULL, 
         ///wit_id VARCHAR NOT NULL, 
         ///file_name VARCHAR NOT NULL, 
         ///file_mime_type VARCHAR NOT NULL, 
         ///file_association_id VARCHAR NOT NULL, 
-        ///seq_number VARCHAR NOT NULL, 
+        ///seq_number VARCHAR NULL, 
         ///is_inline INTEGER DEFAULT 0, 
         ///source VARCHAR NOT NULL,
         ///extention VARCHAR NOT NULL,
-        ///fileSize VARCHAR NOT NULL, 
-        ///attachment_type VARCHAR NOT NULL, 
-        ///PRIMARY KEY (file_id, wit_id)
+        ///fileSize VARCHAR NULL, 
+        ///attachment_type VARCHAR NOT NULL
         ///).
         /// </summary>
         internal static string wit_attachments {
@@ -561,8 +597,9 @@ namespace _OutlookAddIn1 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INSERT INTO wit_attachments
-        ///            (file_id,
+        ///   Looks up a localized string similar to INSERT OR REPLACE INTO wit_attachments
+        ///            (id,
+        ///            file_id,
         ///             wit_id,
         ///             file_name,
         ///             file_mime_type,
@@ -573,14 +610,13 @@ namespace _OutlookAddIn1 {
         ///             extention,
         ///             fileSize,
         ///             attachment_type)
-        ///VALUES      (@file_id,
+        ///VALUES 
+        ///            (@id,
+        ///             @file_id,
         ///             @wit_id,
         ///             @file_name,
         ///             @file_mime_type,
-        ///             @file_association_id,
-        ///             @seq_number,
-        ///             @is_inline,
-        ///   [rest of string was truncated]&quot;;.
+        ///             @file_association_id,        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string wit_attachments_insert {
             get {
@@ -619,8 +655,8 @@ namespace _OutlookAddIn1 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INSERT OR REPLACE INTO wits(id ,name ,type ,enterprise_id,workspace_id,parent_id ,children ,hasChildren, updateNumber, ratingCount ,ratingAggregation, desc, isFavorite, witType, status, label) 
-        ///values (@id ,@name ,@type ,@enterprise_id ,@workspace_id ,@parent_id,@children ,@hasChildren ,@updateNumber ,@ratingCount ,@ratingAggregation ,@desc ,@isFavorite ,@witType ,@status ,@label).
+        ///   Looks up a localized string similar to INSERT OR REPLACE INTO wits(id ,name ,type ,enterprise_id,workspace_id,parent_id ,children ,hasChildren, updateNumber, ratingCount ,ratingAggregation, desc, content,isFavorite, witType, status, label) 
+        ///values (@id ,@name ,@type ,@enterprise_id ,@workspace_id ,@parent_id,@children ,@hasChildren ,@updateNumber ,@ratingCount ,@ratingAggregation ,@desc,@content ,@isFavorite ,@witType ,@status ,@label).
         /// </summary>
         internal static string wits_insert {
             get {

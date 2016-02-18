@@ -15,13 +15,18 @@ namespace _OutlookAddIn1
     class RestClientFolder
     {
 
+        String path = null;
+        public RestClientFolder(String path) {
+            this.path = path;
+        }
+
         public List<Folder> getAllFolders(String token, String workspaceId, Int16 level, List<Folder> allFolderList)
         {
 
             // used class objects defined below
             RestClientWits restWits = new RestClientWits();
             List<Folder> firstLevelFolders = new List<Folder>();
-            WitsDao witsDao = new WitsDao();
+            WitsDao witsDao = new WitsDao(path);
 
             String url = "http://52.3.104.221:8080/wittyparrot/api/folders/workspaceId/"+ workspaceId + "/level/"+ level + "";
             var client = new RestClient();
@@ -51,8 +56,8 @@ namespace _OutlookAddIn1
                     // in this scenario wits can be present in the folders
                     // query for the wits in the folder
                     List<Wits> wits = restWits.getFolderWits(folder.id);
-                    if (wits.Count > 0) {
-                        //witsDao.saveAllWits(wits);
+                    if (wits!= null && wits.Count > 0) {
+                        witsDao.saveAllWits(wits);
                     }
 
 
@@ -64,7 +69,7 @@ namespace _OutlookAddIn1
                     List<Wits> wits = restWits.getFolderWits(folder.id);
                     if (wits.Count > 0)
                     {
-                        //witsDao.saveAllWits(wits);
+                        witsDao.saveAllWits(wits);
                     }
                 }
                 }

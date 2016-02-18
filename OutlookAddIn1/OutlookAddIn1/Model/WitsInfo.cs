@@ -9,6 +9,7 @@ namespace _OutlookAddIn1.Model
     class WitsInfo
     {
 
+    public WitsInfo() {}
     public string createdDate { get; set; }
     public string modifiedDate { get; set; }
     public CreatedBy createdBy { get; set; }
@@ -23,12 +24,12 @@ namespace _OutlookAddIn1.Model
     public string expiryDate { get; set; }
     public string ownerId { get; set; }
     public string locale { get; set; }
-    //public int sequenceNumber { get; set; }
-    //public int updateNumber { get; set; }
+    public int? sequenceNumber { get; set; }
+    public int? updateNumber { get; set; }
     public string type { get; set; }
-    public int version { get; set; }
-    public int ratingCount { get; set; }
-    public int ratingAggregation { get; set; }
+    public int? version { get; set; }
+    public int? ratingCount { get; set; }
+    public int? ratingAggregation { get; set; }
     public string note { get; set; }
     public string desc { get; set; }
     public bool isFavorite { get; set; }
@@ -38,7 +39,7 @@ namespace _OutlookAddIn1.Model
     public object comments { get; set; }
     public object commentCount { get; set; }
     public List<TagVo> tagVos { get; set; }
-    public object attachmentDetails { get; set; }
+    public List<AttachmentDetail> attachmentDetails { get; set; }
     public object comboWit { get; set; }
     public string content { get; set; }
     public object acronyms { get; set; }

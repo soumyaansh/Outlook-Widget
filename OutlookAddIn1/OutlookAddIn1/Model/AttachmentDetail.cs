@@ -8,6 +8,8 @@ namespace _OutlookAddIn1.Model
 {
     class AttachmentDetail
     {
+
+        public AttachmentDetail() { }
         public string fileAssociationId { get; set; }
         public object fileId { get; set; }
         public string witId { get; set; }

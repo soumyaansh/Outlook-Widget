@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using _OutlookAddIn1.Auth;
 using _OutlookAddIn1.Model;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace _OutlookAddIn1
 {
@@ -39,10 +40,107 @@ namespace _OutlookAddIn1
             List<Wits> childWits = new List<Wits>();
             childWits = JsonConvert.DeserializeObject<List<Wits>>(content);
 
+            // loop through the wits and create wits 
+            if (childWits.Count > 0)
+            {
+
+                foreach (var wit in childWits)
+                {
+                    String witContent = getWitContent(wit.id);
+                    if (witContent != null)
+                    {
+                        wit.content = witContent;
+                    }
+                }
+            }
+
             return childWits;
         }
 
-        public AttachmentDetail getWitsInfo(String witId)
+        private String getWitContent(string witId)
+        {
+
+            AccessTokenDao accesstokenDao = new AccessTokenDao();
+            String token = accesstokenDao.getAccessToken();
+
+            String url = "http://52.3.104.221:8080/wittyparrot/api/wits/" + witId + "";
+            var client = new RestClient();
+            client.BaseUrl = new Uri(url);
+
+            var request = new RestRequest();
+            request.Method = Method.GET;
+            request.Parameters.Clear();
+            request.AddParameter("Authorization", "Bearer " + token, ParameterType.HttpHeader);
+            request.RequestFormat = DataFormat.Json;
+
+            // execute the request
+            IRestResponse response = client.Execute(request);
+            String content = response.Content;
+
+            WitsInfo witsInfo = new WitsInfo();
+            WitsInfo ad = JsonConvert.DeserializeObject<WitsInfo>(content);
+            //dynamic jo = JObject.Parse(content);
+            String witType = ad.witType;
+            String witName = ad.name;
+            String witContent = ad.content;
+
+
+            if (witContent != null)
+            {
+                return witContent;
+            }
+
+            return null;
+    
+    }
+
+    public void getAttachment(String witId, String fileAssociationId, String fileName, String userProfilepath)
+        {
+            AccessTokenDao accesstokenDao = new AccessTokenDao();
+            String token = accesstokenDao.getAccessToken();
+
+            String url = "http://52.3.104.221:8080/wittyparrot/api/attachments/associationId/" + fileAssociationId + "";
+            var client = new RestClient();
+            client.BaseUrl = new Uri(url);
+
+            var request = new RestRequest();
+            request.Method = Method.GET;
+            request.Parameters.Clear();
+            request.AddParameter("Authorization", "Bearer " + token, ParameterType.HttpHeader);
+            request.RequestFormat = DataFormat.Json;
+
+            // execute the request
+            IRestResponse response = client.Execute(request);
+            if (response.ErrorException != null)
+            {
+                const string message = "Error retrieving attachment.";
+                var myException = new ApplicationException(message, response.ErrorException);
+                throw myException;
+            }
+
+            byte[] r = client.DownloadData(request);
+            String fullPath = userProfilepath + "//files//attachments//";
+            if (!Directory.Exists(fullPath))
+            {
+                Directory.CreateDirectory(fullPath);
+            }
+            // save the file details to docs table
+            Docs doc = new Docs();
+            doc.docId = fileName.GetHashCode().ToString();
+            doc.localPath = fullPath;
+            doc.fileName = fileName;
+            doc.witId = witId;
+
+
+            WitsDao witDao = new WitsDao(userProfilepath);
+            witDao.saveDocs(doc);
+
+            File.WriteAllBytes(fullPath + fileName, r);
+        }
+
+    
+
+    public List<AttachmentDetail> getWitsInfo(String witId)
         {
             AccessTokenDao accesstokenDao = new AccessTokenDao();
             String token = accesstokenDao.getAccessToken();
@@ -62,21 +160,20 @@ namespace _OutlookAddIn1
             String content = response.Content;
 
             WitsInfo witsInfo = new WitsInfo();
-            dynamic jo = JObject.Parse(content);
-            AttachmentDetail ad =  jo.AttachmentDetail;
-            if (ad != null) {
-                MessageBox.Show("ad fileId:" + ad.fileId + " ad name" + ad.fileName);
-                return ad;
+            WitsInfo ad = JsonConvert.DeserializeObject<WitsInfo>(content);
+            //dynamic jo = JObject.Parse(content);
+            String witType  = ad.witType;
+            String witName = ad.name;
+            if (witName == "My first sync test") {
+
+                MessageBox.Show("check attachment nmbers");
             }
+            List<AttachmentDetail> details = (List<AttachmentDetail>)ad.attachmentDetails;
+            if (details != null) {
+                return details;
+                }
 
-             
-            //witsInfo = JsonConvert.DeserializeObject<WitsInfo>(content);
-            //if (witsInfo.attachmentDetails != null) {
-            // MessageBox.Show("wits name:"+witsInfo.name + " wits Id"+ witsInfo.id);}
-
-
-            return null;
-        }
-
+                return null;
+            }
     }
 }

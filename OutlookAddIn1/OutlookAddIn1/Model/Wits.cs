@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _OutlookAddIn1.Model;
 
 namespace _OutlookAddIn1
 {
@@ -23,6 +24,7 @@ namespace _OutlookAddIn1
         public bool isFavorite { get; set; }
         public string witType { get; set; }
         public object status { get; set; }
+        public String content { get; set; }
         public List<AttachmentDetail> attachmentDetails { get; set; }
         public object label { get; set; }
         public LoggedInUserPermission loggedInUserPermission { get; set; }

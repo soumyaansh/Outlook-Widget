@@ -17,6 +17,11 @@ namespace _OutlookAddIn1
         public RootObject login(String username, String password)
         {
 
+            if (username == null || username.Trim().Length == 0 || password == null || password.Trim().Length == 0)
+            {
+                MessageBox.Show("invalid User credentials");
+            }
+
             IRestResponse response = null;
             var client = new RestClient("http://52.3.104.221:8080/wittyparrot/api/auth/login");
             var strJSONContent = "{\"userId\":\"" + username + "\" ,\"password\":\"" + password + "\"}";
@@ -29,13 +34,12 @@ namespace _OutlookAddIn1
             request.RequestFormat = DataFormat.Json;
             request.AddHeader("Content-Type", "application/json");
 
-            
                 // execute the request
                 response = client.Execute(request);
                 if (response.StatusCode.ToString() != "OK") {
 
                     var statusMessage = RestUtils.getErrorMessage(response.StatusCode);
-                    MessageBox.Show(statusMessage ==""? "error occured" : statusMessage);
+                    MessageBox.Show(statusMessage ==""? "Invalid input" : statusMessage);
                     throw new RestCallException(statusMessage == null ? "" : statusMessage, response.ErrorMessage == null ? "" : response.ErrorMessage);
                 }
             

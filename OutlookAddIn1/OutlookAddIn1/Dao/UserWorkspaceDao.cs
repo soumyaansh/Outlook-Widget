@@ -17,12 +17,15 @@ namespace _OutlookAddIn1
 {
     class UserWorkspaceDao
     {
-        public String connectionUserDBPath = "Data Source=" + "C:\\Users\\WittyParrot\\AppData\\Local\\WittyParrotWidget" + "\\userDB.sqlite;Version=3;";
+        public String connectionUserDBPath = null;
         SQLiteConnection sql_con;
         SQLiteCommand sql_cmd;
+        
 
-        // static String path = "C:\\Users\\WittyParrot\\AppData\\Local\\WittyParrotWidget";
-        static String connectionMainDBPath = "Data Source=" + "C:\\Users\\WittyParrot\\AppData\\Local\\WittyParrotWidget" + "\\userDB.sqlite;Version=3;";
+        public UserWorkspaceDao(String path)
+        {
+            connectionUserDBPath = "Data Source=" + path + "\\userDB.sqlite;Version=3;";
+        }
 
 
         public void saveWorkspaces(List<UserWorkspace> workspaces)
@@ -30,14 +33,13 @@ namespace _OutlookAddIn1
             foreach (var workspace in workspaces)
             {
                 saveWorkspace(workspace);
-                //MessageBox.Show("Name: "+ws.name + " WSpace ID: " +ws.WorkspaceId + " SEQ NO: "+ws.SequenceNumber +"WS ID"+ws.id +" mOD date: "+ws.ModifiedDate +" Ent Id: "+ws.enterpriseId +" Desc: "+ws.description + " Crtd Date: "+ws.createdDate);
             }  
         }
 
         public void saveWorkspace(UserWorkspace workspace) {
 
             var workspaceInsertQuery = Resource.ResourceManager.GetString("userworkspaces_insert");
-            sql_con = new SQLiteConnection(connectionMainDBPath);
+            sql_con = new SQLiteConnection(connectionUserDBPath);
             sql_cmd = new SQLiteCommand(workspaceInsertQuery, sql_con);
 
             sql_cmd.Parameters.Add("@id", DbType.String);
@@ -72,7 +74,7 @@ namespace _OutlookAddIn1
         {
             List<UserWorkspace> workspaces;
             var workspaceInsertQuery = Resource.ResourceManager.GetString("userworkspaces_select");
-            sql_con = new SQLiteConnection(connectionMainDBPath);
+            sql_con = new SQLiteConnection(connectionUserDBPath);
             sql_cmd = new SQLiteCommand(workspaceInsertQuery, sql_con);
 
             sql_con.Open();
@@ -104,7 +106,7 @@ namespace _OutlookAddIn1
         {
             List<String> workspaces;
             var workspaceInsertQuery = Resource.ResourceManager.GetString("userworkspaces_select");
-            sql_con = new SQLiteConnection(connectionMainDBPath);
+            sql_con = new SQLiteConnection(connectionUserDBPath);
             sql_cmd = new SQLiteCommand(workspaceInsertQuery, sql_con);
 
             sql_con.Open();

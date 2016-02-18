@@ -8,6 +8,7 @@ namespace _OutlookAddIn1.Model
 {
     class TagVo
     {
+        public TagVo() { }
         public string createdDate { get; set; }
         public string modifiedDate { get; set; }
         public CreatedBy createdBy { get; set; }

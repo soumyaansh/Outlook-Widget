@@ -8,6 +8,7 @@ namespace _OutlookAddIn1
 {
     class ModifiedBy
     {
+        public ModifiedBy() { }
         public string id { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
