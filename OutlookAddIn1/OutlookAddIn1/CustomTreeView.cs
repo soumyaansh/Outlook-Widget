@@ -68,7 +68,7 @@ namespace _OutlookAddIn1
                 Panel containerWitPanel = new FlowLayoutPanel();
                 containerWitPanel.AutoSize = true;
                 containerWitPanel.Dock = System.Windows.Forms.DockStyle.Top;
-                containerWitPanel.BackColor = System.Drawing.Color.Gray;
+                containerWitPanel.BackColor = System.Drawing.Color.WhiteSmoke;
 
                 containerWitPanel.Name = "containerWitPanel";
                 containerWitPanel.Size = new System.Drawing.Size(200, 30);

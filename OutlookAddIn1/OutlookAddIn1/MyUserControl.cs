@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using _OutlookAddIn1.Auth;
 using _OutlookAddIn1.witcontrols;
 using _OutlookAddIn1.TextBoxControls;
+using System.Threading;
+using _OutlookAddIn1.controls;
 
 namespace _OutlookAddIn1
 {
@@ -50,8 +52,8 @@ namespace _OutlookAddIn1
            
             // hide the treeview brfore successfull login
             myCustomTreeView.Visible = false;
-           
 
+            
             // Create two StatusBarPanel objects to display in the StatusBar.
             StatusBarPanel networkStatusPanel = new StatusBarPanel();
             StatusBarPanel dateTimePanel = new StatusBarPanel();
@@ -63,14 +65,19 @@ namespace _OutlookAddIn1
             logoutPanel.Name = "logout";
             logoutPanel.Width = 40;
             logoutPanel.Alignment = HorizontalAlignment.Center;
-            logoutPanel.Icon = Resource.logout;
+            logoutPanel.Icon = Resource.Power;
 
             StatusBarPanel refreshPanel = new StatusBarPanel();
             refreshPanel.Name = "refresh";
             refreshPanel.Width = 40;
             refreshPanel.Alignment = HorizontalAlignment.Center;
-            refreshPanel.Icon = Resource.refresh;
-          
+            refreshPanel.Icon = Resource.refreshgray;
+
+            StatusBarPanel wpIconPanel = new StatusBarPanel();
+            wpIconPanel.Name = "wpiconPanel";
+            wpIconPanel.Width = 160;
+            wpIconPanel.Alignment = HorizontalAlignment.Center;
+            wpIconPanel.Icon = Resource.wplogo;
 
             networkStatusPanel.AutoSize = StatusBarPanelAutoSize.Spring;
             dateTimePanel.BorderStyle = StatusBarPanelBorderStyle.Raised;
@@ -86,10 +93,12 @@ namespace _OutlookAddIn1
             {
                 networkStatusPanel.Text = "connected";
                 networkStatusPanelIcon.Icon = Resource.connectedicon;
+                networkStatusPanelIcon.Alignment = HorizontalAlignment.Center;
             }
             else {
                 networkStatusPanel.Text = "disconnected";
                 networkStatusPanelIcon.Icon = Resource.disconnectedicon;
+                networkStatusPanelIcon.Alignment = HorizontalAlignment.Center;
             }
 
             // Display panels in the StatusBar control.
@@ -99,8 +108,9 @@ namespace _OutlookAddIn1
             // Add both panels to the StatusBarPanelCollection of the StatusBar.			
             statusBar1.Panels.Add(logoutPanel);
             statusBar1.Panels.Add(refreshPanel);
-            statusBar1.Panels.Add(networkStatusPanelIcon);
+            statusBar1.Panels.Add(networkStatusPanelIcon);           
             statusBar1.Panels.Add(dateTimePanel);
+            statusBar1.Panels.Add(wpIconPanel);
 
             // Add the StatusBar to the form.
 
@@ -116,7 +126,7 @@ namespace _OutlookAddIn1
                     MessageBox.Show("User not loggedin");
                 }
                 else {
-                    refreshDatabase();
+                    refreshDatabaseThread();
                 }
 
                
@@ -152,10 +162,8 @@ namespace _OutlookAddIn1
         private void logout()
         {
 
-
             this.Controls.Remove(pnlMenu);
             this.Controls.Remove(witsPanel);
-            this.Controls.Remove(myRichTextBox);
             this.Controls.Remove(myCustomTreeView);
 
 
@@ -195,45 +203,60 @@ namespace _OutlookAddIn1
             listView.SmallImageList = imgList;
         }
 
+        private void refreshDatabaseThread() {
+
+            Thread thread = new Thread(new ThreadStart(refreshDatabase));
+            thread.Start();
+
+        }
+
         private void refreshDatabase()
         {
 
-            RestClientLogin clientLogin = new RestClientLogin();
-            RootObject userObject = clientLogin.login(userName, password);
-
-            userDBConnector = new UserDBConnector(userName);
-            mainDBConnector = new MainDBConnector();
-
-            mainDBConnector.prepareMainDBSchema(userObject);
-            userDBConnector.prepareUserDBSchema(userObject);
-            appDataPath = userDBConnector.appPath;
-
-            AccessTokenDao accessTokenDao = new AccessTokenDao();
-            userObject.accessToken.id = Utilities.GUIDGenerator.getGUID();
-            accessTokenDao.saveAccessToken(userObject.accessToken);
-
-            UserWorkspaceDao workspaceDao = new UserWorkspaceDao(appDataPath);
-            workspaceDao.saveWorkspaces(userObject.userProfile.userWorkspaces);
-
-            if (workspaceDao.getWorkspaceNameList() != null && workspaceDao.getWorkspaceNameList().Count != 0)
+            try
             {
-                List<UserWorkspace> workspaces = workspaceDao.getWorkspaceList();
-                List<Folder> allFolderList = new List<Folder>();        
-                foreach (var workspace in workspaces)
+
+                RestClientLogin clientLogin = new RestClientLogin();
+                RootObject userObject = clientLogin.login(userName, password);
+
+                userDBConnector = new UserDBConnector(userName);
+                mainDBConnector = new MainDBConnector();
+
+                mainDBConnector.prepareMainDBSchema(userObject);
+                userDBConnector.prepareUserDBSchema(userObject);
+                appDataPath = userDBConnector.appPath;
+
+                AccessTokenDao accessTokenDao = new AccessTokenDao();
+                userObject.accessToken.id = Utilities.GUIDGenerator.getGUID();
+                accessTokenDao.saveAccessToken(userObject.accessToken);
+
+                UserWorkspaceDao workspaceDao = new UserWorkspaceDao(appDataPath);
+                workspaceDao.saveWorkspaces(userObject.userProfile.userWorkspaces);
+
+                if (workspaceDao.getWorkspaceNameList() != null && workspaceDao.getWorkspaceNameList().Count != 0)
                 {
-                    RestClientFolder restClientFolder = new RestClientFolder(appDataPath);
-                    restClientFolder.getAllFolders(userObject.accessToken.tokenValue, workspace.WorkspaceId, 0, allFolderList);
+                    List<UserWorkspace> workspaces = workspaceDao.getWorkspaceList();
+                    List<Folder> allFolderList = new List<Folder>();
+                    foreach (var workspace in workspaces)
+                    {
+                        RestClientFolder restClientFolder = new RestClientFolder(appDataPath);
+                        restClientFolder.getAllFolders(userObject.accessToken.tokenValue, workspace.WorkspaceId, 0, allFolderList);
+                    }
+
+                    FolderDao folderDao = new FolderDao(appDataPath);
+                    folderDao.saveAllFolders(allFolderList);
                 }
 
-                FolderDao folderDao = new FolderDao(appDataPath);
-                folderDao.saveAllFolders(allFolderList);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error occured while refreshing data:" + e.Message);
+               
             }
 
         }
         private void button1_Click_1(object sender, EventArgs e)
         {
-
-           
 
             Panel witsPanel = this.witsPanel;
             witsPanel.Visible = false;
@@ -309,13 +332,53 @@ namespace _OutlookAddIn1
                         childPanel.Controls.Add(button8);               
                         panel.Controls.Add(childPanel);
 
+
                     }
                 }
 
+                // add search box to the workspace panel
+                Panel searchBoxPanel = new Panel();
+                searchBoxPanel.AutoSize = true;
+                searchBoxPanel.Dock = System.Windows.Forms.DockStyle.Top;
+                searchBoxPanel.Location = new System.Drawing.Point(0, 0);
+                searchBoxPanel.Name = "searchBoxPanel";              
+                searchBoxPanel.TabIndex = 1;
+                searchBoxPanel.BackColor = System.Drawing.Color.LightGray;
+
+                Image searchImage = Resource.searchImage;
+                PictureBox searchpb = new PictureBox();
+                searchpb.Image = searchImage;
+                searchpb.Location = new System.Drawing.Point(152, 9);
+                searchpb.Size = new System.Drawing.Size(40, 40);
+
+                CustomTextBox searchBox = new CustomTextBox();
+                searchBox.GotFocus  += searchTextBoxHandler;
+                searchBox.LostFocus += searchTextBoxHandler;
+
+                CustomMainButton folderButton = new CustomMainButton();
+                folderButton.Text = "Folders";
+                folderButton.Location = new System.Drawing.Point(190, 8);
+
+                CustomMainButton tagButton = new CustomMainButton();
+                tagButton.Text = "Tags";
+                tagButton.Location = new System.Drawing.Point(270, 8);
+
+                CustomMainButton searchButton = new CustomMainButton();
+                searchButton.Text = "Search";
+                searchButton.Location = new System.Drawing.Point(350, 8);
+
+
+                searchBoxPanel.Controls.Add(searchBox);
+                searchBoxPanel.Controls.Add(searchpb);
+                searchBoxPanel.Controls.Add(folderButton);
+                searchBoxPanel.Controls.Add(tagButton);
+                searchBoxPanel.Controls.Add(searchButton);
+
+                panel.Controls.Add(searchBoxPanel);
 
                 // make the backgroud color silver so that if clicks for wits
                 // backgroud should should not look odd
-                this.BackColor = System.Drawing.Color.Silver;
+                this.BackColor = System.Drawing.Color.WhiteSmoke;
 
                 // clear all the controls from the widget and show only listview
                 afterLogin();
@@ -348,8 +411,23 @@ namespace _OutlookAddIn1
 
         }
 
-        // It is used to collapse and expand the workspaces to show and hide folders
-        void workspaceButtonHandler(object sender, EventArgs e)
+        void searchTextBoxHandler(object sender, EventArgs e)
+        {
+            CustomTextBox searchTextBox = (CustomTextBox)sender;
+            if (searchTextBox.Text.Trim() == "")
+            {
+                searchTextBox.Text = "Enter Keywords to Search";
+            }
+            else if(searchTextBox.Text == "Enter Keywords to Search")
+            {
+                searchTextBox.Text = "";
+            }
+           
+
+        }
+
+            // It is used to collapse and expand the workspaces to show and hide folders
+            void workspaceButtonHandler(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
             Panel clickedPanel = (Panel)((Button)sender).Parent;
@@ -377,7 +455,7 @@ namespace _OutlookAddIn1
                 childPanel.Name = "childPanel";
                 childPanel.Size = new System.Drawing.Size(200, 104);
                 childPanel.TabIndex = 1;
-                childPanel.BackColor = System.Drawing.Color.Silver;
+                childPanel.BackColor = System.Drawing.Color.WhiteSmoke;
                 childPanel.Controls.Add(myCustomTreeView);
                 clickedPanel.Controls.Add(childPanel);
 

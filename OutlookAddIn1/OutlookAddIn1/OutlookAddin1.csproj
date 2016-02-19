@@ -231,17 +231,16 @@
     <Compile Include="Auth\AccessToken.cs" />
     <Compile Include="Auth\AccessTokenDao.cs" />
     <Compile Include="CheckNetConnection.cs" />
+    <Compile Include="controls\CustomMainButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="controls\CustomTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CustomButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CustomPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CustomListView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CustomListViewItem.cs" />
-    <Compile Include="CustomRichTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CustomTreeNode.cs" />
@@ -421,7 +420,7 @@
     <EmbeddedResource Include="Images\wp.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="controls\" />
+    <None Include="Resources\searchIcon.ico" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icons\animatedCircle.gif" />
@@ -441,10 +440,34 @@
     <None Include="Resources\logout.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\grayfolder.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wpicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\index.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wplogo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wplogo-1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Power.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\refresh.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\grayfolder.ico" />
+    <None Include="Resources\39-48.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refreshgray.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\upload%281%29.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

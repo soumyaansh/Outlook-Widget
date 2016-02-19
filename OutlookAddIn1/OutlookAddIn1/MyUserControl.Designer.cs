@@ -45,7 +45,6 @@ namespace _OutlookAddIn1
             this.witsPanel = new _OutlookAddIn1.CustomPanel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.myRichTextBox = new _OutlookAddIn1.CustomRichTextBox();
             this.myCustomTreeView = new _OutlookAddIn1.CustomTreeView();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -151,7 +150,7 @@ namespace _OutlookAddIn1
             // witsPanel
             // 
             this.witsPanel.AutoScroll = true;
-            this.witsPanel.BackColor = System.Drawing.Color.Silver;
+            this.witsPanel.BackColor = System.Drawing.Color.WhiteSmoke;
             this.witsPanel.Controls.Add(this.statusStrip1);
             this.witsPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.witsPanel.Location = new System.Drawing.Point(0, 0);
@@ -175,19 +174,7 @@ namespace _OutlookAddIn1
             // 
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
             this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 22);
-            // 
-            // myRichTextBox
-            // 
-            this.myRichTextBox.BackColor = System.Drawing.Color.White;
-            this.myRichTextBox.Font = new System.Drawing.Font("Arial", 10F);
-            this.myRichTextBox.Location = new System.Drawing.Point(0, 0);
-            this.myRichTextBox.Name = "myRichTextBox";
-            this.myRichTextBox.ReadOnly = true;
-            this.myRichTextBox.Size = new System.Drawing.Size(460, 650);
-            this.myRichTextBox.TabIndex = 9;
-            this.myRichTextBox.Text = "";
-            // hide it as we are not using it anymore
-            this.myRichTextBox.Visible = false;
+          
 
             // 
             // myCustomTreeView
@@ -226,7 +213,6 @@ namespace _OutlookAddIn1
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pnlMenu);
             this.Controls.Add(this.witsPanel);
-            this.Controls.Add(this.myRichTextBox);
             this.Name = "MyUserControl";
             this.Size = new System.Drawing.Size(460, 700);
             this.Load += new System.EventHandler(this.MyUserControl_Load);
@@ -253,7 +239,6 @@ namespace _OutlookAddIn1
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         public CustomTreeView myCustomTreeView;
-        public CustomRichTextBox myRichTextBox;
         public CustomPanel pnlMenu;
         public CustomPanel witsPanel;
         private StatusStrip statusStrip1;

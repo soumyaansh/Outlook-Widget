@@ -10,10 +10,10 @@ namespace _OutlookAddIn1
     public class CustomWitPanel : Panel
     {
 
-       public  CustomWitPanel() {
+       public CustomWitPanel() {
 
             AutoSize = true;
-            BackColor = System.Drawing.Color.Gray;
+            BackColor = System.Drawing.Color.DarkGray;
             Dock = System.Windows.Forms.DockStyle.Top;
             Location = new System.Drawing.Point(0, 0);
             Name = "customWitPanel";
