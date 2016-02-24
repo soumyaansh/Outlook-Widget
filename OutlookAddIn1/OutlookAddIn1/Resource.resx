@@ -450,4 +450,52 @@ into   docs
   <data name="searchImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\upload(1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="awiconfont" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\awiconfont.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="login_bg_image_1x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\widget_login_BG_image_1x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="login_bg_image_2x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\widget_login_BG_image_2x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="list_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\list_icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="witIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\witIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ws16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\ws16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mail_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\mail_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mail_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\mail_24px.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mail_24px1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\mail_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="paste_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\paste_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="paste_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\paste_24px.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="paste_24px1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\paste_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="post_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\post_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="post_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\post_24px.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="post_24px1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\post_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ws128Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\ws128Icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

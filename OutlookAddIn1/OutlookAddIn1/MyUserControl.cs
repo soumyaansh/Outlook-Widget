@@ -25,7 +25,7 @@ namespace _OutlookAddIn1
         public String appDataPath = null;
         public String userName = null;
         public String password = null;
-        String wsIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\list2.ico";
+        String wsIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\list_icon.ico";
         String folderIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\blackfolder.ico";
         String mailIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\mail.ico";
         String backIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\back.ico";
@@ -150,10 +150,7 @@ namespace _OutlookAddIn1
             this.Controls.Remove(textBox2);
             this.Controls.Remove(button1);
             this.Controls.Remove(label1);
-            this.Controls.Remove(label2);
-            this.Controls.Remove(label3);
-            this.Controls.Remove(pictureBox1);
-            this.Controls.Remove(pictureBox2);
+   
             this.Controls.Remove(checkBox1);
             myCustomTreeView.Visible = true;
         }
@@ -171,10 +168,7 @@ namespace _OutlookAddIn1
             textBox2.Visible = true;
             button1.Visible = true;
             label1.Visible = true;
-            label2.Visible = true;
-            label3.Visible = true;
-            pictureBox1.Visible = true;
-            pictureBox2.Visible = true;
+           
             checkBox1.Visible = true;
 
            
@@ -264,9 +258,6 @@ namespace _OutlookAddIn1
             Panel panel = this.pnlMenu;
             panel.Visible = true;
 
-            label3.Visible = false;
-            pictureBox2.Visible = false;
-
             // get the username and pasword from the widget
             var userName = textBox1.Text;
             var password = textBox2.Text;
@@ -277,9 +268,13 @@ namespace _OutlookAddIn1
             this.userName = userName;
             this.password = password;
 
-         
-            // for testing only 
-            //refreshDatabase();
+
+            // check if the db is already present or not
+            userDBConnector = new UserDBConnector(userName);
+            if (!userDBConnector.isDataBaseExists()) {
+                refreshDatabase();
+            }
+           
 
             userDBConnector = new UserDBConnector(userName);
             appDataPath =  userDBConnector.prepareAppLocalSchema();
@@ -300,28 +295,13 @@ namespace _OutlookAddIn1
                     {
 
                         // loop through all the workspaces and get the folders of the workspaces
-                      
-                        CustomButton button8 = new CustomButton();
-                        button8.Text = " " + workspace.Name;
-                        button8.BackColor = System.Drawing.Color.Gray;
-                        button8.Dock = System.Windows.Forms.DockStyle.Top;
-                        button8.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-                        button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-                        button8.Location = new System.Drawing.Point(0, 75);
-                        button8.Name = "button8";
-                        button8.Size = new System.Drawing.Size(200, 60);
-                        button8.Image = new Bitmap(wsIcon);
-                        button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-                        button8.TabIndex = 1;
 
-                        button8.ForeColor = System.Drawing.Color.Silver;
-                        button8.Font = new System.Drawing.Font("Arial", 10, System.Drawing.FontStyle.Regular);
-                        button8.TextImageRelation = TextImageRelation.ImageBeforeText;
-                        button8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-                        button8.UseVisualStyleBackColor = false;
-                        button8.Click += workspaceButtonHandler;
+                        CustomWorkspaceButton workspaceButton = new CustomWorkspaceButton();
+                        workspaceButton.Text = " " + workspace.Name;
+                        workspaceButton.Image = new Bitmap(wsIcon);
+                        workspaceButton.Click += workspaceButtonHandler;
 
-                        Panel childPanel = new Panel();
+                        CustomWorkspacePanel childPanel = new CustomWorkspacePanel();
                         childPanel.AutoScrollMargin = new System.Drawing.Size(0, 400);
                         childPanel.AutoSize = true;
                         childPanel.Dock = System.Windows.Forms.DockStyle.Top;
@@ -329,7 +309,8 @@ namespace _OutlookAddIn1
                         childPanel.Name = "childPanel";
                         childPanel.Size = new System.Drawing.Size(200, 104);
                         childPanel.TabIndex = 1;
-                        childPanel.Controls.Add(button8);               
+                        childPanel.Controls.Add(workspaceButton);
+                        
                         panel.Controls.Add(childPanel);
 
 
@@ -351,13 +332,15 @@ namespace _OutlookAddIn1
                 searchpb.Location = new System.Drawing.Point(152, 9);
                 searchpb.Size = new System.Drawing.Size(40, 40);
 
-                CustomTextBox searchBox = new CustomTextBox();
+                CustomSearchTextBox searchBox = new CustomSearchTextBox();
                 searchBox.GotFocus  += searchTextBoxHandler;
                 searchBox.LostFocus += searchTextBoxHandler;
 
                 CustomMainButton folderButton = new CustomMainButton();
                 folderButton.Text = "Folders";
                 folderButton.Location = new System.Drawing.Point(190, 8);
+                folderButton.BackColor = System.Drawing.Color.Gray;  // initially by default show it as selected.
+                folderButton.ForeColor = System.Drawing.Color.WhiteSmoke;  // when it is selected show the forecolor white.
 
                 CustomMainButton tagButton = new CustomMainButton();
                 tagButton.Text = "Tags";
@@ -366,7 +349,6 @@ namespace _OutlookAddIn1
                 CustomMainButton searchButton = new CustomMainButton();
                 searchButton.Text = "Search";
                 searchButton.Location = new System.Drawing.Point(350, 8);
-
 
                 searchBoxPanel.Controls.Add(searchBox);
                 searchBoxPanel.Controls.Add(searchpb);
@@ -413,12 +395,12 @@ namespace _OutlookAddIn1
 
         void searchTextBoxHandler(object sender, EventArgs e)
         {
-            CustomTextBox searchTextBox = (CustomTextBox)sender;
+            CustomSearchTextBox searchTextBox = (CustomSearchTextBox)sender;
             if (searchTextBox.Text.Trim() == "")
             {
-                searchTextBox.Text = "Enter Keywords to Search";
+                searchTextBox.Text = "Keywords";
             }
-            else if(searchTextBox.Text == "Enter Keywords to Search")
+            else if(searchTextBox.Text == "Keywords")
             {
                 searchTextBox.Text = "";
             }
@@ -426,12 +408,41 @@ namespace _OutlookAddIn1
 
         }
 
-            // It is used to collapse and expand the workspaces to show and hide folders
-            void workspaceButtonHandler(object sender, EventArgs e)
+        void loginTextBoxGetHandler(object sender, EventArgs e)
+        {
+            TextBox loginTextBox = (TextBox)sender;
+            if (loginTextBox.Text == "Username" || loginTextBox.Text == "Password")
+            {
+                loginTextBox.Text = "";
+            }
+        }
+
+        void loginTextBoxLostHandler(object sender, EventArgs e)
+        {
+            TextBox loginTextBox = (TextBox)sender;
+
+            if (loginTextBox.Name == "username")
+            {
+
+                if (loginTextBox.Text.Trim() == "")
+                {
+                    loginTextBox.Text = "Username";
+                }
+            } else if (loginTextBox.Name == "password")
+            {
+                if (loginTextBox.Text.Trim() == "")
+                {
+                    loginTextBox.Text = "Password";
+                }
+            }
+
+        }
+
+        // It is used to collapse and expand the workspaces to show and hide folders
+        void workspaceButtonHandler(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
-            Panel clickedPanel = (Panel)((Button)sender).Parent;
-
+            CustomWorkspacePanel clickedPanel = (CustomWorkspacePanel)((Button)sender).Parent;
 
             // check if the panel is already expanded, then clear all child
             if (clickedPanel.Controls.Count > 1)

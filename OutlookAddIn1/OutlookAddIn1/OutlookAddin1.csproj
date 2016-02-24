@@ -143,6 +143,10 @@
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -234,10 +238,13 @@
     <Compile Include="controls\CustomMainButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="controls\CustomTextBox.cs">
+    <Compile Include="controls\CustomSearchTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CustomButton.cs">
+    <Compile Include="controls\CustomWorkspacePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomWorkspaceButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CustomPanel.cs">
@@ -248,6 +255,7 @@
     <Compile Include="Model\Docs.cs" />
     <Compile Include="Model\TagVo.cs" />
     <Compile Include="Model\WitsInfo.cs" />
+    <Compile Include="Rest\RestApiSync.cs" />
     <Compile Include="Settings1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -257,6 +265,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="TextBoxControls\CustomMailButtonPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Utilities\FontUtilities.cs" />
+    <Compile Include="witcontrols\AcronymField.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="witcontrols\ControlFactory.cs" />
@@ -370,6 +382,7 @@
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>
     </Compile>
+    <None Include="Resources\awiconfont.ttf" />
     <None Include="Resources\test.db" />
     <None Include="Settings1.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -468,6 +481,51 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\upload%281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\widget_login_BG_image_2x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\widget_login_BG_image_1x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ws16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\list_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\witIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ws128Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mail_24px.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\paste_24px.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\post_24px.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mail_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\paste_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\post_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mail_16px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\paste_16px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\post_16px.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

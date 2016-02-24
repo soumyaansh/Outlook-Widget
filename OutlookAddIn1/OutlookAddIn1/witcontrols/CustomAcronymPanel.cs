@@ -14,8 +14,8 @@ namespace _OutlookAddIn1.witcontrols
           
             AutoSize = true;
             BackColor = System.Drawing.Color.Silver;
-            Dock = System.Windows.Forms.DockStyle.Top;
-            Size = new System.Drawing.Size(20, 200);
+            Dock = DockStyle.Fill;
+            Size = new System.Drawing.Size(200, 20);
             TabIndex = 1;
 
 

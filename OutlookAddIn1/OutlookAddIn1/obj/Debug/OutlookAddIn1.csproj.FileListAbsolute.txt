@@ -44,3 +44,6 @@ C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\Outlook
 C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\obj\Debug\OutlookAddIn1.dll
 C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\obj\Debug\OutlookAddIn1.pdb
 C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\obj\Debug\OutlookAddIn1.csprojResolveAssemblyReference.cache
+C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\bin\Debug\HtmlAgilityPack.dll
+C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\bin\Debug\HtmlAgilityPack.xml

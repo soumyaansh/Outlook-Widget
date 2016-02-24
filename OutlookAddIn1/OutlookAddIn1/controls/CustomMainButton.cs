@@ -12,7 +12,7 @@ namespace _OutlookAddIn1.controls
 
         public CustomMainButton() {
 
-            ForeColor = System.Drawing.Color.Gray;
+            ForeColor = System.Drawing.Color.FromArgb(64,64,64);
             Size = new System.Drawing.Size(80, 30);
             FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             //BorderStyle = System.Windows.Forms.BorderStyle.None;

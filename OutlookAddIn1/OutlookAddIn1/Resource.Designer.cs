@@ -81,6 +81,16 @@ namespace _OutlookAddIn1 {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] awiconfont {
+            get {
+                object obj = ResourceManager.GetObject("awiconfont", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon blackfolder {
@@ -353,10 +363,70 @@ namespace _OutlookAddIn1 {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
+        internal static System.Drawing.Icon list_icon {
+            get {
+                object obj = ResourceManager.GetObject("list_icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap login_bg_image_1x {
+            get {
+                object obj = ResourceManager.GetObject("login_bg_image_1x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap login_bg_image_2x {
+            get {
+                object obj = ResourceManager.GetObject("login_bg_image_2x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
         internal static System.Drawing.Icon logout {
             get {
                 object obj = ResourceManager.GetObject("logout", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mail_16px {
+            get {
+                object obj = ResourceManager.GetObject("mail_16px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon mail_24px {
+            get {
+                object obj = ResourceManager.GetObject("mail_24px", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mail_24px1 {
+            get {
+                object obj = ResourceManager.GetObject("mail_24px1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -415,6 +485,36 @@ namespace _OutlookAddIn1 {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap paste_16px {
+            get {
+                object obj = ResourceManager.GetObject("paste_16px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon paste_24px {
+            get {
+                object obj = ResourceManager.GetObject("paste_24px", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap paste_24px1 {
+            get {
+                object obj = ResourceManager.GetObject("paste_24px1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CREATE TABLE permission(code VARCHAR PRIMARY KEY,name VARCHAR DEFAULT NULL,description VARCHAR DEFAULT NULL,authority VARCHAR DEFAULT NULL);.
         /// </summary>
         internal static string permission {
@@ -430,6 +530,36 @@ namespace _OutlookAddIn1 {
             get {
                 object obj = ResourceManager.GetObject("plus", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap post_16px {
+            get {
+                object obj = ResourceManager.GetObject("post_16px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon post_24px {
+            get {
+                object obj = ResourceManager.GetObject("post_24px", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap post_24px1 {
+            get {
+                object obj = ResourceManager.GetObject("post_24px1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -674,6 +804,16 @@ namespace _OutlookAddIn1 {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon witIcon {
+            get {
+                object obj = ResourceManager.GetObject("witIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CREATE TABLE wits
         ///  (
         ///     id                VARCHAR PRIMARY KEY,
@@ -767,6 +907,26 @@ namespace _OutlookAddIn1 {
         internal static System.Drawing.Icon ws {
             get {
                 object obj = ResourceManager.GetObject("ws", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon ws128Icon {
+            get {
+                object obj = ResourceManager.GetObject("ws128Icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon ws16 {
+            get {
+                object obj = ResourceManager.GetObject("ws16", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

@@ -10,17 +10,15 @@ namespace _OutlookAddIn1.witcontrols
 {
     public class CustomWitIconButton : Button
     {
-        public CustomWitIconButton(String icon, AnchorStyles style, Color color) {
+        public CustomWitIconButton(Image iconImage, AnchorStyles style, Color color) {
 
-            Size = new System.Drawing.Size(25, 20);
+            Size = new System.Drawing.Size(25, 28);
             Anchor = style;
             FlatStyle = FlatStyle.Flat;
             BackColor = color;
             FlatAppearance.BorderColor = color;
-            //BackColor =  System.Drawing.Color.Silver;
-            // FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            Image = new Bitmap(icon);
-
+            Image = iconImage;
+            
         }
 
 

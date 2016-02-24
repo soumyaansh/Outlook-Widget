@@ -57,7 +57,7 @@ namespace _OutlookAddIn1
                     (Microsoft.Office.Interop.Outlook.MailItem)outlookApp.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olMailItem);
 
                     email.BodyFormat = Microsoft.Office.Interop.Outlook.OlBodyFormat.olFormatRichText;
-                    email.HTMLBody = witBody + reply.Body;
+                    email.HTMLBody = witBody + reply.HTMLBody;
                    
                     email.To = mail.SenderEmailAddress;
                     email.Subject = reply.Subject;

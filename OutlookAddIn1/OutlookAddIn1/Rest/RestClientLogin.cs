@@ -22,7 +22,7 @@ namespace _OutlookAddIn1
                 MessageBox.Show("invalid User credentials");
             }
 
-            IRestResponse response = null;
+           
             var client = new RestClient("http://52.3.104.221:8080/wittyparrot/api/auth/login");
             var strJSONContent = "{\"userId\":\"" + username + "\" ,\"password\":\"" + password + "\"}";
             
@@ -34,17 +34,17 @@ namespace _OutlookAddIn1
             request.RequestFormat = DataFormat.Json;
             request.AddHeader("Content-Type", "application/json");
 
-                // execute the request
-                response = client.Execute(request);
-                if (response.StatusCode.ToString() != "OK") {
-
-                    var statusMessage = RestUtils.getErrorMessage(response.StatusCode);
-                    MessageBox.Show(statusMessage ==""? "Invalid input" : statusMessage);
-                    throw new RestCallException(statusMessage == null ? "" : statusMessage, response.ErrorMessage == null ? "" : response.ErrorMessage);
-                }
-            
+            // execute the request
+            IRestResponse response = client.Execute(request);
+            if (response.ErrorException != null)
+            {
+                var statusMessage = RestUtils.getErrorMessage(response.StatusCode);
+                MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);
+                var myException = new ApplicationException(response.StatusDescription, response.ErrorException);
+                throw myException;
+            }
+           
             var content = response.Content;
-
             RootObject rootObj = new RootObject();
             rootObj = JsonConvert.DeserializeObject<RootObject>(content);
             return rootObj;

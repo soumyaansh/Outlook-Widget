@@ -27,6 +27,21 @@ namespace _OutlookAddIn1
             userName = username;
         }
 
+        public bool isDataBaseExists()
+        {
+
+            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var path = Path.Combine(appDataPath, "wpoutlookwidget" + @"\" + userName.ToString().GetHashCode() + @"\");
+
+            if (!Directory.Exists(path))
+            {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
 
         private void ExecuteUserDBQuery(string txtQuery,String path)
         {
