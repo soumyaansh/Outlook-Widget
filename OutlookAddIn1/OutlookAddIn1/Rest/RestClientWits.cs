@@ -12,15 +12,22 @@ using _OutlookAddIn1.Auth;
 using _OutlookAddIn1.Model;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using _OutlookAddIn1.Utilities;
 
 namespace _OutlookAddIn1
 {
     class RestClientWits
     {
 
+        String path = null;
+        public RestClientWits(String path)
+        {
+            this.path = path;
+        }
+
         public List<Wits> getFolderWits(String parentFolderId)
         {
-            AccessTokenDao accesstokenDao = new AccessTokenDao();
+            AccessTokenDao accesstokenDao = new AccessTokenDao(path);
             String token = accesstokenDao.getAccessToken();
 
             String url = "http://52.3.104.221:8080/wittyparrot/api/wits/folder/" + parentFolderId + "/children";
@@ -36,6 +43,14 @@ namespace _OutlookAddIn1
             // execute the request
             IRestResponse response = client.Execute(request);
             String content = response.Content;
+
+            if (response.ErrorException != null)
+            {
+                var statusMessage = RestUtils.getErrorMessage(response.StatusCode);
+                MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);
+                var myException = new ApplicationException(response.StatusDescription, response.ErrorException);
+                throw myException;
+            }
 
             List<Wits> childWits = new List<Wits>();
             childWits = JsonConvert.DeserializeObject<List<Wits>>(content);
@@ -60,7 +75,7 @@ namespace _OutlookAddIn1
         private String getWitContent(string witId)
         {
 
-            AccessTokenDao accesstokenDao = new AccessTokenDao();
+            AccessTokenDao accesstokenDao = new AccessTokenDao(path);
             String token = accesstokenDao.getAccessToken();
 
             String url = "http://52.3.104.221:8080/wittyparrot/api/wits/" + witId + "";
@@ -76,6 +91,14 @@ namespace _OutlookAddIn1
             // execute the request
             IRestResponse response = client.Execute(request);
             String content = response.Content;
+
+            if (response.ErrorException != null)
+            {
+                var statusMessage = RestUtils.getErrorMessage(response.StatusCode);
+                //MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);
+                var myException = new ApplicationException(response.StatusDescription, response.ErrorException);
+                throw myException;
+            }
 
             WitsInfo witsInfo = new WitsInfo();
             WitsInfo ad = JsonConvert.DeserializeObject<WitsInfo>(content);
@@ -96,7 +119,7 @@ namespace _OutlookAddIn1
 
     public void getAttachment(String witId, String fileAssociationId, String fileName, String userProfilepath)
         {
-            AccessTokenDao accesstokenDao = new AccessTokenDao();
+            AccessTokenDao accesstokenDao = new AccessTokenDao(path);
             String token = accesstokenDao.getAccessToken();
 
             String url = "http://52.3.104.221:8080/wittyparrot/api/attachments/associationId/" + fileAssociationId + "";
@@ -113,8 +136,9 @@ namespace _OutlookAddIn1
             IRestResponse response = client.Execute(request);
             if (response.ErrorException != null)
             {
-                const string message = "Error retrieving attachment.";
-                var myException = new ApplicationException(message, response.ErrorException);
+                var statusMessage = RestUtils.getErrorMessage(response.StatusCode);
+                //MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);
+                var myException = new ApplicationException(response.StatusDescription, response.ErrorException);
                 throw myException;
             }
 
@@ -142,7 +166,7 @@ namespace _OutlookAddIn1
 
     public List<AttachmentDetail> getWitsInfo(String witId)
         {
-            AccessTokenDao accesstokenDao = new AccessTokenDao();
+            AccessTokenDao accesstokenDao = new AccessTokenDao(path);
             String token = accesstokenDao.getAccessToken();
 
             String url = "http://52.3.104.221:8080/wittyparrot/api/wits/" + witId + "";
@@ -158,6 +182,14 @@ namespace _OutlookAddIn1
             // execute the request
             IRestResponse response = client.Execute(request);
             String content = response.Content;
+
+            if (response.ErrorException != null)
+            {
+                var statusMessage = RestUtils.getErrorMessage(response.StatusCode);
+                //MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);
+                var myException = new ApplicationException(response.StatusDescription, response.ErrorException);
+                throw myException;
+            }
 
             WitsInfo witsInfo = new WitsInfo();
             WitsInfo ad = JsonConvert.DeserializeObject<WitsInfo>(content);

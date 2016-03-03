@@ -20,26 +20,27 @@ namespace _OutlookAddIn1
         public String connectionUserDBPath = null;
         SQLiteConnection sql_con;
         SQLiteCommand sql_cmd;
-        
+
 
         public UserWorkspaceDao(String path)
         {
-            connectionUserDBPath = "Data Source=" + path + "\\userDB.sqlite;Version=3;";
+            connectionUserDBPath = "Data Source=" + path + "\\userDB.sqlite;Version=3;Journal Mode=Off;Legacy Format=True";
         }
 
 
         public void saveWorkspaces(List<UserWorkspace> workspaces)
-        {          
+        {
             foreach (var workspace in workspaces)
             {
                 saveWorkspace(workspace);
-            }  
+            }
         }
 
-        public void saveWorkspace(UserWorkspace workspace) {
-
+        public void saveWorkspace(UserWorkspace workspace)
+        {
+           
             var workspaceInsertQuery = Resource.ResourceManager.GetString("userworkspaces_insert");
-            sql_con = new SQLiteConnection(connectionUserDBPath);
+            sql_con = new SQLiteConnection(connectionUserDBPath, true);
             sql_cmd = new SQLiteCommand(workspaceInsertQuery, sql_con);
 
             sql_cmd.Parameters.Add("@id", DbType.String);
@@ -74,17 +75,17 @@ namespace _OutlookAddIn1
         {
             List<UserWorkspace> workspaces;
             var workspaceInsertQuery = Resource.ResourceManager.GetString("userworkspaces_select");
-            sql_con = new SQLiteConnection(connectionUserDBPath);
+            sql_con = new SQLiteConnection(connectionUserDBPath, true);
             sql_cmd = new SQLiteCommand(workspaceInsertQuery, sql_con);
 
             sql_con.Open();
             SQLiteDataReader reader = sql_cmd.ExecuteReader();
-            
+
 
             workspaces = new List<UserWorkspace>();
             while (reader.Read())
             {
-                
+
                 UserWorkspace ws = new UserWorkspace();
                 ws.WorkspaceId = StringUtils.ConvertFromDBVal<string>(reader["id"]);
                 ws.Name = StringUtils.ConvertFromDBVal<string>(reader["name"]);
@@ -93,7 +94,7 @@ namespace _OutlookAddIn1
                 ws.ModifiedDate = StringUtils.ConvertFromDBVal<string>(reader["modifiedDate"]);
                 ws.CreatedDate = StringUtils.ConvertFromDBVal<string>(reader["createdDate"]);
                 ws.SequenceNumber = StringUtils.ConvertFromDBVal<Int64>(reader["sequenceNumber"]);
-                
+
 
                 workspaces.Add(ws);
             }
@@ -106,7 +107,7 @@ namespace _OutlookAddIn1
         {
             List<String> workspaces;
             var workspaceInsertQuery = Resource.ResourceManager.GetString("userworkspaces_select");
-            sql_con = new SQLiteConnection(connectionUserDBPath);
+            sql_con = new SQLiteConnection(connectionUserDBPath, true);
             sql_cmd = new SQLiteCommand(workspaceInsertQuery, sql_con);
 
             sql_con.Open();
@@ -115,7 +116,7 @@ namespace _OutlookAddIn1
             workspaces = new List<String>();
             while (reader.Read())
             {
-                UserWorkspace ws = new UserWorkspace();              
+                UserWorkspace ws = new UserWorkspace();
                 ws.Name = StringUtils.ConvertFromDBVal<string>(reader["name"]);
                 workspaces.Add(ws.Name);
             }
@@ -127,7 +128,7 @@ namespace _OutlookAddIn1
         public UserWorkspace getByName(String workspaceName)
         {
             var workspaceInsertQuery = "select * from userworkspaces where name=@workspaceName";
-            sql_con = new SQLiteConnection(connectionUserDBPath);
+            sql_con = new SQLiteConnection(connectionUserDBPath, true);
             sql_cmd = new SQLiteCommand(workspaceInsertQuery, sql_con);
 
             sql_cmd.Parameters.Add("@workspaceName", DbType.String);
@@ -150,7 +151,7 @@ namespace _OutlookAddIn1
             }
             sql_con.Close();
             return ws;
-            }
-
         }
+
+    }
 }

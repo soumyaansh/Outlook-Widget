@@ -47,3 +47,5 @@ C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\Outlook
 C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\bin\Debug\HtmlAgilityPack.dll
 C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\bin\Debug\HtmlAgilityPack.pdb
 C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\bin\Debug\HtmlAgilityPack.xml
+C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\WittyParrot\documents\visual studio 2015\Projects\OutlookAddIn1\OutlookAddIn1\bin\Debug\System.Net.Http.Formatting.xml

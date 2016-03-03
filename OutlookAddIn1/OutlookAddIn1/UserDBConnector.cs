@@ -16,22 +16,31 @@ namespace _OutlookAddIn1
 {
     class UserDBConnector
     {
-        public  String userName = null;
-        public  String appPath = null;
-        private UserService userService;
-        private UserProfileService userProfileService;
+             
         private SQLiteConnection sql_con;
         private SQLiteCommand sql_cmd;
 
         public UserDBConnector(String username) {
-            userName = username;
+            Common.userName = username;
+            init();
+        }
+
+        public String init()
+        {
+            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var path = Path.Combine(appDataPath, "wpoutlookwidget" + @"\" + Common.userName.ToString().GetHashCode() + @"\");
+
+           
+            // saving into properties settings as a global variable
+            Common.localProfilePath = path;
+            return path;
         }
 
         public bool isDataBaseExists()
         {
 
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            var path = Path.Combine(appDataPath, "wpoutlookwidget" + @"\" + userName.ToString().GetHashCode() + @"\");
+            var path = Path.Combine(appDataPath, "wpoutlookwidget" + @"\" + Common.userName.ToString().GetHashCode() + @"\");
 
             if (!Directory.Exists(path))
             {
@@ -42,11 +51,26 @@ namespace _OutlookAddIn1
             }
         }
 
+        public void createLocalUserProfileFolder()
+        {
+
+            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var path = Path.Combine(appDataPath, "wpoutlookwidget" + @"\" + Common.userName.ToString().GetHashCode() + @"\");
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            
+        }
+
+
+
 
         private void ExecuteUserDBQuery(string txtQuery,String path)
         {
-            String connectionUserDBPath = "Data Source=" + path + "\\userDB.sqlite;Version=3;";
-            sql_con = new SQLiteConnection(connectionUserDBPath);
+            String connectionUserDBPath = "Data Source=" + path + "\\userDB.sqlite";
+            sql_con = new SQLiteConnection(connectionUserDBPath,true);
             sql_con.Open();
             sql_cmd = sql_con.CreateCommand();
             sql_cmd.CommandText = txtQuery;
@@ -54,35 +78,26 @@ namespace _OutlookAddIn1
             sql_con.Close();
         }
 
-        public String prepareAppLocalSchema()
-        {
+       
+
+        public String usePath() {
+
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            var path = Path.Combine(appDataPath, "wpoutlookwidget" +@"\" +userName.ToString().GetHashCode() + @"\");
-          
-
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-               
-            }
-
-            // saving into properties settings as a global variable
-            Common.path = path;
-            appPath = path;
+            var path = Path.Combine(appDataPath, "wpoutlookwidget" + @"\" + Common.userName.ToString().GetHashCode() + @"\");
+            
             return path;
         }
 
 
         public void prepareUserDBSchema(RootObject rootObj)
         {
-            String path = prepareAppLocalSchema();
-            userService = new UserService();
-            userProfileService = new UserProfileService();
 
-            if (!File.Exists(path + "\\userDB.sqlite"))
+            createLocalUserProfileFolder();
+
+            if (!File.Exists(Common.localProfilePath + "\\userDB.sqlite"))
             {
 
-                SQLiteConnection.CreateFile(path + "\\userDB.sqlite");
+                SQLiteConnection.CreateFile(Common.localProfilePath + "\\userDB.sqlite");
 
                 // create table queries
                 var commentQuery = Resource.ResourceManager.GetString("comments");
@@ -108,7 +123,7 @@ namespace _OutlookAddIn1
                 var userPackagesuery = Resource.ResourceManager.GetString("user_package");
                 var witAttachmentQuery = Resource.ResourceManager.GetString("wit_attachments");
                 var witTagsQuery = Resource.ResourceManager.GetString("wit_tags");
-                
+
                 var witsQuery = Resource.ResourceManager.GetString("wits");
                 var witsUsageQuery = Resource.ResourceManager.GetString("wits_usage");
                 var witsUsageGraphDataQuery = Resource.ResourceManager.GetString("witsusagegraph_data");
@@ -121,42 +136,40 @@ namespace _OutlookAddIn1
 
 
                 // create table 
-                this.ExecuteUserDBQuery(commentQuery, path);
-                this.ExecuteUserDBQuery(contactsQuery, path);
+                this.ExecuteUserDBQuery(commentQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(contactsQuery, Common.localProfilePath);
 
-                this.ExecuteUserDBQuery(contentExpiryQuery, path);
-                this.ExecuteUserDBQuery(docsQuery, path);
-                this.ExecuteUserDBQuery(eventRecordsQuery, path);
-                this.ExecuteUserDBQuery(foldersQuery, path);
+                this.ExecuteUserDBQuery(contentExpiryQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(docsQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(eventRecordsQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(foldersQuery, Common.localProfilePath);
 
-                this.ExecuteUserDBQuery(groupContactsuery, path);
-                this.ExecuteUserDBQuery(groupsQuery, path);
-                this.ExecuteUserDBQuery(notificationActionsQuery, path);
-                this.ExecuteUserDBQuery(notificationsQuery, path);
-                this.ExecuteUserDBQuery(packageQuery, path);
+                this.ExecuteUserDBQuery(groupContactsuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(groupsQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(notificationActionsQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(notificationsQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(packageQuery, Common.localProfilePath);
 
-                this.ExecuteUserDBQuery(packageFeatureQuery, path);
-                this.ExecuteUserDBQuery(socialMediaQuery, path);
-                this.ExecuteUserDBQuery(tagGroupsQuery, path);
-                this.ExecuteUserDBQuery(tagsQuery, path);
-                this.ExecuteUserDBQuery(topWitsQuery, path);
+                this.ExecuteUserDBQuery(packageFeatureQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(socialMediaQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(tagGroupsQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(tagsQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(topWitsQuery, Common.localProfilePath);
 
-                this.ExecuteUserDBQuery(userDefaultsQuery, path);
-                this.ExecuteUserDBQuery(userPackagesuery, path);
-                this.ExecuteUserDBQuery(witAttachmentQuery, path);
-                this.ExecuteUserDBQuery(witTagsQuery, path);
+                this.ExecuteUserDBQuery(userDefaultsQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(userPackagesuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(witAttachmentQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(witTagsQuery, Common.localProfilePath);
 
-                this.ExecuteUserDBQuery(witsQuery, path);
-                this.ExecuteUserDBQuery(witsUsageQuery, path);
-                this.ExecuteUserDBQuery(witsUsageGraphDataQuery, path);
-                this.ExecuteUserDBQuery(witsUsageGraphsQuery, path);
+                this.ExecuteUserDBQuery(witsQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(witsUsageQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(witsUsageGraphDataQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(witsUsageGraphsQuery, Common.localProfilePath);
 
-                this.ExecuteUserDBQuery(userWorkspacesQuery, path);
-                this.ExecuteUserDBQuery(createdbyQuery, path);
-                this.ExecuteUserDBQuery(modifiedbyQuery, path);
-                this.ExecuteUserDBQuery(permissionQuery, path);
-
-                // insert values 
+                this.ExecuteUserDBQuery(userWorkspacesQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(createdbyQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(modifiedbyQuery, Common.localProfilePath);
+                this.ExecuteUserDBQuery(permissionQuery, Common.localProfilePath);
 
             }
             else { }

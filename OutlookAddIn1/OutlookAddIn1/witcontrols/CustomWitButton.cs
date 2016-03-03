@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using _OutlookAddIn1.Utilities;
 
 namespace _OutlookAddIn1.witcontrols
 {
@@ -14,7 +16,8 @@ namespace _OutlookAddIn1.witcontrols
         public String fieldId { get; set; }
         public String fieldType { get; set; }
 
-        String wsIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\ws128Icon.ico";
+        //String wsIcon = Common.path + "/wpdependencies/list_icon.ico";
+        //String wsIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\witIcon.ico";
 
         public CustomWitButton() {
             
@@ -35,7 +38,13 @@ namespace _OutlookAddIn1.witcontrols
             TabIndex = 1;
             TextImageRelation = TextImageRelation.ImageBeforeText;
             TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            Image = new Bitmap(wsIcon);
+
+            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var path = Path.Combine(appDataPath, "wpoutlookwidget" + @"\");
+
+
+
+            Image = new Bitmap(path + "wpdependencies\\list_icon.ico");
             ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             UseVisualStyleBackColor = false;
 

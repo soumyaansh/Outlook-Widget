@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using _OutlookAddIn1.controls;
 
 namespace _OutlookAddIn1
 {
@@ -42,6 +43,8 @@ namespace _OutlookAddIn1
             this.myCustomTreeView = new _OutlookAddIn1.CustomTreeView();
             this.witsPanel.SuspendLayout();
             this.SuspendLayout();
+            this.searchBoxPanel = new SearchBoxPanel(this);
+
             // 
             // button1
             // 
@@ -57,7 +60,7 @@ namespace _OutlookAddIn1
             this.button1.TabIndex = 0;
             this.button1.Text = "Log In";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.button1.Click += new System.EventHandler(this.login);
             // 
             // textBox1
             // 
@@ -80,12 +83,15 @@ namespace _OutlookAddIn1
             this.textBox2.Location = new System.Drawing.Point(18, 148);
             this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Multiline = true;
+            this.textBox2.PasswordChar = '*';
+            this.textBox2.MaxLength = 20;
             this.textBox2.Name = "password";
             this.textBox2.Size = new System.Drawing.Size(246, 25);
             this.textBox2.TabIndex = 4;
             this.textBox2.Text = "Password";
             this.textBox2.GotFocus += loginTextBoxGetHandler;
             this.textBox2.LostFocus += loginTextBoxLostHandler;
+            this.textBox2.KeyDown += loginWhenEnter;
             // 
             // checkBox1
             // 
@@ -98,6 +104,7 @@ namespace _OutlookAddIn1
             this.checkBox1.TabIndex = 7;
             this.checkBox1.Text = "Stay Logged In";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.BackColor = System.Drawing.Color.Transparent;
             // 
             // pnlMenu
             // 
@@ -110,6 +117,12 @@ namespace _OutlookAddIn1
             this.pnlMenu.Name = "pnlMenu";
             this.pnlMenu.Size = new System.Drawing.Size(307, 0);
             this.pnlMenu.TabIndex = 1;
+
+
+            //
+            // searchBoxPanel
+            //
+
 
             // 
             // witsPanel
@@ -126,7 +139,7 @@ namespace _OutlookAddIn1
             this.witsPanelContainer.Size = new System.Drawing.Size(300, 665);
             this.witsPanelContainer.TabIndex = 1;
             this.witsPanelContainer.Visible = false;
-            //this.witsPanelContainer.Controls.Add(witsPanel);
+           // this.witsPanelContainer.Controls.Add(searchBoxPanel);
 
 
             this.witsPanel.AutoSize = false;  // keep it false so that scroll work
@@ -156,7 +169,8 @@ namespace _OutlookAddIn1
             this.label1.Size = new System.Drawing.Size(128, 45);
             this.label1.TabIndex = 8;
             this.label1.Text = "Log In";
-     
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+
 
             // 
             // myCustomTreeView
@@ -175,7 +189,6 @@ namespace _OutlookAddIn1
             this.myCustomTreeView.Size = new System.Drawing.Size(450, 428);
             this.myCustomTreeView.TabIndex = 9;
             this.myCustomTreeView.treeNode = null;
-            this.myCustomTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.myCustomTreeView_AfterSelect);
             // 
             // MyUserControl
             // 
@@ -215,5 +228,6 @@ namespace _OutlookAddIn1
         public CustomPanel witsPanel;
         public CustomPanel witsPanelContainer;
         private Label label1;
+        public SearchBoxPanel searchBoxPanel;
     }
 }

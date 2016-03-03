@@ -11,25 +11,30 @@ using System.Resources;
 using System.Data.SqlClient;
 using System.IO;
 using UserContext;
+using _OutlookAddIn1.Utilities;
 
 namespace _OutlookAddIn1.Auth
 {
     class AccessTokenDao
     {
 
-        public String connectionUserDBPath = "Data Source=" + "C:\\Users\\WittyParrot\\AppData\\Local\\WittyParrotWidget" + "\\userDB.sqlite;Version=3;";
+        public String connectionUserDBPath = null;
         SQLiteConnection sql_con;
         SQLiteCommand sql_cmd;
+        public AccessTokenDao(String path)
+        {
+            connectionUserDBPath = "Data Source=" + path + "\\userDB.sqlite;Version=3;Journal Mode=Off;Legacy Format=True";
+        }
 
         public void saveAccessToken(AccessToken token)
         {
 
             var accesstokenInsertQuery = Resource.ResourceManager.GetString("socialmedia_insert");
-            sql_con = new SQLiteConnection(connectionUserDBPath);
+            sql_con = new SQLiteConnection(connectionUserDBPath, true);
             sql_cmd = new SQLiteCommand(accesstokenInsertQuery, sql_con);
 
             sql_cmd.Parameters.Add("@id", DbType.String);
-            sql_cmd.Parameters["@id"].Value = token.id;
+            sql_cmd.Parameters["@id"].Value = Common.userName;
 
             sql_cmd.Parameters.Add("@socialMediaType", DbType.String);
             sql_cmd.Parameters["@socialMediaType"].Value = token.tokenType;
@@ -56,7 +61,7 @@ namespace _OutlookAddIn1.Auth
         public String getAccessToken()
         {
 
-            sql_con = new SQLiteConnection(connectionUserDBPath);
+            sql_con = new SQLiteConnection(connectionUserDBPath, true);
             sql_cmd = new SQLiteCommand("select * from socialmedia where socialMediaType=@type", sql_con);
 
             sql_cmd.Parameters.Add("@type", DbType.String);

@@ -12,25 +12,18 @@ using _OutlookAddIn1.witcontrols;
 using _OutlookAddIn1.TextBoxControls;
 using System.Threading;
 using _OutlookAddIn1.controls;
+using _OutlookAddIn1.Utilities;
+using System.IO;
 
 namespace _OutlookAddIn1
 {
     public partial class MyUserControl : UserControl
     {
 
-        UserDBConnector userDBConnector;
-        MainDBConnector mainDBConnector;
-        BackgroundWorker bw = new BackgroundWorker();
+        RootObject rootObj = new RootObject();
         public TreeNode previousSelectedNode = null;
-        public String appDataPath = null;
         public String userName = null;
         public String password = null;
-        String wsIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\list_icon.ico";
-        String folderIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\blackfolder.ico";
-        String mailIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\mail.ico";
-        String backIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\back.ico";
-        String replyIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\reply.ico";
-        String logoutIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\logout.ico";
         List<CustomWitPanel> witChildPanels;
 
         public MyUserControl()
@@ -139,7 +132,7 @@ namespace _OutlookAddIn1
                     MessageBox.Show("User not loggedin");
                 }
                 else {
-                    logout();
+                    //logout();
                 }
             }
         }
@@ -208,24 +201,17 @@ namespace _OutlookAddIn1
         {
 
             try
-            {
+            {           
 
-                RestClientLogin clientLogin = new RestClientLogin();
-                RootObject userObject = clientLogin.login(userName, password);
+                UserDBConnector userDBConnector = new UserDBConnector(Common.userName);         
+                userDBConnector.prepareUserDBSchema(rootObj);
+               
+                AccessTokenDao accessTokenDao = new AccessTokenDao(Common.localProfilePath);
+                accessTokenDao.saveAccessToken(rootObj.accessToken);
 
-                userDBConnector = new UserDBConnector(userName);
-                mainDBConnector = new MainDBConnector();
-
-                mainDBConnector.prepareMainDBSchema(userObject);
-                userDBConnector.prepareUserDBSchema(userObject);
-                appDataPath = userDBConnector.appPath;
-
-                AccessTokenDao accessTokenDao = new AccessTokenDao();
-                userObject.accessToken.id = Utilities.GUIDGenerator.getGUID();
-                accessTokenDao.saveAccessToken(userObject.accessToken);
-
-                UserWorkspaceDao workspaceDao = new UserWorkspaceDao(appDataPath);
-                workspaceDao.saveWorkspaces(userObject.userProfile.userWorkspaces);
+             
+                UserWorkspaceDao workspaceDao = new UserWorkspaceDao(Common.localProfilePath);
+                workspaceDao.saveWorkspaces(rootObj.userProfile.userWorkspaces);
 
                 if (workspaceDao.getWorkspaceNameList() != null && workspaceDao.getWorkspaceNameList().Count != 0)
                 {
@@ -233,11 +219,11 @@ namespace _OutlookAddIn1
                     List<Folder> allFolderList = new List<Folder>();
                     foreach (var workspace in workspaces)
                     {
-                        RestClientFolder restClientFolder = new RestClientFolder(appDataPath);
-                        restClientFolder.getAllFolders(userObject.accessToken.tokenValue, workspace.WorkspaceId, 0, allFolderList);
+                        RestClientFolder restClientFolder = new RestClientFolder(Common.localProfilePath);
+                        restClientFolder.getAllFolders(rootObj.accessToken.tokenValue, workspace.WorkspaceId, 0, allFolderList);
                     }
 
-                    FolderDao folderDao = new FolderDao(appDataPath);
+                    FolderDao folderDao = new FolderDao(Common.localProfilePath);
                     folderDao.saveAllFolders(allFolderList);
                 }
 
@@ -249,147 +235,124 @@ namespace _OutlookAddIn1
             }
 
         }
-        private void button1_Click_1(object sender, EventArgs e)
+        public void login(object sender, EventArgs e)
         {
 
-            Panel witsPanel = this.witsPanel;
-            witsPanel.Visible = false;
+            try {
+                Panel witsPanel = this.witsPanel;
+                witsPanel.Visible = false;
 
-            Panel panel = this.pnlMenu;
-            panel.Visible = true;
+                Panel panel = this.pnlMenu;
+                panel.Visible = true;
 
-            // get the username and pasword from the widget
-            var userName = textBox1.Text;
-            var password = textBox2.Text;
+                // get the username and pasword from the widget
+                var userName = textBox1.Text;
+                var password = textBox2.Text;
 
-            // rest api for login
-            RestClientLogin clientLogin = new RestClientLogin();
-            RootObject rootObj = clientLogin.login(userName, password);
-            this.userName = userName;
-            this.password = password;
+                // rest api for login
+                RestClientLogin clientLogin = new RestClientLogin();
+                this.rootObj = clientLogin.login(userName, password);
 
-
-            // check if the db is already present or not
-            userDBConnector = new UserDBConnector(userName);
-            if (!userDBConnector.isDataBaseExists()) {
-                refreshDatabase();
-            }
-           
-
-            userDBConnector = new UserDBConnector(userName);
-            appDataPath =  userDBConnector.prepareAppLocalSchema();
-
-            UserWorkspaceDao workspaceDao = null;
-            List<Folder> allFolderList = null;
-            if (rootObj.userProfile.userWorkspaces != null && rootObj.userProfile.userWorkspaces.Count > 0) {
-
-                workspaceDao = new UserWorkspaceDao(appDataPath);
-                // fetch all the workspaces and show it in the workspace panel
-
-                if (workspaceDao.getWorkspaceNameList() != null && workspaceDao.getWorkspaceNameList().Count != 0)
-                {
-                    List<UserWorkspace> workspaces = workspaceDao.getWorkspaceList();
-                    allFolderList = new List<Folder>();
-                    panel.Controls.Clear();
-                    foreach (var workspace in workspaces)
-                    {
-
-                        // loop through all the workspaces and get the folders of the workspaces
-
-                        CustomWorkspaceButton workspaceButton = new CustomWorkspaceButton();
-                        workspaceButton.Text = " " + workspace.Name;
-                        workspaceButton.Image = new Bitmap(wsIcon);
-                        workspaceButton.Click += workspaceButtonHandler;
-
-                        CustomWorkspacePanel childPanel = new CustomWorkspacePanel();
-                        childPanel.AutoScrollMargin = new System.Drawing.Size(0, 400);
-                        childPanel.AutoSize = true;
-                        childPanel.Dock = System.Windows.Forms.DockStyle.Top;
-                        childPanel.Location = new System.Drawing.Point(0, 0);
-                        childPanel.Name = "childPanel";
-                        childPanel.Size = new System.Drawing.Size(200, 104);
-                        childPanel.TabIndex = 1;
-                        childPanel.Controls.Add(workspaceButton);
-                        
-                        panel.Controls.Add(childPanel);
-
-
-                    }
+                // check if the db is already present or not
+                UserDBConnector userDBConnector = new UserDBConnector(userName);
+                if (!userDBConnector.isDataBaseExists()) {
+                    refreshDatabase();
                 }
 
-                // add search box to the workspace panel
-                Panel searchBoxPanel = new Panel();
-                searchBoxPanel.AutoSize = true;
-                searchBoxPanel.Dock = System.Windows.Forms.DockStyle.Top;
-                searchBoxPanel.Location = new System.Drawing.Point(0, 0);
-                searchBoxPanel.Name = "searchBoxPanel";              
-                searchBoxPanel.TabIndex = 1;
-                searchBoxPanel.BackColor = System.Drawing.Color.LightGray;
+                AccessTokenDao accessTokenDao = new AccessTokenDao(Common.localProfilePath);
+                accessTokenDao.saveAccessToken(rootObj.accessToken);
 
-                Image searchImage = Resource.searchImage;
-                PictureBox searchpb = new PictureBox();
-                searchpb.Image = searchImage;
-                searchpb.Location = new System.Drawing.Point(152, 9);
-                searchpb.Size = new System.Drawing.Size(40, 40);
+                this.userName = userName;
+                this.password = password;
 
-                CustomSearchTextBox searchBox = new CustomSearchTextBox();
-                searchBox.GotFocus  += searchTextBoxHandler;
-                searchBox.LostFocus += searchTextBoxHandler;
+                UserWorkspaceDao workspaceDao = null;
+                List<Folder> allFolderList = null;
+                if (rootObj.userProfile.userWorkspaces != null && rootObj.userProfile.userWorkspaces.Count > 0) {
 
-                CustomMainButton folderButton = new CustomMainButton();
-                folderButton.Text = "Folders";
-                folderButton.Location = new System.Drawing.Point(190, 8);
-                folderButton.BackColor = System.Drawing.Color.Gray;  // initially by default show it as selected.
-                folderButton.ForeColor = System.Drawing.Color.WhiteSmoke;  // when it is selected show the forecolor white.
+                    workspaceDao = new UserWorkspaceDao(Common.localProfilePath);
+                    // fetch all the workspaces and show it in the workspace panel
 
-                CustomMainButton tagButton = new CustomMainButton();
-                tagButton.Text = "Tags";
-                tagButton.Location = new System.Drawing.Point(270, 8);
+                    if (workspaceDao.getWorkspaceNameList() != null && workspaceDao.getWorkspaceNameList().Count != 0)
+                    {
+                        List<UserWorkspace> workspaces = workspaceDao.getWorkspaceList();
+                        allFolderList = new List<Folder>();
+                        panel.Controls.Clear();
+                        foreach (var workspace in workspaces)
+                        {
 
-                CustomMainButton searchButton = new CustomMainButton();
-                searchButton.Text = "Search";
-                searchButton.Location = new System.Drawing.Point(350, 8);
+                            // loop through all the workspaces and get the folders of the workspaces
 
-                searchBoxPanel.Controls.Add(searchBox);
-                searchBoxPanel.Controls.Add(searchpb);
-                searchBoxPanel.Controls.Add(folderButton);
-                searchBoxPanel.Controls.Add(tagButton);
-                searchBoxPanel.Controls.Add(searchButton);
+                            CustomWorkspaceButton workspaceButton = new CustomWorkspaceButton();
+                            workspaceButton.Text = " " + workspace.Name;
 
-                panel.Controls.Add(searchBoxPanel);
-
-                // make the backgroud color silver so that if clicks for wits
-                // backgroud should should not look odd
-                this.BackColor = System.Drawing.Color.WhiteSmoke;
-
-                // clear all the controls from the widget and show only listview
-                afterLogin();
+                            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                            var path = Path.Combine(appDataPath, "wpoutlookwidget" + @"\");
 
 
-                // save all the images needed to show to the widget
-                ImageList myImageList = new ImageList();
-                myImageList.Images.Add(Resource.grayfolder);
-                myImageList.Images.Add(Resource.grayfolder);
-                myImageList.ColorDepth = ColorDepth.Depth32Bit;
+                            workspaceButton.Image = new Bitmap(path + "wpdependencies\\list_icon.ico");
+                            workspaceButton.Click += workspaceButtonHandler;
 
-                // Assign the ImageList to the TreeView.
-                myCustomTreeView.ImageList = myImageList;
+                            CustomWorkspacePanel childPanel = new CustomWorkspacePanel();
+                            childPanel.AutoScrollMargin = new System.Drawing.Size(0, 400);
+                            childPanel.AutoSize = true;
+                            childPanel.Dock = System.Windows.Forms.DockStyle.Top;
+                            childPanel.Location = new System.Drawing.Point(0, 0);
+                            childPanel.Name = "childPanel";
+                            childPanel.Size = new System.Drawing.Size(200, 104);
+                            childPanel.TabIndex = 1;
+                            childPanel.Controls.Add(workspaceButton);
 
-                // Set the TreeView control's default image and selected image indexes.
-                myCustomTreeView.ImageIndex = 0;
-                myCustomTreeView.SelectedImageIndex = 0;
+                            panel.Controls.Add(childPanel);
 
-                // control factory for future use
-                witChildPanels = new List<CustomWitPanel>();
-                ControlFactory controlFactory = new ControlFactory();
-                witChildPanels = controlFactory.getChildWitPanels();
 
+                        }
+                    }
+
+                    // search Panel code below
+                    SearchBoxPanel searchBoxPanel = new SearchBoxPanel(this);
+                    panel.Controls.Add(searchBoxPanel);
+
+                    // make the backgroud color silver so that if clicks for wits
+                    // backgroud should should not look odd
+                    this.BackColor = System.Drawing.Color.WhiteSmoke;
+
+                    // clear all the controls from the widget and show only listview
+                    afterLogin();
+
+
+                    // save all the images needed to show to the widget
+                    ImageList myImageList = new ImageList();
+                    myImageList.Images.Add(Resource.grayfolder);
+                    myImageList.Images.Add(Resource.grayfolder);
+                    myImageList.ColorDepth = ColorDepth.Depth32Bit;
+
+                    // Assign the ImageList to the TreeView.
+                    myCustomTreeView.ImageList = myImageList;
+
+                    // Set the TreeView control's default image and selected image indexes.
+                    myCustomTreeView.ImageIndex = 0;
+                    myCustomTreeView.SelectedImageIndex = 0;
+
+                    // control factory for future use
+                    witChildPanels = new List<CustomWitPanel>();
+                    ControlFactory controlFactory = new ControlFactory();
+                    witChildPanels = controlFactory.getChildWitPanels();
+
+                }
+                else {
+
+                    // when there is no folders to show !!!
+                    MessageBox.Show("No Workspace to show");
+                }
             }
-            else {
+            catch (System.ApplicationException ae)
+            {
+                MessageBox.Show("Error occured: "+ ae);
+            }
+            catch (Exception ew) {
 
-                // when there is no folders to show !!!
-                MessageBox.Show("No folders to show");
-            }         
+                MessageBox.Show(ew.Message);
+            }
 
         }
 
@@ -404,17 +367,17 @@ namespace _OutlookAddIn1
             {
                 searchTextBox.Text = "";
             }
-           
-
         }
 
         void loginTextBoxGetHandler(object sender, EventArgs e)
         {
             TextBox loginTextBox = (TextBox)sender;
-            if (loginTextBox.Text == "Username" || loginTextBox.Text == "Password")
+
+            if (loginTextBox.Name == "username" || loginTextBox.Name == "password")
             {
                 loginTextBox.Text = "";
             }
+           
         }
 
         void loginTextBoxLostHandler(object sender, EventArgs e)
@@ -423,7 +386,6 @@ namespace _OutlookAddIn1
 
             if (loginTextBox.Name == "username")
             {
-
                 if (loginTextBox.Text.Trim() == "")
                 {
                     loginTextBox.Text = "Username";
@@ -454,7 +416,7 @@ namespace _OutlookAddIn1
             {
 
                 var workspaceName = clickedButton.Text;
-                UserWorkspaceDao workspaceDao = new UserWorkspaceDao(appDataPath);
+                UserWorkspaceDao workspaceDao = new UserWorkspaceDao(Common.localProfilePath);
                 UserWorkspace workspaceSelected = workspaceDao.getByName(workspaceName.Trim());
                 prepareTreeNodeHeirarchy(workspaceSelected.WorkspaceId);
 
@@ -475,11 +437,19 @@ namespace _OutlookAddIn1
 
         }
 
+        private void loginWhenEnter(object sender, KeyEventArgs e) {
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                login(this, new EventArgs());
+            }
+
+        }
+
         private void prepareTreeNodeHeirarchy(String selectedWSid)
         {
-            FolderDao folderDao = new FolderDao(appDataPath);
+            FolderDao folderDao = new FolderDao(Common.localProfilePath);
             List<Folder> folders = folderDao.getFolders(selectedWSid);
-            //CustomTreeNode rootNode = new CustomTreeNode();
 
             if (folders.Count > 0) {
 
@@ -503,7 +473,7 @@ namespace _OutlookAddIn1
 
             // check for the child folders and call this method again
             // it will be a self loop method
-            FolderDao folderDao = new FolderDao(appDataPath);
+            FolderDao folderDao = new FolderDao(Common.localProfilePath);
             List<Folder> childFolders = folderDao.getChildFolders(node.fieldId);
             if (childFolders.Count > 0)
             {
@@ -514,15 +484,7 @@ namespace _OutlookAddIn1
                 }
             }
             return node;
-        }
-
-
-        private void myCustomTreeView_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
-        }
-
-       
+        }       
     }
 
 }

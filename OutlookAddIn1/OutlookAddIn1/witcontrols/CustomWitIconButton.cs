@@ -10,7 +10,7 @@ namespace _OutlookAddIn1.witcontrols
 {
     public class CustomWitIconButton : Button
     {
-        public CustomWitIconButton(Image iconImage, AnchorStyles style, Color color) {
+        public CustomWitIconButton(Image iconImage, AnchorStyles style, Color color,String toolTipText) {
 
             Size = new System.Drawing.Size(25, 28);
             Anchor = style;
@@ -18,7 +18,9 @@ namespace _OutlookAddIn1.witcontrols
             BackColor = color;
             FlatAppearance.BorderColor = color;
             Image = iconImage;
-            
+            ToolTip textMailToolTip = new ToolTip();
+            textMailToolTip.SetToolTip(this, toolTipText);
+
         }
 
 

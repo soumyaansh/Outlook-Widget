@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using RestSharp.Authenticators;
 using Newtonsoft.Json;
 using _OutlookAddIn1.Auth;
+using _OutlookAddIn1.Utilities;
 
 namespace _OutlookAddIn1
 {
@@ -24,7 +25,7 @@ namespace _OutlookAddIn1
         {
 
             // used class objects defined below
-            RestClientWits restWits = new RestClientWits();
+            RestClientWits restWits = new RestClientWits(path);
             List<Folder> firstLevelFolders = new List<Folder>();
             WitsDao witsDao = new WitsDao(path);
 
@@ -44,7 +45,14 @@ namespace _OutlookAddIn1
 
             // execute the request
             IRestResponse response = client.Execute(request);
-            String content = response.Content; 
+            String content = response.Content;
+            if (response.ErrorException != null)
+            {
+                var statusMessage = RestUtils.getErrorMessage(response.StatusCode);
+                MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);
+                var myException = new ApplicationException(response.StatusDescription, response.ErrorException);
+                throw myException;
+            }
 
             firstLevelFolders = JsonConvert.DeserializeObject<List<Folder>>(content);
             allFolderList.AddRange(firstLevelFolders);        
@@ -94,6 +102,14 @@ namespace _OutlookAddIn1
             IRestResponse response = client.Execute(request);
             String content = response.Content;
 
+            if (response.ErrorException != null)
+            {
+                var statusMessage = RestUtils.getErrorMessage(response.StatusCode);
+                MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);
+                var myException = new ApplicationException(response.StatusDescription, response.ErrorException);
+                throw myException;
+            }
+
             List<Folder> childFolders = new List<Folder>();
             childFolders = JsonConvert.DeserializeObject<List<Folder>>(content);
             allFolderList.AddRange(childFolders);
@@ -110,7 +126,7 @@ namespace _OutlookAddIn1
         public List<Folder> getChildFolders(String parentFolderId)
         {
 
-            AccessTokenDao accesstokenDao = new AccessTokenDao();
+            AccessTokenDao accesstokenDao = new AccessTokenDao(path);
             String token = accesstokenDao.getAccessToken();
 
             String url = "http://52.3.104.221:8080/wittyparrot/api/folders/" + parentFolderId + "/children";
@@ -126,6 +142,14 @@ namespace _OutlookAddIn1
             // execute the request
             IRestResponse response = client.Execute(request);
             String content = response.Content;
+
+            if (response.ErrorException != null)
+            {
+                var statusMessage = RestUtils.getErrorMessage(response.StatusCode);
+                MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);
+                var myException = new ApplicationException(response.StatusDescription, response.ErrorException);
+                throw myException;
+            }
 
             List<Folder> childFolders = new List<Folder>();
             childFolders = JsonConvert.DeserializeObject<List<Folder>>(content);

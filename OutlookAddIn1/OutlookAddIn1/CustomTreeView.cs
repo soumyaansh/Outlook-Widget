@@ -14,18 +14,15 @@ using _OutlookAddIn1.Utilities;
 using _OutlookAddIn1.controls;
 using HtmlAgilityPack;
 using System.IO;
+using _OutlookAddIn1.Mail;
 
 namespace _OutlookAddIn1
 {
     public class CustomTreeView : System.Windows.Forms.TreeView
     {
 
-        String mailIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\mail.ico";
-        String backIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\back.ico";
-        String logoutIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\logout.ico";
-        String replyIcon = "C:\\Users\\WittyParrot\\Documents\\Visual Studio 2015\\Projects\\OutlookAddIn1\\packages\\reply.ico";
         MyUserControl control;
-        RichTextBox richTextBox;
+       
 
         public CustomTreeNode treeNode { get; set; }
 
@@ -38,8 +35,8 @@ namespace _OutlookAddIn1
             
 
            // get the wits 
-           WitsDao witsDao = new WitsDao(control.appDataPath);
-            List<Wits> wits = witsDao.getWits(selectedNode.fieldId);
+           WitsDao witsDao = new WitsDao(Common.localProfilePath);
+           List<Wits> wits = witsDao.getWits(selectedNode.fieldId);
 
             if (wits.Count > 0)
             {
@@ -52,7 +49,7 @@ namespace _OutlookAddIn1
                 foreach (var wit in wits)
                 {
                     CustomWitButton witButton = new CustomWitButton();
-                    witButton.Text = wit.name;
+                    witButton.Text = "  "+wit.name;
                     witButton.fieldType = wit.type;
                     witButton.fieldId = wit.id;
                     witButton.Click += witHandler;
@@ -68,92 +65,15 @@ namespace _OutlookAddIn1
 
                 }
 
-                // search Panel code below
-                Panel searchBoxPanel = new Panel();
-                searchBoxPanel.AutoSize = true;
-                searchBoxPanel.Dock = System.Windows.Forms.DockStyle.Top;
-                searchBoxPanel.Location = new System.Drawing.Point(0, 0);
-                searchBoxPanel.Name = "searchBoxPanel";
-                searchBoxPanel.TabIndex = 1;
-                searchBoxPanel.BackColor = System.Drawing.Color.LightGray;
 
-                Image searchImage = Resource.searchImage;
-                PictureBox searchpb = new PictureBox();
-                searchpb.Image = searchImage;
-                searchpb.Location = new System.Drawing.Point(152, 9);
-                searchpb.Size = new System.Drawing.Size(40, 40);
-
-                CustomSearchTextBox searchBox = new CustomSearchTextBox();
-                searchBox.GotFocus += searchTextBoxHandler;
-                searchBox.LostFocus += searchTextBoxHandler;
-
-                CustomMainButton folderButton = new CustomMainButton();
-                folderButton.Text = "Folders";
-                folderButton.Location = new System.Drawing.Point(190, 8);
-                folderButton.Click += folderButtonHandler;
-                folderButton.BackColor = System.Drawing.Color.FromArgb(200, 200, 200);
-
-                CustomMainButton tagButton = new CustomMainButton();
-                tagButton.Text = "Tags";
-                tagButton.Location = new System.Drawing.Point(270, 8);
-
-                CustomMainButton searchButton = new CustomMainButton();
-                searchButton.Text = "Search";
-                searchButton.Location = new System.Drawing.Point(350, 8);
-
-
-                searchBoxPanel.Controls.Add(searchBox);
-                searchBoxPanel.Controls.Add(searchpb);
-                searchBoxPanel.Controls.Add(folderButton);
-                searchBoxPanel.Controls.Add(tagButton);
-                searchBoxPanel.Controls.Add(searchButton);
-
+               // searchBoxPanel = new SearchBoxPanel(control);
                 control.witsPanelContainer.Controls.Add(control.witsPanel);
-                control.witsPanelContainer.Controls.Add(searchBoxPanel);
+                control.witsPanelContainer.Controls.Add(control.searchBoxPanel);
             }
         }
 
-          void prepareBorderColor(object sender, PaintEventArgs e)
-        {
-            //MessageBox.Show("inside prepareBorderColor");
-           
-
-
-        }
-
-        private void childWitPanel(object sender, System.Windows.Forms.PaintEventArgs e) {
-
-            System.Drawing.Graphics graphics = this.CreateGraphics();
-            System.Drawing.Rectangle rectangle = new System.Drawing.Rectangle(0, 0, 50, 50);
-            graphics.DrawEllipse(System.Drawing.Pens.Black, rectangle);
-            graphics.DrawRectangle(System.Drawing.Pens.Red, rectangle);
-        }
-
-       
-
-
-        void searchTextBoxHandler(object sender, EventArgs e)
-        {
-            CustomSearchTextBox searchTextBox = (CustomSearchTextBox)sender;
-            if (searchTextBox.Text.Trim() == "")
-            {
-                searchTextBox.Text = "Keywords";
-            }
-            else if (searchTextBox.Text == "Keywords")
-            {
-                searchTextBox.Text = "";
-            }
-        }
-
-        private void folderButtonHandler(object sender, EventArgs e)
-        {
-           
-            Button clcikedPanel = (Button)(sender);
-            clcikedPanel.BackColor =  System.Drawing.Color.FromArgb(60, 60, 60);
-            control.witsPanelContainer.Visible = false;
-            control.pnlMenu.Visible = true;
-        }
-
+      
+      
 
         private void witHandler(object sender, EventArgs e)
         {
@@ -173,23 +93,31 @@ namespace _OutlookAddIn1
             }
             else if (clickedWitButton.Parent.Controls.Count == 1)
             {
-                WitsDao witDao = new WitsDao(control.appDataPath);
+                WitsDao witDao = new WitsDao(Common.localProfilePath);
                 Wits wit = witDao.getWit(clickedWitButton.fieldId);
 
                
 
                 // try to add buttons in the richtextbox top
-                CustomWitIconButton textMailButton = new CustomWitIconButton(Resource.mail_24px1, AnchorStyles.Left, System.Drawing.Color.FromArgb(64, 64, 64));
+                CustomWitIconButton textMailButton = new CustomWitIconButton(Resource.mail_24px1, AnchorStyles.Left, System.Drawing.Color.FromArgb(64, 64, 64),"new mail");       
                 textMailButton.Click += textMailButtonHandler;
-                textMailButton.Location = new System.Drawing.Point(310, 0);
+                textMailButton.Location = new System.Drawing.Point(280, 0);
 
-                CustomWitIconButton textReplyButton = new CustomWitIconButton(Resource.post_24px1, AnchorStyles.Left, System.Drawing.Color.FromArgb(64, 64, 64));
+                CustomWitIconButton forwardMailButton = new CustomWitIconButton(Resource.mail_24px1, AnchorStyles.Left, System.Drawing.Color.FromArgb(64, 64, 64), "forward");
+                forwardMailButton.Click += forwardMailButtonHandler;
+                forwardMailButton.Location = new System.Drawing.Point(310, 0);
+
+                CustomWitIconButton textReplyButton = new CustomWitIconButton(Resource.post_24px1, AnchorStyles.Left, System.Drawing.Color.FromArgb(64, 64, 64),"reply");
                 textReplyButton.Click += textReplyButtonHandler;
                 textReplyButton.Location = new System.Drawing.Point(340, 0);
 
-                CustomWitIconButton pasteButton = new CustomWitIconButton(Resource.paste_24px1, AnchorStyles.Left, System.Drawing.Color.FromArgb(64, 64, 64));
-               // pasteButton.Click += textMailButtonHandler;
-                pasteButton.Location = new System.Drawing.Point(370, 0);
+                CustomWitIconButton textReplyAllButton = new CustomWitIconButton(Resource.post_24px1, AnchorStyles.Left, System.Drawing.Color.FromArgb(64, 64, 64), "reply All");
+                textReplyAllButton.Click += textReplyAllButtonHandler;
+                textReplyAllButton.Location = new System.Drawing.Point(370, 0);
+
+                CustomWitIconButton meetingButton = new CustomWitIconButton(Resource.paste_24px1, AnchorStyles.Left, System.Drawing.Color.FromArgb(64, 64, 64),"meeting");
+                meetingButton.Click += meetingButtonHandler;
+                meetingButton.Location = new System.Drawing.Point(400, 0);
 
                 WebBrowser wb = new WebBrowser();                
                 wb.DocumentText = " <br></br> " + wit.content == null ? "" : wit.content;
@@ -206,8 +134,10 @@ namespace _OutlookAddIn1
                 panel2.BackColor = System.Drawing.Color.Silver;  // silver for rating stars 
                 panel2.Location = new System.Drawing.Point(0,30);
 
-                panel1.Controls.Add(pasteButton);
+                panel1.Controls.Add(meetingButton);
+                panel1.Controls.Add(textReplyAllButton);
                 panel1.Controls.Add(textReplyButton);
+                panel1.Controls.Add(forwardMailButton);
                 panel1.Controls.Add(textMailButton);
 
 
@@ -267,10 +197,11 @@ namespace _OutlookAddIn1
             }
         }
 
-        void acronymHandler(object sender, EventArgs e) {
+        void acronymHandler(object sender, EventArgs e)
+        {
 
             TextBox acronymText = new TextBox();
-            acronymText = (TextBox)sender;         
+            acronymText = (TextBox)sender;
             var acronymTextValue = "[" + acronymText.Name + "]";
             // AcronymPanel -> web browser panel -> 
             Panel WebBrowserPanel = (Panel)((TextBox)sender).Parent.Parent;
@@ -278,9 +209,9 @@ namespace _OutlookAddIn1
             {
                 if (webBrowserControl is WebBrowser)
                 {
-                   WebBrowser wb = (WebBrowser)webBrowserControl;
-                   wb.Document.Body.InnerHtml = wb.Document.Body.InnerHtml.Replace(acronymTextValue, acronymText.Text);
-                   wb.DocumentText = changeHTMLColor(wb.Document.Body.InnerHtml);
+                    WebBrowser wb = (WebBrowser)webBrowserControl;
+                    wb.Document.Body.InnerHtml = wb.Document.Body.InnerHtml.Replace(acronymTextValue, acronymText.Text);
+                    wb.DocumentText = changeHTMLColorTest(wb.Document.Body.InnerHtml, acronymText.Name).ToString();
                 }
             }
         }
@@ -289,9 +220,27 @@ namespace _OutlookAddIn1
             return stringDoc.Replace("rgb(236,27,82)", "rgb(0,0,0)");
         }
 
-      
+        String changeHTMLColorTest(String stringDoc, String variableToChange)
+        {
+            var html = new HtmlAgilityPack.HtmlDocument();
+            html.LoadHtml(stringDoc);
+            var root = html.DocumentNode;
+            var anchors = root.Descendants("SPAN");
 
-            void textMailButtonHandler(object sender, EventArgs e)
+            foreach (HtmlNode item in anchors)
+            {
+                foreach (HtmlAttribute arr in item.Attributes)
+                {
+                    if (arr.Name == "var" && arr.Value == variableToChange)
+                    {
+                        item.SetAttributeValue("style", "COLOR: rgb(0,0,0)");
+                    }
+                }
+            }
+            return html.DocumentNode.InnerHtml;
+        }
+
+        void textMailButtonHandler(object sender, EventArgs e)
         {
             Button clickedMailButton = new Button();
             clickedMailButton = (Button)sender;
@@ -341,6 +290,86 @@ namespace _OutlookAddIn1
 
                 }
             }
+        }
+
+        void forwardMailButtonHandler(object sender, EventArgs e)
+        {
+            Button clickedReplyButton = new Button();
+            clickedReplyButton = (Button)sender;
+            Panel webBrowserPanel = (Panel)((Button)sender).Parent.Parent;
+
+            foreach (var control in webBrowserPanel.Controls)
+            {
+                if (control is WebBrowser)
+                {
+                    WebBrowser webBrowser = (WebBrowser)control;
+                    String witId = webBrowser.Name.ToString();
+
+                    String path = Common.path;
+                    WitsDao witDao = new WitsDao(path);
+                    Wits wit = witDao.getWit(witId);
+                    List<Docs> docs = witDao.getDocsOfWit(wit.id);
+
+                    TextToEmailBody mail = new TextToEmailBody();
+                    mail.ForwardEmailUsingOutLook(webBrowser.DocumentText, wit.name, docs);
+
+                }
+            }
+
+        }
+
+        void textReplyAllButtonHandler(object sender, EventArgs e)
+        {
+            Button clickedReplyButton = new Button();
+            clickedReplyButton = (Button)sender;
+            Panel webBrowserPanel = (Panel)((Button)sender).Parent.Parent;
+
+            foreach (var control in webBrowserPanel.Controls)
+            {
+                if (control is WebBrowser)
+                {
+                    WebBrowser webBrowser = (WebBrowser)control;
+                    String witId = webBrowser.Name.ToString();
+
+                    String path = Common.path;
+                    WitsDao witDao = new WitsDao(path);
+                    Wits wit = witDao.getWit(witId);
+                    List<Docs> docs = witDao.getDocsOfWit(wit.id);
+
+                    TextToEmailBody mail = new TextToEmailBody();
+                    mail.replyAllEmailUsingOutLook(webBrowser.DocumentText, wit.name, docs);
+
+                }
+            }
+
+        }
+
+
+
+
+        void meetingButtonHandler(object sender, EventArgs e)
+        {
+            Button clickedReplyButton = new Button();
+            clickedReplyButton = (Button)sender;
+            Panel webBrowserPanel = (Panel)((Button)sender).Parent.Parent;
+
+            foreach (var control in webBrowserPanel.Controls)
+            {
+                if (control is WebBrowser)
+                {
+                    WebBrowser webBrowser = (WebBrowser)control;
+                    String witId = webBrowser.Name.ToString();
+
+                    String path = Common.path;
+                    WitsDao witDao = new WitsDao(path);
+                    Wits wit = witDao.getWit(witId);
+
+                    CalenderUtils calenderUtil = new CalenderUtils();
+                    calenderUtil.openCalenderPanel(webBrowser.DocumentText, wit.name);
+
+                }
+            }
+
         }
     }
 

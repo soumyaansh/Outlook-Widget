@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using _OutlookAddIn1.Utilities;
 using RestSharp;
 
 namespace _OutlookAddIn1.Rest
@@ -20,7 +22,7 @@ namespace _OutlookAddIn1.Rest
             var maxLimit = 200;
             var currentIme = "";
             
-            RestClientWits restWits = new RestClientWits();
+            RestClientWits restWits = new RestClientWits(path);
             List<Folder> firstLevelFolders = new List<Folder>();
             WitsDao witsDao = new WitsDao(path);
 
@@ -37,7 +39,16 @@ namespace _OutlookAddIn1.Rest
 
             // execute the request
             IRestResponse response = client.Execute(request);
-           
+
+            if (response.ErrorException != null)
+            {
+                var statusMessage = RestUtils.getErrorMessage(response.StatusCode);
+                MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);
+                var myException = new ApplicationException(response.StatusDescription, response.ErrorException);
+                throw myException;
+            }
+
+
             return null;
         }
 

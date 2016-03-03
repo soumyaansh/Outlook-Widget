@@ -14,6 +14,10 @@ namespace _OutlookAddIn1.Utilities
     {
 
         public static String path = "";
+        public static String localProfilePath = "";
+        public static String userName = "";
+        
+
         public static void searchAcronims(string acronymText)
         {
             MatchCollection collection = Regex.Matches(acronymText, @"[\S]+");

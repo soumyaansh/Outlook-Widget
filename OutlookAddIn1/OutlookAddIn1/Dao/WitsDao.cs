@@ -24,18 +24,19 @@ namespace _OutlookAddIn1
 
         public WitsDao(String path)
         {
-            connectionUserDBPath = "Data Source=" + path + "\\userDB.sqlite;Version=3;";
+            connectionUserDBPath = "Data Source=" + path + "\\userDB.sqlite;Version=3;Journal Mode=Off;Legacy Format=True";
             userProfilePath = path;
         }
 
 
         public void saveAllWits(List<Wits> wits)
         {
-            RestClientWits restWit = new RestClientWits();
+            RestClientWits restWit = new RestClientWits(userProfilePath);
             foreach (var Wits in wits)
             {
                 saveWits(Wits);
-                if (restWit.getWitsInfo(Wits.id) != null) {
+                if (restWit.getWitsInfo(Wits.id) != null)
+                {
                     saveWitAttachments(restWit.getWitsInfo(Wits.id));
                 }
             }
@@ -43,12 +44,13 @@ namespace _OutlookAddIn1
 
         public void saveWitAttachments(List<AttachmentDetail> witsAttachments)
         {
-            RestClientWits restWit = new RestClientWits();
-            foreach (var witsAtt in witsAttachments) {
+            RestClientWits restWit = new RestClientWits(userProfilePath);
+            foreach (var witsAtt in witsAttachments)
+            {
                 saveWitAttachment((AttachmentDetail)witsAtt);
 
                 //save file in the folder structure locally
-                restWit.getAttachment(witsAtt.witId,witsAtt.fileAssociationId, witsAtt.fileName, userProfilePath);
+                restWit.getAttachment(witsAtt.witId, witsAtt.fileAssociationId, witsAtt.fileName, userProfilePath);
 
             }
         }
@@ -56,27 +58,41 @@ namespace _OutlookAddIn1
 
         public List<Docs> getDocsOfWit(String witId)
         {
-
-            sql_con = new SQLiteConnection(connectionUserDBPath);
-            sql_cmd = new SQLiteCommand("select * from docs where wit_id=@wit_id", sql_con);
-
-            sql_cmd.Parameters.Add("@wit_id", DbType.String);
-            sql_cmd.Parameters["@wit_id"].Value = witId;
-
-            sql_con.Open();
-            SQLiteDataReader reader = sql_cmd.ExecuteReader();
-
-            List<Docs> docs = new List<Docs>();
-            while (reader.Read())
+            List<Docs> docs = null;
+            try
             {
-                Docs doc = new Docs();
-                doc.docId = StringUtils.ConvertFromDBVal<string>(reader["doc_id"]);
-                doc.fileName = StringUtils.ConvertFromDBVal<string>(reader["file_name"]);
-                doc.localPath = StringUtils.ConvertFromDBVal<string>(reader["local_path"]);
-                docs.Add(doc);
+                sql_con = new SQLiteConnection(connectionUserDBPath, true);
+                sql_cmd = new SQLiteCommand("select * from docs where wit_id=@wit_id", sql_con);
+
+                sql_cmd.Parameters.Add("@wit_id", DbType.String);
+                sql_cmd.Parameters["@wit_id"].Value = witId;
+
+                sql_con.Open();
+                SQLiteDataReader reader = sql_cmd.ExecuteReader();
+
+                docs = new List<Docs>();
+                while (reader.Read())
+                {
+                    Docs doc = new Docs();
+                    doc.docId = StringUtils.ConvertFromDBVal<string>(reader["doc_id"]);
+                    doc.fileName = StringUtils.ConvertFromDBVal<string>(reader["file_name"]);
+                    doc.localPath = StringUtils.ConvertFromDBVal<string>(reader["local_path"]);
+                    docs.Add(doc);
+
+                }
+
 
             }
-            sql_con.Close();
+            catch (SQLiteException e)
+            {
+                return null;
+
+            }finally {
+
+                sql_con.Close();
+
+            }
+
             return docs;
 
         }
@@ -84,7 +100,7 @@ namespace _OutlookAddIn1
         public void saveWitAttachment(AttachmentDetail witsAttachment)
         {
             var witAttachmentsQuery = Resource.ResourceManager.GetString("wit_attachments_insert");
-            sql_con = new SQLiteConnection(connectionUserDBPath);
+            sql_con = new SQLiteConnection(connectionUserDBPath, true);
             sql_cmd = new SQLiteCommand(witAttachmentsQuery, sql_con);
 
             sql_cmd.Parameters.Add("@id", DbType.String);
@@ -133,7 +149,7 @@ namespace _OutlookAddIn1
         public void saveDocs(Docs docs)
         {
             var docsInsertQuery = Resource.ResourceManager.GetString("docs_insert");
-            sql_con = new SQLiteConnection(connectionUserDBPath);
+            sql_con = new SQLiteConnection(connectionUserDBPath, true);
             sql_cmd = new SQLiteCommand(docsInsertQuery, sql_con);
 
             sql_cmd.Parameters.Add("@doc_id", DbType.String);
@@ -167,7 +183,7 @@ namespace _OutlookAddIn1
 
             List<Wits> wits;
 
-            sql_con = new SQLiteConnection(connectionUserDBPath);
+            sql_con = new SQLiteConnection(connectionUserDBPath, true);
             sql_cmd = new SQLiteCommand("select * from wits where parent_id=@parent_id", sql_con);
 
             sql_cmd.Parameters.Add("@parent_id", DbType.String);
@@ -176,7 +192,7 @@ namespace _OutlookAddIn1
             sql_con.Open();
             SQLiteDataReader reader = sql_cmd.ExecuteReader();
 
-            wits = new List<Wits> ();
+            wits = new List<Wits>();
             while (reader.Read())
             {
                 Wits wit = new Wits();
@@ -189,11 +205,12 @@ namespace _OutlookAddIn1
         }
 
 
-        public List<Wits> getAllWits(String parentFolderId) {
+        public List<Wits> getAllWits(String parentFolderId)
+        {
 
             List<Wits> wits;
-            
-            sql_con = new SQLiteConnection(connectionUserDBPath);
+
+            sql_con = new SQLiteConnection(connectionUserDBPath, true);
             sql_cmd = new SQLiteCommand("select * from wits where parent_id=@parent_id", sql_con);
 
             sql_cmd.Parameters.Add("@parent_id", DbType.String);
@@ -211,12 +228,12 @@ namespace _OutlookAddIn1
 
                 // commented because the below fields are not required
 
-               // wit.type = StringUtils.ConvertFromDBVal<string>(reader["type"]);
+                // wit.type = StringUtils.ConvertFromDBVal<string>(reader["type"]);
                 //wit.workspaceId = StringUtils.ConvertFromDBVal<string>(reader["workspace_id"]);
-               // wit.enterpriseId = StringUtils.ConvertFromDBVal<string>(reader["enterprise_id"]);
-               // wit.witType = StringUtils.ConvertFromDBVal<string>(reader["witType"]);
+                // wit.enterpriseId = StringUtils.ConvertFromDBVal<string>(reader["enterprise_id"]);
+                // wit.witType = StringUtils.ConvertFromDBVal<string>(reader["witType"]);
                 //wit.parentId = StringUtils.ConvertFromDBVal<string>(reader["parent_id"]);
-               // wit.desc = StringUtils.ConvertFromDBVal<string>(reader["desc"]);
+                // wit.desc = StringUtils.ConvertFromDBVal<string>(reader["desc"]);
 
                 wits.Add(wit);
             }
@@ -227,7 +244,7 @@ namespace _OutlookAddIn1
         public Wits getWit(String witId)
         {
 
-            sql_con = new SQLiteConnection(connectionUserDBPath);
+            sql_con = new SQLiteConnection(connectionUserDBPath, true);
             sql_cmd = new SQLiteCommand("select * from wits where id=@id", sql_con);
 
             sql_cmd.Parameters.Add("@id", DbType.String);
@@ -239,7 +256,7 @@ namespace _OutlookAddIn1
             Wits wit = new Wits();
             while (reader.Read())
             {
-               
+
                 wit.id = StringUtils.ConvertFromDBVal<string>(reader["id"]);
                 wit.name = StringUtils.ConvertFromDBVal<string>(reader["name"]);
                 wit.type = StringUtils.ConvertFromDBVal<string>(reader["type"]);
@@ -264,7 +281,7 @@ namespace _OutlookAddIn1
         public List<AttachmentDetail> getWitAttachments(String witId)
         {
 
-            sql_con = new SQLiteConnection(connectionUserDBPath);
+            sql_con = new SQLiteConnection(connectionUserDBPath, true);
             sql_cmd = new SQLiteCommand("select * from wit_attachments where wit_id=@wit_id", sql_con);
 
             sql_cmd.Parameters.Add("@wit_id", DbType.String);
@@ -277,7 +294,7 @@ namespace _OutlookAddIn1
             while (reader.Read())
             {
                 //attachment.fileAssociationId = StringUtils.ConvertFromDBVal<string>(reader["fileAssociationId"]);
-               // attachment.fileName = StringUtils.ConvertFromDBVal<string>(reader["fileName"]);
+                // attachment.fileName = StringUtils.ConvertFromDBVal<string>(reader["fileName"]);
             }
 
             sql_con.Close();
@@ -287,9 +304,9 @@ namespace _OutlookAddIn1
 
         public void saveWits(Wits wits)
         {
-
+           
             var workspaceInsertQuery = Resource.ResourceManager.GetString("wits_insert");
-            sql_con = new SQLiteConnection(connectionUserDBPath);
+            sql_con = new SQLiteConnection(connectionUserDBPath, true);
             sql_cmd = new SQLiteCommand(workspaceInsertQuery, sql_con);
 
             sql_cmd.Parameters.Add("@id", DbType.String);

@@ -40,6 +40,94 @@ namespace _OutlookAddIn1
 
         }
 
+        public void ForwardEmailUsingOutLook(string witBody, String witName, List<Docs> docs)
+        {
+
+            Microsoft.Office.Interop.Outlook.Application outlookApp = new Microsoft.Office.Interop.Outlook.Application();
+
+            if (outlookApp.ActiveExplorer().Selection.Count > 0)
+            {
+                Object selectedMail = outlookApp.ActiveExplorer().Selection[1];
+
+                if (selectedMail is Microsoft.Office.Interop.Outlook.MailItem)
+                {
+                    Microsoft.Office.Interop.Outlook.MailItem mail = (selectedMail as Microsoft.Office.Interop.Outlook.MailItem);
+                    Microsoft.Office.Interop.Outlook.MailItem forwardMail = mail.Forward();
+
+                    Microsoft.Office.Interop.Outlook.MailItem email =
+                    (Microsoft.Office.Interop.Outlook.MailItem)outlookApp.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olMailItem);
+
+                    email.BodyFormat = Microsoft.Office.Interop.Outlook.OlBodyFormat.olFormatRichText;
+                    email.HTMLBody = witBody + forwardMail.HTMLBody;
+
+                    //email.To = mail.SenderEmailAddress;
+                    email.Subject = forwardMail.Subject;
+
+                    if (docs != null && docs.Count > 0)
+                    {
+
+                        foreach (var doc in docs)
+                        {
+                            if (doc.docId != null)
+                            {
+                                email.Attachments.Add(doc.localPath + "" + doc.fileName, Microsoft.Office.Interop.Outlook.OlAttachmentType.olByValue, 100000, Type.Missing);
+                            }
+                        }
+                    }
+
+                    email.Display(true);
+
+                }
+            }
+        }
+
+        public void replyAllEmailUsingOutLook(string witBody, String witName, List<Docs> docs)
+        {
+            Microsoft.Office.Interop.Outlook.Application outlookApp = new Microsoft.Office.Interop.Outlook.Application();
+
+            if (outlookApp.ActiveExplorer().Selection.Count > 0)
+            {
+                Object selectedMail = outlookApp.ActiveExplorer().Selection[1];
+
+                if (selectedMail is Microsoft.Office.Interop.Outlook.MailItem)
+                {
+                    Microsoft.Office.Interop.Outlook.MailItem mail = (selectedMail as Microsoft.Office.Interop.Outlook.MailItem);
+                    Microsoft.Office.Interop.Outlook.MailItem reply = mail.Reply();
+
+                    Microsoft.Office.Interop.Outlook.MailItem email =
+                    (Microsoft.Office.Interop.Outlook.MailItem)outlookApp.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olMailItem);
+
+                    email.BodyFormat = Microsoft.Office.Interop.Outlook.OlBodyFormat.olFormatRichText;
+                    email.HTMLBody = witBody + reply.HTMLBody;
+
+                    String mailTo = "";
+                    foreach (Recipient res in mail.Recipients) {
+
+                        mailTo += res.Address + ";";
+                    }
+
+                    mailTo += mail.SenderEmailAddress;
+                    email.To = mailTo;
+                    email.Subject = reply.Subject;
+
+                    if (docs != null && docs.Count > 0)
+                    {
+
+                        foreach (var doc in docs)
+                        {
+                            if (doc.docId != null)
+                            {
+                                email.Attachments.Add(doc.localPath + "" + doc.fileName, Microsoft.Office.Interop.Outlook.OlAttachmentType.olByValue, 100000, Type.Missing);
+                            }
+                        }
+                    }
+
+                    email.Display(true);
+                }
+            }
+
+        }
+
         public void replyEmailUsingOutLook(string witBody,String witName, List<Docs> docs)
         {            
             Microsoft.Office.Interop.Outlook.Application outlookApp = new Microsoft.Office.Interop.Outlook.Application();
@@ -74,8 +162,7 @@ namespace _OutlookAddIn1
                         }
                     }
 
-                    email.Display(true);
-                   
+                    email.Display(true);              
                 }
             }
 

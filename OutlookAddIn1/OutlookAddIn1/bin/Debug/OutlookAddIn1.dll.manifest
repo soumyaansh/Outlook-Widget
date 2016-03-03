@@ -133,6 +133,11 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="System.Net.Http" version="4.0.0.0" publicKeyToken="B03F5F7F11D50A3A" language="neutral" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
       <assemblyIdentity name="System.Net.NetworkInformation" version="4.0.10.0" publicKeyToken="B03F5F7F11D50A3A" language="neutral" />
     </dependentAssembly>
   </dependency>
@@ -502,14 +507,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OutlookAddIn1.dll" size="741888">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OutlookAddIn1.dll" size="746496">
       <assemblyIdentity name="OutlookAddIn1" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>22qZCe046sIRA8APzYpvR0Lb0vTcfxCFVfGEMMDwI4I=</dsig:DigestValue>
+        <dsig:DigestValue>9bikFJMn5WKEcl1tCYtx5OfVDHdJE2EhIce8YDL7xvw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -597,13 +602,25 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="OutlookAddIn1.dll.config" size="2532">
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="System.Net.Http.Formatting.dll" size="168520">
+      <assemblyIdentity name="System.Net.Http.Formatting" version="4.0.0.0" publicKeyToken="31BF3856AD364E35" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>HTYHDrbjYkpXi8O5naTdCCn9jseIdbMAD60Su8zpx5U=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="OutlookAddIn1.dll.config" size="2608">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>S+hW2aai94hw0pCE5ZND8PPLbJmQ3FpWv/PAhPeYs5U=</dsig:DigestValue>
+      <dsig:DigestValue>bUGFpWdYyVIlWMEWoLAsrZQMmootqB2DReMZrJ5hguM=</dsig:DigestValue>
     </hash>
   </file>
   <vstav3:addIn xmlns:vstav3="urn:schemas-microsoft-com:vsta.v3">
@@ -629,4 +646,4 @@
       </vstov4:customizations>
     </vstav3:application>
   </vstav3:addIn>
-<publisherIdentity name="CN=Lenovo-PC\Admin" issuerKeyHash="3df8edb3b74a217c33eb1d1e0f8f02f3324364f6" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>AP/kXfZwgAZVPHAeyDRApkzgcJsGJIUYvfOwZr1i2uY=</DigestValue></Reference></SignedInfo><SignatureValue>Bol5OLwNO5//5d/eqF6d/RvpWJ3LyZfEOQZ3ZbDD6u1NdRjoLofsuydxTo68AZy/MMFHbfiBVDwf7a1DHDhVIFxPPAwmvp5/az+Z00JA99ciQxc0eufkOizNu06c8yF2kmpJfT7Z/yAi6x9OceLXEn+eto4XlBGQ4fcV+fyS9MM=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>kM/FZ4A3Jm5Av/fAZbf5XkAyiTLzTYvkTWlInUlAHyyP6YYaol/mYR2qOtXvSOhSBbFxGNAVzV3yovpVJqA/LuA7bvJqBVTw9RaeTo4Bb4BA3gIMwBGQAw23rWkOOI7lcYr7O1nZkuNK03esfGJTulpAYGrYBkl0tolYOCZoz7c=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="e6da62bd66b0f3bd188524069b70e04ca64034c81e703c55068070f65de4ff00" Description="" Url=""><as:assemblyIdentity name="OutlookAddIn1.dll" version="1.0.0.0" publicKeyToken="b53c0425df4cb189" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=Lenovo-PC\Admin</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>PHwEbSgiUaWahXNBSAqYWwD0Hzn4WTxHaTe8LGaf6A8=</DigestValue></Reference></SignedInfo><SignatureValue>WsUbVWFOuJBfXyGw7QIGxeuGSkLGKdZohokuQR/x7wOoCvb5CwGfoj3is4VxOdxL9FY3dea8SqFG3no4wqRDzNXimdEBM/K9/kHOx40qf0evq6+KvFdD7LhKUN7gNw1Ttcg8EQ3tXfUAdtZkupB0UOlLrwRjyHmwtu8nVtW02iY=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>kM/FZ4A3Jm5Av/fAZbf5XkAyiTLzTYvkTWlInUlAHyyP6YYaol/mYR2qOtXvSOhSBbFxGNAVzV3yovpVJqA/LuA7bvJqBVTw9RaeTo4Bb4BA3gIMwBGQAw23rWkOOI7lcYr7O1nZkuNK03esfGJTulpAYGrYBkl0tolYOCZoz7c=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB1TCCAT6gAwIBAgIQSMtfXPwnHJlII6KrjhCNhDANBgkqhkiG9w0BAQsFADApMScwJQYDVQQDHh4ATABlAG4AbwB2AG8ALQBQAEMAXABBAGQAbQBpAG4wHhcNMTYwMTE4MTMzNDMwWhcNMTcwMTE3MTkzNDMwWjApMScwJQYDVQQDHh4ATABlAG4AbwB2AG8ALQBQAEMAXABBAGQAbQBpAG4wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAJDPxWeANyZuQL/3wGW3+V5AMoky802L5E1pSJ1JQB8sj+mGGqJf5mEdqjrV70joUgWxcRjQFc1d8qL6VSagPy7gO27yagVU8PUWnk6OAW+AQN4CDMARkAMNt61pDjiO5XGK+ztZ2ZLjStN3rHxiU7paQGBq2AZJdLaJWDgmaM+3AgMBAAEwDQYJKoZIhvcNAQELBQADgYEAe91IalSG3pM67mUk0BTgWQFOeUAy/szOAQ4OuBCYdkNvxCAYLBoUEbVlrKTsa8TZ82uCcy0rGft8L4fZ4KkC1PaqsPjTbqQd466Sk1Otsb2TV1ktESULYq6+n9OW3vqqg+C8BNGCcd7RYplbGbkW8i2MmqKLwHnEUMSA1Kwounc=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
+<publisherIdentity name="CN=Lenovo-PC\Admin" issuerKeyHash="3df8edb3b74a217c33eb1d1e0f8f02f3324364f6" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>4OkxpUx88n793vfJRUP4e2/FT/oDw6skA3xUSLjiLwU=</DigestValue></Reference></SignedInfo><SignatureValue>jJWDzdsmEIFIhYFkkBJDOH5g7mRRor01yT/4ek4NQAJD/alGuHTbeG6lNdvoDMayFkr2xIYbJwjuS0gl1Y7OaPzS1c6y5ZfcGV5Ei5eGgLNWN/DZzXG6/vIvLTJoZc7dqJiSMS9nBZG9V3/xg/DuNMuABC5D2hYFr2pnsnO9478=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>kM/FZ4A3Jm5Av/fAZbf5XkAyiTLzTYvkTWlInUlAHyyP6YYaol/mYR2qOtXvSOhSBbFxGNAVzV3yovpVJqA/LuA7bvJqBVTw9RaeTo4Bb4BA3gIMwBGQAw23rWkOOI7lcYr7O1nZkuNK03esfGJTulpAYGrYBkl0tolYOCZoz7c=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="052fe2b848547c0324abc303fa4fc56f7bf84345c9f7defd7ef27c4ca531e9e0" Description="" Url=""><as:assemblyIdentity name="OutlookAddIn1.dll" version="1.0.0.0" publicKeyToken="b53c0425df4cb189" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=Lenovo-PC\Admin</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>TdkvgeIw3Za/Yo6gdXd/HqhtN9YNyGvjDt2Sq/wINJU=</DigestValue></Reference></SignedInfo><SignatureValue>PQGfC791mQF57FblSxJIR0DcziBx5UlnEnsDlbYBh4rO31sPwuOfhs/SWuRnh+IKdFo+Hv3V3tyolaDhmkQDNbk0cNfSzG5H4WdtUEj8NG9PTyV0au6qXcpNgGFcnD9wSTWLv4OY1TPbQ04A3+M0kvjgiijZldWEPo/+3arkNcI=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>kM/FZ4A3Jm5Av/fAZbf5XkAyiTLzTYvkTWlInUlAHyyP6YYaol/mYR2qOtXvSOhSBbFxGNAVzV3yovpVJqA/LuA7bvJqBVTw9RaeTo4Bb4BA3gIMwBGQAw23rWkOOI7lcYr7O1nZkuNK03esfGJTulpAYGrYBkl0tolYOCZoz7c=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB1TCCAT6gAwIBAgIQSMtfXPwnHJlII6KrjhCNhDANBgkqhkiG9w0BAQsFADApMScwJQYDVQQDHh4ATABlAG4AbwB2AG8ALQBQAEMAXABBAGQAbQBpAG4wHhcNMTYwMTE4MTMzNDMwWhcNMTcwMTE3MTkzNDMwWjApMScwJQYDVQQDHh4ATABlAG4AbwB2AG8ALQBQAEMAXABBAGQAbQBpAG4wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAJDPxWeANyZuQL/3wGW3+V5AMoky802L5E1pSJ1JQB8sj+mGGqJf5mEdqjrV70joUgWxcRjQFc1d8qL6VSagPy7gO27yagVU8PUWnk6OAW+AQN4CDMARkAMNt61pDjiO5XGK+ztZ2ZLjStN3rHxiU7paQGBq2AZJdLaJWDgmaM+3AgMBAAEwDQYJKoZIhvcNAQELBQADgYEAe91IalSG3pM67mUk0BTgWQFOeUAy/szOAQ4OuBCYdkNvxCAYLBoUEbVlrKTsa8TZ82uCcy0rGft8L4fZ4KkC1PaqsPjTbqQd466Sk1Otsb2TV1ktESULYq6+n9OW3vqqg+C8BNGCcd7RYplbGbkW8i2MmqKLwHnEUMSA1Kwounc=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
