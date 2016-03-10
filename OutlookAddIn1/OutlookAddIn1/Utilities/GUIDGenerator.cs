@@ -20,5 +20,10 @@ namespace _OutlookAddIn1.Utilities
 
             return GuidString;
         }
+
+        public static String getUUID() {
+            return Guid.NewGuid().ToString();
+        }
+
     }
 }

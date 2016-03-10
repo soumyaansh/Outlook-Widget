@@ -18,19 +18,13 @@ namespace _OutlookAddIn1
 {
     class RestClientWits
     {
-
-        String path = null;
-        public RestClientWits(String path)
-        {
-            this.path = path;
-        }
-
+      
         public List<Wits> getFolderWits(String parentFolderId)
         {
-            AccessTokenDao accesstokenDao = new AccessTokenDao(path);
-            String token = accesstokenDao.getAccessToken();
+            AccessTokenDao accesstokenDao = new AccessTokenDao();
+            String token = accesstokenDao.getAccessToken(Common.userName);
 
-            String url = "http://52.3.104.221:8080/wittyparrot/api/wits/folder/" + parentFolderId + "/children";
+            String url = Resource.endpoint + "wittyparrot/api/wits/folder/" + parentFolderId + "/children";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 
@@ -58,7 +52,6 @@ namespace _OutlookAddIn1
             // loop through the wits and create wits 
             if (childWits.Count > 0)
             {
-
                 foreach (var wit in childWits)
                 {
                     String witContent = getWitContent(wit.id);
@@ -72,13 +65,12 @@ namespace _OutlookAddIn1
             return childWits;
         }
 
-        private String getWitContent(string witId)
+        public WitsInfo getWitInfo(String witId)
         {
+            AccessTokenDao accesstokenDao = new AccessTokenDao();
+            String token = accesstokenDao.getAccessToken(Common.userName);
 
-            AccessTokenDao accesstokenDao = new AccessTokenDao(path);
-            String token = accesstokenDao.getAccessToken();
-
-            String url = "http://52.3.104.221:8080/wittyparrot/api/wits/" + witId + "";
+            String url = Resource.endpoint + "wittyparrot/api/wits/" + witId + "";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 
@@ -95,34 +87,89 @@ namespace _OutlookAddIn1
             if (response.ErrorException != null)
             {
                 var statusMessage = RestUtils.getErrorMessage(response.StatusCode);
-                //MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);
+                MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);
                 var myException = new ApplicationException(response.StatusDescription, response.ErrorException);
                 throw myException;
             }
 
-            WitsInfo witsInfo = new WitsInfo();
-            WitsInfo ad = JsonConvert.DeserializeObject<WitsInfo>(content);
-            //dynamic jo = JObject.Parse(content);
-            String witType = ad.witType;
-            String witName = ad.name;
-            String witContent = ad.content;
+            WitsInfo info = JsonConvert.DeserializeObject<WitsInfo>(content);
+            if (info != null){return info;} return null;
+        }
 
 
-            if (witContent != null)
+
+        public String getWitContent(string witId)
+        {
+
+            AccessTokenDao accesstokenDao = new AccessTokenDao();
+            String token = accesstokenDao.getAccessToken(Common.userName);
+
+            String url = Resource.endpoint + "wittyparrot/api/wits/" + witId + "";
+            var client = new RestClient();
+            client.BaseUrl = new Uri(url);
+
+            var request = new RestRequest();
+            request.Method = Method.GET;
+            request.Parameters.Clear();
+            request.AddParameter("Authorization", "Bearer " + token, ParameterType.HttpHeader);
+            request.RequestFormat = DataFormat.Json;
+
+            // execute the request
+            IRestResponse response = client.Execute(request);
+            String content = response.Content;
+
+            if (response.ErrorException != null)
             {
-                return witContent;
+                var statusMessage = RestUtils.getErrorMessage(response.StatusCode);
+                MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);
+                var myException = new ApplicationException(response.StatusDescription, response.ErrorException);
+                throw myException;
             }
 
+           
+            WitsInfo witInfo = JsonConvert.DeserializeObject<WitsInfo>(content);
+            if (witInfo != null) {
+
+                String witContent = witInfo.content;
+                if (witContent != null)
+                {
+                    return witContent;
+                }
+
+                String witType = witInfo.witType;
+                // check the type of the wit if its combo then we need to call the associated
+                // wits and get the content to merge it and then return the content from this method
+
+                if (witType == WitType.COMBO.Value)
+                {
+                    return getCombowitContent(witInfo); // return the combined wit content
+                }
+            }
+                   
             return null;
     
     }
 
-    public void getAttachment(String witId, String fileAssociationId, String fileName, String userProfilepath)
+        private String getCombowitContent(WitsInfo witInfo)
         {
-            AccessTokenDao accesstokenDao = new AccessTokenDao(path);
-            String token = accesstokenDao.getAccessToken();
+            String content = "";
 
-            String url = "http://52.3.104.221:8080/wittyparrot/api/attachments/associationId/" + fileAssociationId + "";
+            if (witInfo.comboWit != null) {
+                
+                 foreach (ComboWit comboWit in witInfo.comboWit) {
+                    content +=  getWitContent(comboWit.associatedWitId);
+                }
+            }
+
+            return content;
+        }
+
+        public void getAttachment(String witId, String fileAssociationId, String fileName, String userProfilepath)
+        {
+            AccessTokenDao accesstokenDao = new AccessTokenDao();
+            String token = accesstokenDao.getAccessToken(Common.userName);
+
+            String url = Resource.endpoint + "wittyparrot/api/attachments/associationId/" + fileAssociationId + "";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 
@@ -137,7 +184,7 @@ namespace _OutlookAddIn1
             if (response.ErrorException != null)
             {
                 var statusMessage = RestUtils.getErrorMessage(response.StatusCode);
-                //MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);
+                MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);
                 var myException = new ApplicationException(response.StatusDescription, response.ErrorException);
                 throw myException;
             }
@@ -156,7 +203,7 @@ namespace _OutlookAddIn1
             doc.witId = witId;
 
 
-            WitsDao witDao = new WitsDao(userProfilepath);
+            WitsDao witDao = new WitsDao();
             witDao.saveDocs(doc);
 
             File.WriteAllBytes(fullPath + fileName, r);
@@ -166,10 +213,10 @@ namespace _OutlookAddIn1
 
     public List<AttachmentDetail> getWitsInfo(String witId)
         {
-            AccessTokenDao accesstokenDao = new AccessTokenDao(path);
-            String token = accesstokenDao.getAccessToken();
+            AccessTokenDao accesstokenDao = new AccessTokenDao();
+            String token = accesstokenDao.getAccessToken(Common.userName);
 
-            String url = "http://52.3.104.221:8080/wittyparrot/api/wits/" + witId + "";
+            String url = Resource.endpoint + "wittyparrot/api/wits/" + witId + "";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 
@@ -186,22 +233,15 @@ namespace _OutlookAddIn1
             if (response.ErrorException != null)
             {
                 var statusMessage = RestUtils.getErrorMessage(response.StatusCode);
-                //MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);
+                MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);
                 var myException = new ApplicationException(response.StatusDescription, response.ErrorException);
                 throw myException;
             }
 
-            WitsInfo witsInfo = new WitsInfo();
-            WitsInfo ad = JsonConvert.DeserializeObject<WitsInfo>(content);
-            //dynamic jo = JObject.Parse(content);
-            String witType  = ad.witType;
-            String witName = ad.name;
-            if (witName == "My first sync test") {
-
-                MessageBox.Show("check attachment nmbers");
-            }
-            List<AttachmentDetail> details = (List<AttachmentDetail>)ad.attachmentDetails;
-            if (details != null) {
+           
+            WitsInfo witInfo = JsonConvert.DeserializeObject<WitsInfo>(content);  
+            List<AttachmentDetail> details = (List<AttachmentDetail>)witInfo.attachmentDetails;
+            if (details != null && details.Count >0) {
                 return details;
                 }
 

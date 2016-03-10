@@ -11,6 +11,7 @@ using System.Resources;
 using System.Data.SqlClient;
 using System.IO;
 using UserContext;
+using _OutlookAddIn1.Utilities;
 
 namespace _OutlookAddIn1
 {
@@ -19,14 +20,7 @@ namespace _OutlookAddIn1
 
 
         SQLiteConnection sql_con;
-        SQLiteCommand sql_cmd;
-        public String connectionUserDBPath = null;
-
-        public FolderDao(String path)
-        {
-            connectionUserDBPath = "Data Source=" + path + "\\userDB.sqlite;Version=3;Journal Mode=Off;Legacy Format=True";
-        }
-
+        SQLiteCommand sql_cmd;      
 
         public void saveAllFolders(List<Folder> folders)
         {
@@ -39,47 +33,72 @@ namespace _OutlookAddIn1
             }
         }
 
+        
+         public void deleteFolder(String folderId)
+         {
+
+            try
+            {
+                sql_con = new SQLiteConnection(Common.localDatabasePath, true);
+                sql_cmd = new SQLiteCommand("delete from folders where id=@id", sql_con);
+
+                sql_cmd.Parameters.Add("@id", DbType.String);
+                sql_cmd.Parameters["@id"].Value = folderId;
+
+                sql_con.Open();
+                SQLiteDataReader reader = sql_cmd.ExecuteReader();
+
+            }
+            catch (SQLiteException e) {  throw e; }
+            finally { sql_con.Close(); }
+
+        }
 
         public void saveFolder(Folder folder)
         {
-           
-            var workspaceInsertQuery = Resource.ResourceManager.GetString("folders_insert");
-            sql_con = new SQLiteConnection(connectionUserDBPath, true);
-            sql_cmd = new SQLiteCommand(workspaceInsertQuery, sql_con);
+            try
+            {
+                var workspaceInsertQuery = Resource.ResourceManager.GetString("folders_insert");
+                sql_con = new SQLiteConnection(Common.localDatabasePath, true);
+                sql_cmd = new SQLiteCommand(workspaceInsertQuery, sql_con);
 
-            sql_cmd.Parameters.Add("@id", DbType.String);
-            sql_cmd.Parameters["@id"].Value = folder.id;
+                sql_cmd.Parameters.Add("@id", DbType.String);
+                sql_cmd.Parameters["@id"].Value = folder.id;
 
-            sql_cmd.Parameters.Add("@name", DbType.String);
-            sql_cmd.Parameters["@name"].Value = folder.name;
+                sql_cmd.Parameters.Add("@name", DbType.String);
+                sql_cmd.Parameters["@name"].Value = folder.name;
 
-            sql_cmd.Parameters.Add("@type", DbType.String);
-            sql_cmd.Parameters["@type"].Value = folder.type;
+                sql_cmd.Parameters.Add("@type", DbType.String);
+                sql_cmd.Parameters["@type"].Value = folder.type;
 
-            sql_cmd.Parameters.Add("@workspace_id", DbType.String);
-            sql_cmd.Parameters["@workspace_id"].Value = folder.workspaceId;
+                sql_cmd.Parameters.Add("@workspace_id", DbType.String);
+                sql_cmd.Parameters["@workspace_id"].Value = folder.workspaceId;
 
-            sql_cmd.Parameters.Add("@enterprise_id", DbType.String);
-            sql_cmd.Parameters["@enterprise_id"].Value = folder.enterpriseId;
+                sql_cmd.Parameters.Add("@enterprise_id", DbType.String);
+                sql_cmd.Parameters["@enterprise_id"].Value = folder.enterpriseId;
 
-            sql_cmd.Parameters.Add("@folderType", DbType.String);
-            sql_cmd.Parameters["@folderType"].Value = folder.folderType;
+                sql_cmd.Parameters.Add("@folderType", DbType.String);
+                sql_cmd.Parameters["@folderType"].Value = folder.folderType;
 
-            sql_cmd.Parameters.Add("@parentId", DbType.String);
-            sql_cmd.Parameters["@parentId"].Value = folder.parentId;
+                sql_cmd.Parameters.Add("@parentId", DbType.String);
+                sql_cmd.Parameters["@parentId"].Value = folder.parentId;
 
-            sql_cmd.Parameters.Add("@children", DbType.String);
-            sql_cmd.Parameters["@children"].Value = folder.children;
+                sql_cmd.Parameters.Add("@children", DbType.String);
+                sql_cmd.Parameters["@children"].Value = folder.children;
 
-            sql_cmd.Parameters.Add("@hasChildren", DbType.String);
-            sql_cmd.Parameters["@hasChildren"].Value = folder.hasChildren;
+                sql_cmd.Parameters.Add("@hasChildren", DbType.String);
+                sql_cmd.Parameters["@hasChildren"].Value = folder.hasChildren;
 
-            sql_cmd.Parameters.Add("@updateNumber", DbType.String);
-            sql_cmd.Parameters["@updateNumber"].Value = folder.updateNumber;
+                sql_cmd.Parameters.Add("@updateNumber", DbType.String);
+                sql_cmd.Parameters["@updateNumber"].Value = folder.updateNumber;
 
-            sql_con.Open();
-            sql_cmd.ExecuteNonQuery();
-            sql_con.Close();
+                sql_con.Open();
+                sql_cmd.ExecuteNonQuery();
+             
+
+            }
+            catch (SQLiteException e) { throw e; }
+            finally { sql_con.Close(); }
 
         }
 
@@ -88,8 +107,10 @@ namespace _OutlookAddIn1
         {
 
             List<Folder> folders;
+            try { 
+
             var folderSelectQuery = Resource.ResourceManager.GetString("folders_select");
-            sql_con = new SQLiteConnection(connectionUserDBPath, true);
+            sql_con = new SQLiteConnection(Common.localDatabasePath, true);
             sql_cmd = new SQLiteCommand("select * from folders where workspace_id=@workspace_id and parentId is null", sql_con);
 
             sql_cmd.Parameters.Add("@workspace_id", DbType.String);
@@ -115,7 +136,9 @@ namespace _OutlookAddIn1
                 folders.Add(ws);
             }
 
-            sql_con.Close();
+        }
+            catch (SQLiteException e) { throw e; }
+            finally { sql_con.Close(); }
             return folders;
         }
 
@@ -124,28 +147,34 @@ namespace _OutlookAddIn1
         {
 
             List<String> folders;
-            var folderSelectQuery = Resource.ResourceManager.GetString("folders_select");
-            sql_con = new SQLiteConnection(connectionUserDBPath, true);
-            sql_cmd = new SQLiteCommand("select * from folders where workspace_id=@workspace_id", sql_con);
-
-            sql_cmd.Parameters.Add("@workspace_id", DbType.String);
-            sql_cmd.Parameters["@workspace_id"].Value = workspaceId;
-
-            sql_con.Open();
-            SQLiteDataReader reader = sql_cmd.ExecuteReader();
-
-
-            folders = new List<String>();
-            while (reader.Read())
+            try
             {
 
-                Folder ws = new Folder();
-                ws.id = StringUtils.ConvertFromDBVal<string>(reader["id"]);
-                ws.name = StringUtils.ConvertFromDBVal<string>(reader["name"]);
-                folders.Add(ws.name);
-            }
+                var folderSelectQuery = Resource.ResourceManager.GetString("folders_select");
+                sql_con = new SQLiteConnection(Common.localDatabasePath, true);
+                sql_cmd = new SQLiteCommand("select * from folders where workspace_id=@workspace_id", sql_con);
 
-            sql_con.Close();
+                sql_cmd.Parameters.Add("@workspace_id", DbType.String);
+                sql_cmd.Parameters["@workspace_id"].Value = workspaceId;
+
+                sql_con.Open();
+                SQLiteDataReader reader = sql_cmd.ExecuteReader();
+
+
+                folders = new List<String>();
+                while (reader.Read())
+                {
+
+                    Folder ws = new Folder();
+                    ws.id = StringUtils.ConvertFromDBVal<string>(reader["id"]);
+                    ws.name = StringUtils.ConvertFromDBVal<string>(reader["name"]);
+                    folders.Add(ws.name);
+                }
+
+            }
+            catch (SQLiteException e) { throw e; }
+            finally { sql_con.Close(); }
+
             return folders;
         }
 
@@ -154,8 +183,10 @@ namespace _OutlookAddIn1
         {
 
             List<TreeNode> folders;
+            try { 
+
             var folderSelectQuery = Resource.ResourceManager.GetString("folders_select");
-            sql_con = new SQLiteConnection(connectionUserDBPath, true);
+            sql_con = new SQLiteConnection(Common.localDatabasePath, true);
             sql_cmd = new SQLiteCommand("select * from folders where workspace_id=@workspace_id", sql_con);
 
             sql_cmd.Parameters.Add("@workspace_id", DbType.String);
@@ -176,7 +207,9 @@ namespace _OutlookAddIn1
                 folders.Add(node);
             }
 
-            sql_con.Close();
+        }
+            catch (SQLiteException e) { throw e; }
+            finally { sql_con.Close(); }
             return folders;
         }
 
@@ -185,8 +218,8 @@ namespace _OutlookAddIn1
         {
 
             List<Folder> folders;
-
-            sql_con = new SQLiteConnection(connectionUserDBPath, true);
+            try { 
+            sql_con = new SQLiteConnection(Common.localDatabasePath, true);
             sql_cmd = new SQLiteCommand("select * from folders where parentId=@parentId", sql_con);
 
             sql_cmd.Parameters.Add("@parentId", DbType.String);
@@ -209,7 +242,9 @@ namespace _OutlookAddIn1
                 folders.Add(folder);
             }
 
-            sql_con.Close();
+        }
+            catch (SQLiteException e) { throw e; }
+            finally { sql_con.Close(); }
             return folders;
         }
 

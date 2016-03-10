@@ -14,6 +14,8 @@ using System.Threading;
 using _OutlookAddIn1.controls;
 using _OutlookAddIn1.Utilities;
 using System.IO;
+using _OutlookAddIn1.Dao;
+using Devart.Data.SQLite;
 
 namespace _OutlookAddIn1
 {
@@ -119,7 +121,9 @@ namespace _OutlookAddIn1
                     MessageBox.Show("User not loggedin");
                 }
                 else {
-                    refreshDatabaseThread();
+                    
+                    Thread thread = new Thread(new ThreadStart(startProfileSync));
+                    thread.Start();   
                 }
 
                
@@ -132,10 +136,30 @@ namespace _OutlookAddIn1
                     MessageBox.Show("User not loggedin");
                 }
                 else {
-                    //logout();
+
+                    DialogResult dialogResult = MessageBox.Show("Do you want to logout ?", "", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        logout();
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        //do something else
+                    }
+
+                   
                 }
             }
         }
+
+        private void startProfileSync()
+        {
+
+            ProfileSyncDao profileSyncDao = new ProfileSyncDao();
+            profileSyncDao.startProfileSync();
+
+        }
+
 
         private void afterLogin()
         {
@@ -152,17 +176,15 @@ namespace _OutlookAddIn1
         private void logout()
         {
 
-            this.Controls.Remove(pnlMenu);
-            this.Controls.Remove(witsPanel);
-            this.Controls.Remove(myCustomTreeView);
-
-
-            textBox1.Visible = true;
-            textBox2.Visible = true;
-            button1.Visible = true;
-            label1.Visible = true;
+            this.pnlMenu.Visible = false;
+            this.witsPanel.Visible = false;
+            this.myCustomTreeView.Visible = false;
            
-            checkBox1.Visible = true;
+            this.Controls.Add(textBox1);
+            this.Controls.Add(textBox2);
+            this.Controls.Add(button1);
+            this.Controls.Add(label1);
+            this.Controls.Add(checkBox1);
 
            
         }
@@ -206,11 +228,11 @@ namespace _OutlookAddIn1
                 UserDBConnector userDBConnector = new UserDBConnector(Common.userName);         
                 userDBConnector.prepareUserDBSchema(rootObj);
                
-                AccessTokenDao accessTokenDao = new AccessTokenDao(Common.localProfilePath);
+                AccessTokenDao accessTokenDao = new AccessTokenDao();
                 accessTokenDao.saveAccessToken(rootObj.accessToken);
 
              
-                UserWorkspaceDao workspaceDao = new UserWorkspaceDao(Common.localProfilePath);
+                UserWorkspaceDao workspaceDao = new UserWorkspaceDao();
                 workspaceDao.saveWorkspaces(rootObj.userProfile.userWorkspaces);
 
                 if (workspaceDao.getWorkspaceNameList() != null && workspaceDao.getWorkspaceNameList().Count != 0)
@@ -219,11 +241,11 @@ namespace _OutlookAddIn1
                     List<Folder> allFolderList = new List<Folder>();
                     foreach (var workspace in workspaces)
                     {
-                        RestClientFolder restClientFolder = new RestClientFolder(Common.localProfilePath);
+                        RestClientFolder restClientFolder = new RestClientFolder();
                         restClientFolder.getAllFolders(rootObj.accessToken.tokenValue, workspace.WorkspaceId, 0, allFolderList);
                     }
 
-                    FolderDao folderDao = new FolderDao(Common.localProfilePath);
+                    FolderDao folderDao = new FolderDao();
                     folderDao.saveAllFolders(allFolderList);
                 }
 
@@ -259,7 +281,7 @@ namespace _OutlookAddIn1
                     refreshDatabase();
                 }
 
-                AccessTokenDao accessTokenDao = new AccessTokenDao(Common.localProfilePath);
+                AccessTokenDao accessTokenDao = new AccessTokenDao();
                 accessTokenDao.saveAccessToken(rootObj.accessToken);
 
                 this.userName = userName;
@@ -269,7 +291,7 @@ namespace _OutlookAddIn1
                 List<Folder> allFolderList = null;
                 if (rootObj.userProfile.userWorkspaces != null && rootObj.userProfile.userWorkspaces.Count > 0) {
 
-                    workspaceDao = new UserWorkspaceDao(Common.localProfilePath);
+                    workspaceDao = new UserWorkspaceDao();
                     // fetch all the workspaces and show it in the workspace panel
 
                     if (workspaceDao.getWorkspaceNameList() != null && workspaceDao.getWorkspaceNameList().Count != 0)
@@ -345,13 +367,17 @@ namespace _OutlookAddIn1
                     MessageBox.Show("No Workspace to show");
                 }
             }
-            catch (System.ApplicationException ae)
+            catch (SQLiteException sqlException)
             {
-                MessageBox.Show("Error occured: "+ ae);
+                MessageBox.Show("Error occured: " + sqlException.ToString());
+            }
+            catch (System.ApplicationException appException)
+            {
+                MessageBox.Show("Error occured: "+ appException.ToString());
             }
             catch (Exception ew) {
 
-                MessageBox.Show(ew.Message);
+                MessageBox.Show("Error occured: "+ ew.ToString());
             }
 
         }
@@ -416,7 +442,7 @@ namespace _OutlookAddIn1
             {
 
                 var workspaceName = clickedButton.Text;
-                UserWorkspaceDao workspaceDao = new UserWorkspaceDao(Common.localProfilePath);
+                UserWorkspaceDao workspaceDao = new UserWorkspaceDao();
                 UserWorkspace workspaceSelected = workspaceDao.getByName(workspaceName.Trim());
                 prepareTreeNodeHeirarchy(workspaceSelected.WorkspaceId);
 
@@ -448,7 +474,7 @@ namespace _OutlookAddIn1
 
         private void prepareTreeNodeHeirarchy(String selectedWSid)
         {
-            FolderDao folderDao = new FolderDao(Common.localProfilePath);
+            FolderDao folderDao = new FolderDao();
             List<Folder> folders = folderDao.getFolders(selectedWSid);
 
             if (folders.Count > 0) {
@@ -473,7 +499,7 @@ namespace _OutlookAddIn1
 
             // check for the child folders and call this method again
             // it will be a self loop method
-            FolderDao folderDao = new FolderDao(Common.localProfilePath);
+            FolderDao folderDao = new FolderDao();
             List<Folder> childFolders = folderDao.getChildFolders(node.fieldId);
             if (childFolders.Count > 0)
             {

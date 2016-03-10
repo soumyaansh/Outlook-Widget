@@ -28,12 +28,14 @@ namespace _OutlookAddIn1
         public String init()
         {
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            var path = Path.Combine(appDataPath, "wpoutlookwidget" + @"\" + Common.userName.ToString().GetHashCode() + @"\");
+            var localProfilePath = Path.Combine(appDataPath, "wpoutlookwidget" + @"\" + Common.userName.ToString().GetHashCode() + @"\");
+            String localDatabasePath = "Data Source=" + localProfilePath + "userDB.sqlite";
 
-           
             // saving into properties settings as a global variable
-            Common.localProfilePath = path;
-            return path;
+            Common.localDatabasePath = localDatabasePath;
+            Common.localProfilePath = localProfilePath;
+
+            return localProfilePath;
         }
 
         public bool isDataBaseExists()
@@ -41,6 +43,7 @@ namespace _OutlookAddIn1
 
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var path = Path.Combine(appDataPath, "wpoutlookwidget" + @"\" + Common.userName.ToString().GetHashCode() + @"\");
+          
 
             if (!Directory.Exists(path))
             {
@@ -134,6 +137,9 @@ namespace _OutlookAddIn1
                 var modifiedbyQuery = Resource.ResourceManager.GetString("modifiedby");
                 var permissionQuery = Resource.ResourceManager.GetString("permission");
 
+                var profileSyncEventQuery = Resource.ResourceManager.GetString("profileSyncEvent");
+                
+
 
                 // create table 
                 this.ExecuteUserDBQuery(commentQuery, Common.localProfilePath);
@@ -170,6 +176,8 @@ namespace _OutlookAddIn1
                 this.ExecuteUserDBQuery(createdbyQuery, Common.localProfilePath);
                 this.ExecuteUserDBQuery(modifiedbyQuery, Common.localProfilePath);
                 this.ExecuteUserDBQuery(permissionQuery, Common.localProfilePath);
+
+                this.ExecuteUserDBQuery(profileSyncEventQuery, Common.localProfilePath);
 
             }
             else { }

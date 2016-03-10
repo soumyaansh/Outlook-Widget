@@ -3,30 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using _OutlookAddIn1.Utilities;
 using RestSharp;
+using System.Windows.Forms;
+using Newtonsoft.Json;
+using _OutlookAddIn1.Model;
+using _OutlookAddIn1.Dao;
 
 namespace _OutlookAddIn1.Rest
 {
-    class RestApiSync
+    class RestProfileSync
     {
-        String path = null;
-        public RestApiSync(String path)
-        {
-            this.path = path;
-        }
 
-        public List<Folder> SyncEvent(String token)
+        public ProfileSyncObject SyncEvent(String token, String lastSyncTime) 
         {
             var maxLimit = 200;
-            var currentIme = "";
-            
-            RestClientWits restWits = new RestClientWits(path);
-            List<Folder> firstLevelFolders = new List<Folder>();
-            WitsDao witsDao = new WitsDao(path);
+            String currentTime = lastSyncTime;
+            if (lastSyncTime == null) {
+                currentTime = String.Format("{0:yyyy-MM-ddTHH:mm:ss.000Z}", DateTime.Now.AddDays(-2));
+            }
 
-            String url = "http://52.3.104.221:8080/wittyparrot/api/sync?from="+ currentIme + "&maxLimit=" + maxLimit + "";
+            String url = Resource.endpoint + "wittyparrot/api/sync?from=" + currentTime + "&maxLimit=" + maxLimit + "";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 
@@ -40,7 +37,8 @@ namespace _OutlookAddIn1.Rest
             // execute the request
             IRestResponse response = client.Execute(request);
 
-            if (response.ErrorException != null)
+
+            if (response.ErrorException != null || response.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {
                 var statusMessage = RestUtils.getErrorMessage(response.StatusCode);
                 MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);
@@ -48,8 +46,17 @@ namespace _OutlookAddIn1.Rest
                 throw myException;
             }
 
+            Common.lastLocalDBSyncTime = DateTime.UtcNow.ToString();
 
-            return null;
+            ProfileSyncDao profileSyncDao = new ProfileSyncDao();
+            profileSyncDao.saveProfileSyncTime("success");
+
+            ProfileSyncObject syncObj = new ProfileSyncObject();
+            String content = response.Content;
+            syncObj = JsonConvert.DeserializeObject<ProfileSyncObject>(content);
+
+
+            return syncObj;
         }
 
 

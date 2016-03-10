@@ -227,6 +227,15 @@ namespace _OutlookAddIn1 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to http://52.3.104.221:8080/.
+        /// </summary>
+        internal static string endpoint {
+            get {
+                return ResourceManager.GetString("endpoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to connect to the remote server..
         /// </summary>
         internal static string ERROR_0 {
@@ -570,6 +579,42 @@ namespace _OutlookAddIn1 {
             get {
                 object obj = ResourceManager.GetObject("Power", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE TABLE profileSyncEvent
+        ///  (
+        ///     id   VARCHAR PRIMARY KEY,
+        ///	 lastsynctime      VARCHAR DEFAULT NULL,
+        ///     status VARCHAR DEFAULT NULL
+        ///  ).
+        /// </summary>
+        internal static string profileSyncEvent {
+            get {
+                return ResourceManager.GetString("profileSyncEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INSERT
+        ///or     REPLACE
+        ///into   profileSyncEvent
+        ///       (
+        ///	          id,
+        ///              lastsynctime,
+        ///              status
+        ///       )
+        ///       VALUES
+        ///       (
+        ///	          @id,
+        ///              @lastsynctime,
+        ///              @status
+        ///       ).
+        /// </summary>
+        internal static string profileSyncEvent_insert {
+            get {
+                return ResourceManager.GetString("profileSyncEvent_insert", resourceCulture);
             }
         }
         

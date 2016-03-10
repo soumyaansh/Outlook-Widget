@@ -259,12 +259,19 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CustomTreeNode.cs" />
+    <Compile Include="Dao\ProfileSyncDao.cs" />
     <Compile Include="Mail\CalenderUtils.cs" />
     <Compile Include="Model\AttachmentDetail.cs" />
+    <Compile Include="Model\ComboWit.cs" />
     <Compile Include="Model\Docs.cs" />
+    <Compile Include="Model\ProfileSync.cs" />
+    <Compile Include="Model\ProfileSyncObject.cs" />
+    <Compile Include="Model\SyncEventCode.cs" />
     <Compile Include="Model\TagVo.cs" />
     <Compile Include="Model\WitsInfo.cs" />
     <Compile Include="Rest\RestApiSync.cs" />
+    <Compile Include="Service\FolderService.cs" />
+    <Compile Include="Service\WitsService.cs" />
     <Compile Include="Settings1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -276,7 +283,9 @@
     <Compile Include="TextBoxControls\CustomMailButtonPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Utilities\WitType.cs" />
     <Compile Include="Utilities\FontUtilities.cs" />
+    <Compile Include="Utilities\HTMLUtils.cs" />
     <Compile Include="Utilities\UserRegistry.cs" />
     <Compile Include="witcontrols\AcronymField.cs">
       <SubType>Component</SubType>
@@ -308,19 +317,14 @@
     <Compile Include="MainDBConnector.cs" />
     <Compile Include="Rest\RestClientFolder.cs" />
     <Compile Include="Rest\RestClientWits.cs" />
-    <Compile Include="Dao\PermissionDao.cs" />
     <Compile Include="PermissionService.cs" />
-    <Compile Include="Dao\RoleDao.cs" />
-    <Compile Include="Dao\UserDao.cs" />
     <Compile Include="UserDBConnector.cs" />
-    <Compile Include="Dao\UserProfileDao.cs" />
     <Compile Include="Model\CreatedBy.cs" />
     <Compile Include="CustomTreeView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Model\Feature.cs" />
     <Compile Include="Model\ModifiedBy.cs" />
-    <Compile Include="Service\UserProfileService.cs" />
     <Compile Include="MyUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -336,7 +340,6 @@
     <Compile Include="Model\RootObject.cs" />
     <Compile Include="Model\UserPackage.cs" />
     <Compile Include="Model\UserProfile.cs" />
-    <Compile Include="Service\UserService.cs" />
     <Compile Include="Model\UserWorkspace.cs" />
     <Compile Include="Dao\UserWorkspaceDao.cs" />
     <Compile Include="Mail\TextToEmailBody.cs" />

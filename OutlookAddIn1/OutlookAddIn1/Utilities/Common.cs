@@ -15,8 +15,10 @@ namespace _OutlookAddIn1.Utilities
 
         public static String path = "";
         public static String localProfilePath = "";
+        public static String localDatabasePath = "";
         public static String userName = "";
-        
+        public static String lastLocalDBSyncTime = "";
+
 
         public static void searchAcronims(string acronymText)
         {

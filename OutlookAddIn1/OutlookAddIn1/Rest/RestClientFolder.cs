@@ -16,20 +16,51 @@ namespace _OutlookAddIn1
     class RestClientFolder
     {
 
-        String path = null;
-        public RestClientFolder(String path) {
-            this.path = path;
+
+            public Folder getFolderDetails(String folderId)
+        {
+
+            AccessTokenDao accesstokenDao = new AccessTokenDao();
+            String token = accesstokenDao.getAccessToken(Common.userName);
+
+            String url = Resource.endpoint + "wittyparrot/api/folders/" + folderId + "";
+            var client = new RestClient();
+            client.BaseUrl = new Uri(url);
+
+            var request = new RestRequest();
+            request.Method = Method.GET;
+            request.Parameters.Clear();
+            request.AddParameter("Authorization", "Bearer " + token, ParameterType.HttpHeader);
+            request.RequestFormat = DataFormat.Json;
+
+            // execute the request
+            IRestResponse response = client.Execute(request);
+            String content = response.Content;
+
+            if (response.ErrorException != null)
+            {
+                var statusMessage = RestUtils.getErrorMessage(response.StatusCode);
+                MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);
+                var myException = new ApplicationException(response.StatusDescription, response.ErrorException);
+                throw myException;
+            }
+
+           
+           Folder  folderDetails = JsonConvert.DeserializeObject<Folder>(content);
+           return folderDetails;
+
         }
+
 
         public List<Folder> getAllFolders(String token, String workspaceId, Int16 level, List<Folder> allFolderList)
         {
 
             // used class objects defined below
-            RestClientWits restWits = new RestClientWits(path);
+            RestClientWits restWits = new RestClientWits();
             List<Folder> firstLevelFolders = new List<Folder>();
-            WitsDao witsDao = new WitsDao(path);
+            WitsDao witsDao = new WitsDao();
 
-            String url = "http://52.3.104.221:8080/wittyparrot/api/folders/workspaceId/"+ workspaceId + "/level/"+ level + "";
+            String url = Resource.endpoint +"wittyparrot/api/folders/workspaceId/"+ workspaceId + "/level/"+ level + "";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 
@@ -88,7 +119,7 @@ namespace _OutlookAddIn1
 
         public void getChildFolders(String token, String folderId, List<Folder> allFolderList)
         {
-            String url = "http://52.3.104.221:8080/wittyparrot/api/folders/" + folderId + "/children";
+            String url = Resource.endpoint + "wittyparrot/api/folders/" + folderId + "/children";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 
@@ -114,22 +145,24 @@ namespace _OutlookAddIn1
             childFolders = JsonConvert.DeserializeObject<List<Folder>>(content);
             allFolderList.AddRange(childFolders);
 
-            foreach (var folder in childFolders){
-                if (folder.children != null)
+            if (childFolders != null && childFolders.Count > 0) {
+                foreach (var folder in childFolders)
                 {
-                    getChildFolders(token, folder.id, allFolderList);
+                    if (folder.children != null)
+                    {
+                        getChildFolders(token, folder.id, allFolderList);
+                    }
                 }
-            }
-          
+            }     
         }
 
         public List<Folder> getChildFolders(String parentFolderId)
         {
 
-            AccessTokenDao accesstokenDao = new AccessTokenDao(path);
-            String token = accesstokenDao.getAccessToken();
+            AccessTokenDao accesstokenDao = new AccessTokenDao();
+            String token = accesstokenDao.getAccessToken(Common.userName);
 
-            String url = "http://52.3.104.221:8080/wittyparrot/api/folders/" + parentFolderId + "/children";
+            String url = Resource.endpoint + "wittyparrot/api/folders/" + parentFolderId + "/children";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 
@@ -153,8 +186,11 @@ namespace _OutlookAddIn1
 
             List<Folder> childFolders = new List<Folder>();
             childFolders = JsonConvert.DeserializeObject<List<Folder>>(content);
-
-            return childFolders;
+            if (childFolders != null && childFolders.Count > 0)
+            {
+                // all the code comes under this code
+            }
+                return childFolders;
         }
 
     }

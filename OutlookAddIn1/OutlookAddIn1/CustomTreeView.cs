@@ -22,8 +22,6 @@ namespace _OutlookAddIn1
     {
 
         MyUserControl control;
-       
-
         public CustomTreeNode treeNode { get; set; }
 
         protected override void OnAfterSelect(System.Windows.Forms.TreeViewEventArgs e)
@@ -35,7 +33,7 @@ namespace _OutlookAddIn1
             
 
            // get the wits 
-           WitsDao witsDao = new WitsDao(Common.localProfilePath);
+           WitsDao witsDao = new WitsDao();
            List<Wits> wits = witsDao.getWits(selectedNode.fieldId);
 
             if (wits.Count > 0)
@@ -61,12 +59,10 @@ namespace _OutlookAddIn1
                     // add to the clicked panel
                     childWitPanel.Parent = control.witsPanel;
                     control.witsPanel.ResumeLayout();
-                    //witsPanel.Controls.Add(l);
+                  
 
                 }
-
-
-               // searchBoxPanel = new SearchBoxPanel(control);
+             
                 control.witsPanelContainer.Controls.Add(control.witsPanel);
                 control.witsPanelContainer.Controls.Add(control.searchBoxPanel);
             }
@@ -93,7 +89,7 @@ namespace _OutlookAddIn1
             }
             else if (clickedWitButton.Parent.Controls.Count == 1)
             {
-                WitsDao witDao = new WitsDao(Common.localProfilePath);
+                WitsDao witDao = new WitsDao();
                 Wits wit = witDao.getWit(clickedWitButton.fieldId);
 
                
@@ -199,9 +195,11 @@ namespace _OutlookAddIn1
 
         void acronymHandler(object sender, EventArgs e)
         {
-
+           
             TextBox acronymText = new TextBox();
             acronymText = (TextBox)sender;
+           
+
             var acronymTextValue = "[" + acronymText.Name + "]";
             // AcronymPanel -> web browser panel -> 
             Panel WebBrowserPanel = (Panel)((TextBox)sender).Parent.Parent;
@@ -210,17 +208,21 @@ namespace _OutlookAddIn1
                 if (webBrowserControl is WebBrowser)
                 {
                     WebBrowser wb = (WebBrowser)webBrowserControl;
-                    wb.Document.Body.InnerHtml = wb.Document.Body.InnerHtml.Replace(acronymTextValue, acronymText.Text);
-                    wb.DocumentText = changeHTMLColorTest(wb.Document.Body.InnerHtml, acronymText.Name).ToString();
+
+                    // when the user has inputed values to change 
+                    if (acronymText.Text.Length > 0)
+                    {
+                        wb.Document.Body.InnerHtml = wb.Document.Body.InnerHtml.Replace(acronymTextValue, acronymText.Text);
+                        wb.DocumentText = changeHTMLColorToBlack(wb.Document.Body.InnerHtml, acronymText.Name).ToString();
+                    }
+                    else if(acronymText.Text.Length == 0) {
+                        wb.DocumentText = changeHTMLColorToRed(wb.Document.Body.InnerHtml, acronymText.Name).ToString();
+                    }
                 }
             }
         }
 
-        String changeHTMLColor(String stringDoc) {          
-            return stringDoc.Replace("rgb(236,27,82)", "rgb(0,0,0)");
-        }
-
-        String changeHTMLColorTest(String stringDoc, String variableToChange)
+        String changeHTMLColorToBlack(String stringDoc, String variableToChange)
         {
             var html = new HtmlAgilityPack.HtmlDocument();
             html.LoadHtml(stringDoc);
@@ -234,6 +236,28 @@ namespace _OutlookAddIn1
                     if (arr.Name == "var" && arr.Value == variableToChange)
                     {
                         item.SetAttributeValue("style", "COLOR: rgb(0,0,0)");
+                    }
+                }
+            }
+            return html.DocumentNode.InnerHtml;
+        }
+
+        String changeHTMLColorToRed(String stringDoc, String variableToChange)
+        {
+            var html = new HtmlAgilityPack.HtmlDocument();
+            html.LoadHtml(stringDoc);
+            var root = html.DocumentNode;
+            var anchors = root.Descendants("SPAN");
+
+            foreach (HtmlNode item in anchors)
+            {
+                foreach (HtmlAttribute arr in item.Attributes)
+                {
+                    if (arr.Name == "var" && arr.Value == variableToChange)
+                    {
+                        item.InnerHtml = "["+variableToChange+"]";
+                        item.SetAttributeValue("style", "COLOR: rgb(236,27,82)");
+                      
                     }
                 }
             }
@@ -254,7 +278,7 @@ namespace _OutlookAddIn1
                     String witId = webBrowser.Name.ToString();
 
                     String path = Common.path;
-                    WitsDao witDao = new WitsDao(path);
+                    WitsDao witDao = new WitsDao();
                     Wits wit = witDao.getWit(witId);
                     List<Docs> docs = witDao.getDocsOfWit(wit.id);
 
@@ -281,7 +305,7 @@ namespace _OutlookAddIn1
                     String witId = webBrowser.Name.ToString();
 
                     String path = Common.path;
-                    WitsDao witDao = new WitsDao(path);
+                    WitsDao witDao = new WitsDao();
                     Wits wit = witDao.getWit(witId);
                     List<Docs> docs = witDao.getDocsOfWit(wit.id);
 
@@ -306,7 +330,7 @@ namespace _OutlookAddIn1
                     String witId = webBrowser.Name.ToString();
 
                     String path = Common.path;
-                    WitsDao witDao = new WitsDao(path);
+                    WitsDao witDao = new WitsDao();
                     Wits wit = witDao.getWit(witId);
                     List<Docs> docs = witDao.getDocsOfWit(wit.id);
 
@@ -332,7 +356,7 @@ namespace _OutlookAddIn1
                     String witId = webBrowser.Name.ToString();
 
                     String path = Common.path;
-                    WitsDao witDao = new WitsDao(path);
+                    WitsDao witDao = new WitsDao();
                     Wits wit = witDao.getWit(witId);
                     List<Docs> docs = witDao.getDocsOfWit(wit.id);
 
@@ -361,11 +385,12 @@ namespace _OutlookAddIn1
                     String witId = webBrowser.Name.ToString();
 
                     String path = Common.path;
-                    WitsDao witDao = new WitsDao(path);
+                    WitsDao witDao = new WitsDao();
                     Wits wit = witDao.getWit(witId);
+                    List<Docs> docs = witDao.getDocsOfWit(wit.id);
 
                     CalenderUtils calenderUtil = new CalenderUtils();
-                    calenderUtil.openCalenderPanel(webBrowser.DocumentText, wit.name);
+                    calenderUtil.openCalenderPanel(webBrowser.DocumentText, wit.name, docs);
 
                 }
             }

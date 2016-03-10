@@ -18,19 +18,14 @@ namespace _OutlookAddIn1.Auth
     class AccessTokenDao
     {
 
-        public String connectionUserDBPath = null;
         SQLiteConnection sql_con;
         SQLiteCommand sql_cmd;
-        public AccessTokenDao(String path)
-        {
-            connectionUserDBPath = "Data Source=" + path + "\\userDB.sqlite;Version=3;Journal Mode=Off;Legacy Format=True";
-        }
 
         public void saveAccessToken(AccessToken token)
         {
 
             var accesstokenInsertQuery = Resource.ResourceManager.GetString("socialmedia_insert");
-            sql_con = new SQLiteConnection(connectionUserDBPath, true);
+            sql_con = new SQLiteConnection(Common.localDatabasePath, true);
             sql_cmd = new SQLiteCommand(accesstokenInsertQuery, sql_con);
 
             sql_cmd.Parameters.Add("@id", DbType.String);
@@ -58,24 +53,39 @@ namespace _OutlookAddIn1.Auth
         }
 
 
-        public String getAccessToken()
+        public String getAccessToken(String userName)
         {
+            String token = "";
 
-            sql_con = new SQLiteConnection(connectionUserDBPath, true);
-            sql_cmd = new SQLiteCommand("select * from socialmedia where socialMediaType=@type", sql_con);
+            try { 
+
+            sql_con = new SQLiteConnection(Common.localDatabasePath, true);
+            sql_cmd = new SQLiteCommand("select * from socialmedia where socialMediaType=@type and id=@id", sql_con);
 
             sql_cmd.Parameters.Add("@type", DbType.String);
             sql_cmd.Parameters["@type"].Value = "bearer";
 
+            sql_cmd.Parameters.Add("@id", DbType.String);
+            sql_cmd.Parameters["@id"].Value = userName;
+
             sql_con.Open();
             SQLiteDataReader reader = sql_cmd.ExecuteReader();
-            String token = "";
+           
             while (reader.Read())
             {
                 token = StringUtils.ConvertFromDBVal<String>(reader["user_oauth_token"]);
             }
+            }
+            catch (SQLiteException e)
+            {
+                return null;
 
-            sql_con.Close();
+            }
+            finally
+            {
+                sql_con.Close();
+            }
+          
             return token;
         }
 

@@ -23,7 +23,7 @@ namespace _OutlookAddIn1
             }
 
            
-            var client = new RestClient("http://52.3.104.221:8080/wittyparrot/api/auth/login");
+            var client = new RestClient(Resource.endpoint + "wittyparrot/api/auth/login");
             var strJSONContent = "{\"userId\":\"" + username + "\" ,\"password\":\"" + password + "\"}";
             
             var request = new RestRequest();
@@ -36,7 +36,7 @@ namespace _OutlookAddIn1
 
             // execute the request
             IRestResponse response = client.Execute(request);
-            if (response.ErrorException != null)
+            if (response.ErrorException != null || response.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {
                 var statusMessage = RestUtils.getErrorMessage(response.StatusCode);
                 MessageBox.Show(statusMessage == "" ? response.StatusDescription : statusMessage);

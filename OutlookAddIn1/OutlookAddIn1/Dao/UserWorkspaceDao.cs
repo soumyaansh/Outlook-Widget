@@ -11,21 +11,15 @@ using System.Resources;
 using System.Data.SqlClient;
 using System.IO;
 using UserContext;
-
+using _OutlookAddIn1.Utilities;
 
 namespace _OutlookAddIn1
 {
     class UserWorkspaceDao
     {
-        public String connectionUserDBPath = null;
+       
         SQLiteConnection sql_con;
         SQLiteCommand sql_cmd;
-
-
-        public UserWorkspaceDao(String path)
-        {
-            connectionUserDBPath = "Data Source=" + path + "\\userDB.sqlite;Version=3;Journal Mode=Off;Legacy Format=True";
-        }
 
 
         public void saveWorkspaces(List<UserWorkspace> workspaces)
@@ -38,9 +32,9 @@ namespace _OutlookAddIn1
 
         public void saveWorkspace(UserWorkspace workspace)
         {
-           
+            try { 
             var workspaceInsertQuery = Resource.ResourceManager.GetString("userworkspaces_insert");
-            sql_con = new SQLiteConnection(connectionUserDBPath, true);
+            sql_con = new SQLiteConnection(Common.localDatabasePath, true);
             sql_cmd = new SQLiteCommand(workspaceInsertQuery, sql_con);
 
             sql_cmd.Parameters.Add("@id", DbType.String);
@@ -66,16 +60,18 @@ namespace _OutlookAddIn1
 
             sql_con.Open();
             sql_cmd.ExecuteNonQuery();
-            sql_con.Close();
-
+        }
+            catch (SQLiteException e) { throw e; }
+            finally { sql_con.Close(); }
         }
 
 
         public List<UserWorkspace> getWorkspaceList()
         {
             List<UserWorkspace> workspaces;
+            try { 
             var workspaceInsertQuery = Resource.ResourceManager.GetString("userworkspaces_select");
-            sql_con = new SQLiteConnection(connectionUserDBPath, true);
+            sql_con = new SQLiteConnection(Common.localDatabasePath, true);
             sql_cmd = new SQLiteCommand(workspaceInsertQuery, sql_con);
 
             sql_con.Open();
@@ -98,37 +94,44 @@ namespace _OutlookAddIn1
 
                 workspaces.Add(ws);
             }
-
-            sql_con.Close();
+        }
+            catch (SQLiteException e) { throw e; }
+            finally { sql_con.Close(); }
             return workspaces;
         }
 
         public List<String> getWorkspaceNameList()
         {
             List<String> workspaces;
-            var workspaceInsertQuery = Resource.ResourceManager.GetString("userworkspaces_select");
-            sql_con = new SQLiteConnection(connectionUserDBPath, true);
-            sql_cmd = new SQLiteCommand(workspaceInsertQuery, sql_con);
-
-            sql_con.Open();
-            SQLiteDataReader reader = sql_cmd.ExecuteReader();
-
-            workspaces = new List<String>();
-            while (reader.Read())
+            try
             {
-                UserWorkspace ws = new UserWorkspace();
-                ws.Name = StringUtils.ConvertFromDBVal<string>(reader["name"]);
-                workspaces.Add(ws.Name);
-            }
+                var workspaceInsertQuery = Resource.ResourceManager.GetString("userworkspaces_select");
+                sql_con = new SQLiteConnection(Common.localDatabasePath, true);
+                sql_cmd = new SQLiteCommand(workspaceInsertQuery, sql_con);
 
-            sql_con.Close();
+                sql_con.Open();
+                SQLiteDataReader reader = sql_cmd.ExecuteReader();
+
+                workspaces = new List<String>();
+                while (reader.Read())
+                {
+                    UserWorkspace ws = new UserWorkspace();
+                    ws.Name = StringUtils.ConvertFromDBVal<string>(reader["name"]);
+                    workspaces.Add(ws.Name);
+                }
+            }
+            catch (SQLiteException e) { throw e; }
+            finally { sql_con.Close(); }
             return workspaces;
         }
 
         public UserWorkspace getByName(String workspaceName)
         {
+            UserWorkspace ws;
+            try { 
+
             var workspaceInsertQuery = "select * from userworkspaces where name=@workspaceName";
-            sql_con = new SQLiteConnection(connectionUserDBPath, true);
+            sql_con = new SQLiteConnection(Common.localDatabasePath, true);
             sql_cmd = new SQLiteCommand(workspaceInsertQuery, sql_con);
 
             sql_cmd.Parameters.Add("@workspaceName", DbType.String);
@@ -136,7 +139,7 @@ namespace _OutlookAddIn1
 
             sql_con.Open();
             SQLiteDataReader reader = sql_cmd.ExecuteReader();
-            UserWorkspace ws = new UserWorkspace();
+            ws = new UserWorkspace();
 
             // this will have only one record as the names should be unique
             while (reader.Read())
@@ -149,8 +152,37 @@ namespace _OutlookAddIn1
                 ws.CreatedDate = StringUtils.ConvertFromDBVal<string>(reader["createdDate"]);
                 ws.SequenceNumber = StringUtils.ConvertFromDBVal<Int64>(reader["sequenceNumber"]);
             }
-            sql_con.Close();
+        }
+            catch (SQLiteException e) { throw e; }
+            finally { sql_con.Close(); }
             return ws;
+        }
+
+
+        public List<UserWorkspace> getWorkspaceNames()
+        {
+            List<UserWorkspace> workspaces;
+            try
+            {
+                var workspaceInsertQuery = "select * from userworkspaces";
+                sql_con = new SQLiteConnection(Common.localDatabasePath, true);
+                sql_cmd = new SQLiteCommand(workspaceInsertQuery, sql_con);
+
+                sql_con.Open();
+                SQLiteDataReader reader = sql_cmd.ExecuteReader();
+                workspaces = new List<UserWorkspace>();
+           
+                while (reader.Read())
+                {
+                    UserWorkspace ws = new UserWorkspace();
+                    ws.WorkspaceId = StringUtils.ConvertFromDBVal<string>(reader["id"]);
+                    ws.Name = StringUtils.ConvertFromDBVal<string>(reader["name"]);
+                    workspaces.Add(ws);
+                }
+            }
+            catch (SQLiteException e) { throw e; }
+            finally { sql_con.Close(); }
+            return workspaces;
         }
 
     }

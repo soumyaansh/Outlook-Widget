@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _OutlookAddIn1.Model;
 
 namespace _OutlookAddIn1
 {
@@ -31,6 +32,7 @@ namespace _OutlookAddIn1
         public string mailToWitId { get; set; }
         public Role role { get; set; }
         public List<UserPackage> userPackages { get; set; }
+        public List<ComboWit> comboWit { get; set; }
         public object userGroupAssoc { get; set; }
         public List<UserWorkspace> userWorkspaces { get; set; }
         public object secondaryEmails { get; set; }

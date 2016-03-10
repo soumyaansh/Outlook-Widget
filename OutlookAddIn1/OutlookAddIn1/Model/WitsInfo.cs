@@ -40,7 +40,7 @@ namespace _OutlookAddIn1.Model
     public object commentCount { get; set; }
     public List<TagVo> tagVos { get; set; }
     public List<AttachmentDetail> attachmentDetails { get; set; }
-    public object comboWit { get; set; }
+    public List<ComboWit> comboWit { get; set; }
     public string content { get; set; }
     public object acronyms { get; set; }
     public object label { get; set; }
