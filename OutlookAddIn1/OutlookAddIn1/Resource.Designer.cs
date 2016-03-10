@@ -227,11 +227,11 @@ namespace _OutlookAddIn1 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://52.3.104.221:8080/.
+        ///   Looks up a localized string similar to Mandatory parameter is missing.
         /// </summary>
-        internal static string endpoint {
+        internal static string E99_003 {
             get {
-                return ResourceManager.GetString("endpoint", resourceCulture);
+                return ResourceManager.GetString("E99-003", resourceCulture);
             }
         }
         
@@ -923,6 +923,24 @@ namespace _OutlookAddIn1 {
             get {
                 object obj = ResourceManager.GetObject("wp", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provided user doesn&apos;t exists in Search scope..
+        /// </summary>
+        internal static string WPES_002 {
+            get {
+                return ResourceManager.GetString("WPES-002", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to properly parse the provided query.
+        /// </summary>
+        internal static string WPES_004 {
+            get {
+                return ResourceManager.GetString("WPES-004", resourceCulture);
             }
         }
         

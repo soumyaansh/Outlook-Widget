@@ -39,11 +39,16 @@ namespace _OutlookAddIn1
             this.pnlMenu = new _OutlookAddIn1.CustomPanel();
             this.witsPanel = new _OutlookAddIn1.CustomPanel();
             this.witsPanelContainer = new _OutlookAddIn1.CustomPanel();
+            this.searchFormPanel = new _OutlookAddIn1.CustomPanel();
+            this.searchPanel = new _OutlookAddIn1.CustomPanel();
+            this.searchPanelContainer = new _OutlookAddIn1.CustomPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.myCustomTreeView = new _OutlookAddIn1.CustomTreeView();
             this.witsPanel.SuspendLayout();
+            this.searchPanel.SuspendLayout();
+            this.searchFormPanel.SuspendLayout();
             this.SuspendLayout();
-            this.searchBoxPanel = new SearchBoxPanel(this);
+            this.mainTabPanel = new MainTabPanel(this);
 
             // 
             // button1
@@ -119,13 +124,11 @@ namespace _OutlookAddIn1
             this.pnlMenu.TabIndex = 1;
 
 
-            //
-            // searchBoxPanel
-            //
+          
 
 
             // 
-            // witsPanel
+            // witsPanelContainer
             // 
 
             this.witsPanelContainer.AutoSize = true;  // keep it false so that scroll work
@@ -139,9 +142,11 @@ namespace _OutlookAddIn1
             this.witsPanelContainer.Size = new System.Drawing.Size(300, 665);
             this.witsPanelContainer.TabIndex = 1;
             this.witsPanelContainer.Visible = false;
-           // this.witsPanelContainer.Controls.Add(searchBoxPanel);
 
 
+            // 
+            // witsPanel
+            //
             this.witsPanel.AutoSize = false;  // keep it false so that scroll work
             this.witsPanel.AutoScroll = true;
             this.witsPanel.VerticalScroll.Enabled = true;
@@ -155,9 +160,58 @@ namespace _OutlookAddIn1
             this.witsPanel.Size = new System.Drawing.Size(300, 665);
             this.witsPanel.TabIndex = 1;
             this.witsPanel.Visible = false;
-            
 
-          
+
+            // 
+            // searchPanelContainer
+            //
+            this.searchPanelContainer.AutoSize = true;  // keep it false so that scroll work
+            this.searchPanelContainer.AutoScroll = false;
+
+            this.searchPanelContainer.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.searchPanelContainer.Dock = System.Windows.Forms.DockStyle.Top;
+            this.searchPanelContainer.Location = new System.Drawing.Point(0, 0);
+            this.searchPanelContainer.Margin = new System.Windows.Forms.Padding(2);
+            this.searchPanelContainer.Name = "searchPanelContainer";
+            this.searchPanelContainer.Size = new System.Drawing.Size(300, 665);
+            this.searchPanelContainer.TabIndex = 1;
+            this.searchPanelContainer.Visible = false;
+
+            // 
+            // searchFormPanel
+            //
+            this.searchFormPanel.AutoSize = false;  // keep it false so that scroll work
+            this.searchFormPanel.AutoScroll = true;
+            this.searchFormPanel.VerticalScroll.Enabled = true;
+            this.searchFormPanel.VerticalScroll.Visible = true;
+            this.searchFormPanel.VerticalScroll.Maximum = 100;
+            this.searchFormPanel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.searchFormPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.searchFormPanel.Location = new System.Drawing.Point(0, 0);
+            this.searchFormPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.searchFormPanel.Name = "searchFormPanel";
+            this.searchFormPanel.Size = new System.Drawing.Size(300, 665);
+            this.searchFormPanel.TabIndex = 1;
+            this.searchFormPanel.Visible = false;
+
+            // 
+            // searchPanel
+            //
+            this.searchPanel.AutoSize = false;  // keep it false so that scroll work
+            this.searchPanel.AutoScroll = true;
+            this.searchPanel.VerticalScroll.Enabled = true;
+            this.searchPanel.VerticalScroll.Visible = true;
+            this.searchPanel.VerticalScroll.Maximum = 100;
+            this.searchPanel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.searchPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.searchPanel.Location = new System.Drawing.Point(0, 0);
+            this.searchPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.searchPanel.Name = "searchPanel";
+            this.searchPanel.Size = new System.Drawing.Size(300, 665);
+            this.searchPanel.TabIndex = 1;
+            this.searchPanel.Visible = false;
+
+
             // 
             // label1
             // 
@@ -202,16 +256,24 @@ namespace _OutlookAddIn1
             this.Controls.Add(this.pnlMenu);
             this.Controls.Add(this.witsPanel);
             this.Controls.Add(this.witsPanelContainer);
+            this.Controls.Add(this.searchFormPanel);
+            this.Controls.Add(this.searchPanel);
+            this.Controls.Add(this.searchPanelContainer);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.mainTabPanel);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MyUserControl";
             this.Size = new System.Drawing.Size(307, 455);
             this.Load += new System.EventHandler(this.MyUserControl_Load);
             this.witsPanel.ResumeLayout(false);
             this.witsPanel.PerformLayout();
-           
+            this.searchFormPanel.ResumeLayout(false);
+            this.searchFormPanel.PerformLayout();
+            this.searchPanel.ResumeLayout(false);
+            this.searchPanel.PerformLayout();
+
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,8 +288,12 @@ namespace _OutlookAddIn1
         public CustomTreeView myCustomTreeView;
         public CustomPanel pnlMenu;
         public CustomPanel witsPanel;
+        public CustomPanel searchFormPanel;
+        public CustomPanel searchPanel;
         public CustomPanel witsPanelContainer;
+        public CustomPanel searchPanelContainer;
         private Label label1;
-        public SearchBoxPanel searchBoxPanel;
+        public MainTabPanel mainTabPanel;
+       
     }
 }

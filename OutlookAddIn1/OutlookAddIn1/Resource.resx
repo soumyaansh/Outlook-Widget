@@ -522,7 +522,13 @@ into   profileSyncEvent
               @status
        )</value>
   </data>
-  <data name="endpoint" xml:space="preserve">
-    <value>http://52.3.104.221:8080/</value>
+  <data name="E99-003" xml:space="preserve">
+    <value>Mandatory parameter is missing</value>
+  </data>
+  <data name="WPES-002" xml:space="preserve">
+    <value>Provided user doesn't exists in Search scope.</value>
+  </data>
+  <data name="WPES-004" xml:space="preserve">
+    <value>Unable to properly parse the provided query</value>
   </data>
 </root>

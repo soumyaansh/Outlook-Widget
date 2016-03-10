@@ -64,7 +64,7 @@ namespace _OutlookAddIn1
                 }
              
                 control.witsPanelContainer.Controls.Add(control.witsPanel);
-                control.witsPanelContainer.Controls.Add(control.searchBoxPanel);
+                //control.witsPanelContainer.Controls.Add(control.mainTabPanel);
             }
         }
 

@@ -23,7 +23,7 @@ namespace _OutlookAddIn1
             AccessTokenDao accesstokenDao = new AccessTokenDao();
             String token = accesstokenDao.getAccessToken(Common.userName);
 
-            String url = Resource.endpoint + "wittyparrot/api/folders/" + folderId + "";
+            String url = "http://52.3.104.221:8080/wittyparrot/api/folders/" + folderId + "";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 
@@ -60,7 +60,7 @@ namespace _OutlookAddIn1
             List<Folder> firstLevelFolders = new List<Folder>();
             WitsDao witsDao = new WitsDao();
 
-            String url = Resource.endpoint +"wittyparrot/api/folders/workspaceId/"+ workspaceId + "/level/"+ level + "";
+            String url = "http://52.3.104.221:8080/wittyparrot/api/folders/workspaceId/"+ workspaceId + "/level/"+ level + "";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 
@@ -119,7 +119,7 @@ namespace _OutlookAddIn1
 
         public void getChildFolders(String token, String folderId, List<Folder> allFolderList)
         {
-            String url = Resource.endpoint + "wittyparrot/api/folders/" + folderId + "/children";
+            String url = "http://52.3.104.221:8080/wittyparrot/api/folders/" + folderId + "/children";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 
@@ -162,7 +162,7 @@ namespace _OutlookAddIn1
             AccessTokenDao accesstokenDao = new AccessTokenDao();
             String token = accesstokenDao.getAccessToken(Common.userName);
 
-            String url = Resource.endpoint + "wittyparrot/api/folders/" + parentFolderId + "/children";
+            String url = "http://52.3.104.221:8080/wittyparrot/api/folders/" + parentFolderId + "/children";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 

@@ -16,6 +16,7 @@ using _OutlookAddIn1.Utilities;
 using System.IO;
 using _OutlookAddIn1.Dao;
 using Devart.Data.SQLite;
+using _OutlookAddIn1.Model;
 
 namespace _OutlookAddIn1
 {
@@ -214,9 +215,21 @@ namespace _OutlookAddIn1
 
         private void refreshDatabaseThread() {
 
-            Thread thread = new Thread(new ThreadStart(refreshDatabase));
-            thread.Start();
+            Thread refreshDatabaseThread = new Thread(new ThreadStart(refreshDatabase));
+            refreshDatabaseThread.Start();
+            refreshDatabaseThread.Join();
 
+            Thread downloadAttachmentThread = new Thread(initializeDownloadAttachment);
+            downloadAttachmentThread.Start();
+
+           
+        }
+
+        public void initializeDownloadAttachment()
+        {
+            AttachmentDao attachmentDao = new AttachmentDao();
+            List<AttachmentDetail> witsAttachments = attachmentDao.getWitAttachments();
+            attachmentDao.downloadAttachmentThreadGenerator(witsAttachments);
         }
 
         private void refreshDatabase()
@@ -257,12 +270,15 @@ namespace _OutlookAddIn1
             }
 
         }
+
+
         public void login(object sender, EventArgs e)
         {
 
             try {
                 Panel witsPanel = this.witsPanel;
                 witsPanel.Visible = false;
+                mainTabPanel.Visible = true;
 
                 Panel panel = this.pnlMenu;
                 panel.Visible = true;
@@ -278,7 +294,7 @@ namespace _OutlookAddIn1
                 // check if the db is already present or not
                 UserDBConnector userDBConnector = new UserDBConnector(userName);
                 if (!userDBConnector.isDataBaseExists()) {
-                    refreshDatabase();
+                    refreshDatabaseThread();
                 }
 
                 AccessTokenDao accessTokenDao = new AccessTokenDao();
@@ -330,9 +346,9 @@ namespace _OutlookAddIn1
                         }
                     }
 
-                    // search Panel code below
-                    SearchBoxPanel searchBoxPanel = new SearchBoxPanel(this);
-                    panel.Controls.Add(searchBoxPanel);
+                    // mainTabPanel code below
+                    //MainTabPanel mainTabPanel = new MainTabPanel(this);
+                    //panel.Controls.Add(mainTabPanel);
 
                     // make the backgroud color silver so that if clicks for wits
                     // backgroud should should not look odd
@@ -369,15 +385,15 @@ namespace _OutlookAddIn1
             }
             catch (SQLiteException sqlException)
             {
-                MessageBox.Show("Error occured: " + sqlException.ToString());
+                MessageBox.Show("Error occured: " + sqlException.Message);
             }
             catch (System.ApplicationException appException)
             {
-                MessageBox.Show("Error occured: "+ appException.ToString());
+                MessageBox.Show("Error occured: "+ appException.Message);
             }
             catch (Exception ew) {
 
-                MessageBox.Show("Error occured: "+ ew.ToString());
+                MessageBox.Show("Error occured: "+ ew.Message);
             }
 
         }

@@ -240,7 +240,13 @@
     <Compile Include="Auth\AccessToken.cs" />
     <Compile Include="Auth\AccessTokenDao.cs" />
     <Compile Include="CheckNetConnection.cs" />
+    <Compile Include="controls\CustomSearchCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="controls\CustomMainButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="controls\CustomSearchLabel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="controls\CustomSearchTextBox.cs">
@@ -249,7 +255,7 @@
     <Compile Include="controls\CustomWorkspacePanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="controls\SearchBoxPanel.cs">
+    <Compile Include="controls\MainTabPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CustomWorkspaceButton.cs">
@@ -259,6 +265,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CustomTreeNode.cs" />
+    <Compile Include="Dao\AttachmentDao.cs" />
     <Compile Include="Dao\ProfileSyncDao.cs" />
     <Compile Include="Mail\CalenderUtils.cs" />
     <Compile Include="Model\AttachmentDetail.cs" />
@@ -266,10 +273,16 @@
     <Compile Include="Model\Docs.cs" />
     <Compile Include="Model\ProfileSync.cs" />
     <Compile Include="Model\ProfileSyncObject.cs" />
+    <Compile Include="Model\SearchInputJson.cs" />
+    <Compile Include="Model\SearchOutputJson.cs" />
     <Compile Include="Model\SyncEventCode.cs" />
     <Compile Include="Model\TagVo.cs" />
+    <Compile Include="Model\WitResult.cs" />
     <Compile Include="Model\WitsInfo.cs" />
     <Compile Include="Rest\RestApiSync.cs" />
+    <Compile Include="Rest\RestClientAttachment.cs" />
+    <Compile Include="Rest\RestClientSearch.cs" />
+    <Compile Include="search\SearchPanel.cs" />
     <Compile Include="Service\FolderService.cs" />
     <Compile Include="Service\WitsService.cs" />
     <Compile Include="Settings1.Designer.cs">
