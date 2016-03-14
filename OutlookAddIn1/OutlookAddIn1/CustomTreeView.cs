@@ -64,7 +64,7 @@ namespace _OutlookAddIn1
                 }
              
                 control.witsPanelContainer.Controls.Add(control.witsPanel);
-                //control.witsPanelContainer.Controls.Add(control.mainTabPanel);
+                control.witsPanelContainer.Controls.Add(control.mainTabPanel);
             }
         }
 
@@ -99,7 +99,7 @@ namespace _OutlookAddIn1
                 textMailButton.Click += textMailButtonHandler;
                 textMailButton.Location = new System.Drawing.Point(280, 0);
 
-                CustomWitIconButton forwardMailButton = new CustomWitIconButton(Resource.mail_24px1, AnchorStyles.Left, System.Drawing.Color.FromArgb(64, 64, 64), "forward");
+                CustomWitIconButton forwardMailButton = new CustomWitIconButton(Resource.forward, AnchorStyles.Left, System.Drawing.Color.FromArgb(64, 64, 64), "forward");
                 forwardMailButton.Click += forwardMailButtonHandler;
                 forwardMailButton.Location = new System.Drawing.Point(310, 0);
 
@@ -107,11 +107,11 @@ namespace _OutlookAddIn1
                 textReplyButton.Click += textReplyButtonHandler;
                 textReplyButton.Location = new System.Drawing.Point(340, 0);
 
-                CustomWitIconButton textReplyAllButton = new CustomWitIconButton(Resource.post_24px1, AnchorStyles.Left, System.Drawing.Color.FromArgb(64, 64, 64), "reply All");
+                CustomWitIconButton textReplyAllButton = new CustomWitIconButton(Resource.reply_all, AnchorStyles.Left, System.Drawing.Color.FromArgb(64, 64, 64), "reply All");
                 textReplyAllButton.Click += textReplyAllButtonHandler;
                 textReplyAllButton.Location = new System.Drawing.Point(370, 0);
 
-                CustomWitIconButton meetingButton = new CustomWitIconButton(Resource.paste_24px1, AnchorStyles.Left, System.Drawing.Color.FromArgb(64, 64, 64),"meeting");
+                CustomWitIconButton meetingButton = new CustomWitIconButton(Resource.meeting, AnchorStyles.Left, System.Drawing.Color.FromArgb(64, 64, 64),"meeting");
                 meetingButton.Click += meetingButtonHandler;
                 meetingButton.Location = new System.Drawing.Point(400, 0);
 

@@ -45,8 +45,8 @@ namespace _OutlookAddIn1
         public object dragBehaviour { get; set; }
         public object appSettings { get; set; }
         public object widgetSettings { get; set; }
-        public int desktopAlert { get; set; }
-        public int emailAlert { get; set; }
+       // public Int64 desktopAlert { get; set; }
+        //public int emailAlert { get; set; }
         public List<string> features { get; set; }
 
     }

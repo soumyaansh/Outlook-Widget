@@ -23,7 +23,7 @@ namespace _OutlookAddIn1
             }
 
            
-            var client = new RestClient("http://52.3.104.221:8080/wittyparrot/api/auth/login");
+            var client = new RestClient(Resource.endpoint + "wittyparrot/api/auth/login");
             var strJSONContent = "{\"userId\":\"" + username + "\" ,\"password\":\"" + password + "\"}";
             
             var request = new RestRequest();
@@ -34,7 +34,7 @@ namespace _OutlookAddIn1
             request.RequestFormat = DataFormat.Json;
             request.AddHeader("Content-Type", "application/json");
 
-            // execute the request
+            // If the response has exception the applocation will half and throw Application exception
             IRestResponse response = client.Execute(request);
             if (response.ErrorException != null || response.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {

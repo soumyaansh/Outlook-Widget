@@ -39,9 +39,10 @@ namespace _OutlookAddIn1
             CreateMyStatusBar();
         }
 
+        // Status bar showing logout, sync, date and wittyparrot logo
         private void CreateMyStatusBar()
         {
-            // Create a StatusBar control.
+            
             StatusBar statusBar1 = new StatusBar();
             statusBar1.PanelClick += new StatusBarPanelClickEventHandler(statusBar1_PanelClick);
             statusBar1.Size = new System.Drawing.Size(400, 40);
@@ -101,18 +102,19 @@ namespace _OutlookAddIn1
             statusBar1.ShowPanels = true;
             statusBar1.Visible = true;
 
-            // Add both panels to the StatusBarPanelCollection of the StatusBar.			
+            // Add all the panels to the StatusBarPanelCollection of the StatusBar.			
             statusBar1.Panels.Add(logoutPanel);
             statusBar1.Panels.Add(refreshPanel);
             statusBar1.Panels.Add(networkStatusPanelIcon);           
             statusBar1.Panels.Add(dateTimePanel);
             statusBar1.Panels.Add(wpIconPanel);
 
-            // Add the StatusBar to the form.
-
+            // Add the StatusBar to the mycontrol Panel .
             this.Controls.Add(statusBar1);
         }
 
+        // check if the clicked element is refresh or logout
+        // Sync thread calls the startProfileSync
         public void statusBar1_PanelClick(object sender, StatusBarPanelClickEventArgs e) {
 
             if (e.StatusBarPanel.Name == "refresh")
@@ -122,8 +124,9 @@ namespace _OutlookAddIn1
                     MessageBox.Show("User not loggedin");
                 }
                 else {
-                    
-                    Thread thread = new Thread(new ThreadStart(startProfileSync));
+
+                    ProfileSyncDao profileSyncDao = new ProfileSyncDao();                  
+                    Thread thread = new Thread(() => profileSyncDao.startProfileSync());                 
                     thread.Start();   
                 }
 
@@ -153,42 +156,8 @@ namespace _OutlookAddIn1
             }
         }
 
-        private void startProfileSync()
-        {
 
-            ProfileSyncDao profileSyncDao = new ProfileSyncDao();
-            profileSyncDao.startProfileSync();
-
-        }
-
-
-        private void afterLogin()
-        {
-            this.Controls.Remove(textBox1);
-            this.Controls.Remove(textBox2);
-            this.Controls.Remove(button1);
-            this.Controls.Remove(label1);
-   
-            this.Controls.Remove(checkBox1);
-            myCustomTreeView.Visible = true;
-        }
-
-
-        private void logout()
-        {
-
-            this.pnlMenu.Visible = false;
-            this.witsPanel.Visible = false;
-            this.myCustomTreeView.Visible = false;
-           
-            this.Controls.Add(textBox1);
-            this.Controls.Add(textBox2);
-            this.Controls.Add(button1);
-            this.Controls.Add(label1);
-            this.Controls.Add(checkBox1);
-
-           
-        }
+       
 
         private void treeView1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -219,6 +188,7 @@ namespace _OutlookAddIn1
             refreshDatabaseThread.Start();
             refreshDatabaseThread.Join();
 
+            // once all the profile data gets loaded start uloading the attachements  
             Thread downloadAttachmentThread = new Thread(initializeDownloadAttachment);
             downloadAttachmentThread.Start();
 
@@ -251,15 +221,15 @@ namespace _OutlookAddIn1
                 if (workspaceDao.getWorkspaceNameList() != null && workspaceDao.getWorkspaceNameList().Count != 0)
                 {
                     List<UserWorkspace> workspaces = workspaceDao.getWorkspaceList();
-                    List<Folder> allFolderList = new List<Folder>();
+                   
                     foreach (var workspace in workspaces)
                     {
                         RestClientFolder restClientFolder = new RestClientFolder();
-                        restClientFolder.getAllFolders(rootObj.accessToken.tokenValue, workspace.WorkspaceId, 0, allFolderList);
+                        restClientFolder.getAllFolders(rootObj.accessToken.tokenValue, workspace.WorkspaceId, 0);
                     }
 
-                    FolderDao folderDao = new FolderDao();
-                    folderDao.saveAllFolders(allFolderList);
+                   // FolderDao folderDao = new FolderDao();
+                    //folderDao.saveAllFolders(allFolderList);
                 }
 
             }
@@ -271,14 +241,14 @@ namespace _OutlookAddIn1
 
         }
 
-
+        // gets invoke when the user logins
         public void login(object sender, EventArgs e)
         {
 
             try {
                 Panel witsPanel = this.witsPanel;
                 witsPanel.Visible = false;
-                mainTabPanel.Visible = true;
+               
 
                 Panel panel = this.pnlMenu;
                 panel.Visible = true;
@@ -304,7 +274,6 @@ namespace _OutlookAddIn1
                 this.password = password;
 
                 UserWorkspaceDao workspaceDao = null;
-                List<Folder> allFolderList = null;
                 if (rootObj.userProfile.userWorkspaces != null && rootObj.userProfile.userWorkspaces.Count > 0) {
 
                     workspaceDao = new UserWorkspaceDao();
@@ -312,13 +281,12 @@ namespace _OutlookAddIn1
 
                     if (workspaceDao.getWorkspaceNameList() != null && workspaceDao.getWorkspaceNameList().Count != 0)
                     {
-                        List<UserWorkspace> workspaces = workspaceDao.getWorkspaceList();
-                        allFolderList = new List<Folder>();
-                        panel.Controls.Clear();
+                        List<UserWorkspace> workspaces = workspaceDao.getWorkspaceList();                     
+                        panel.Controls.Clear(); // clear the panel before adding the workspace controls
+
+                        // loop through all the workspaces and get the folders of the workspaces
                         foreach (var workspace in workspaces)
                         {
-
-                            // loop through all the workspaces and get the folders of the workspaces
 
                             CustomWorkspaceButton workspaceButton = new CustomWorkspaceButton();
                             workspaceButton.Text = " " + workspace.Name;
@@ -326,36 +294,26 @@ namespace _OutlookAddIn1
                             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                             var path = Path.Combine(appDataPath, "wpoutlookwidget" + @"\");
 
-
                             workspaceButton.Image = new Bitmap(path + "wpdependencies\\list_icon.ico");
                             workspaceButton.Click += workspaceButtonHandler;
 
-                            CustomWorkspacePanel childPanel = new CustomWorkspacePanel();
-                            childPanel.AutoScrollMargin = new System.Drawing.Size(0, 400);
-                            childPanel.AutoSize = true;
-                            childPanel.Dock = System.Windows.Forms.DockStyle.Top;
-                            childPanel.Location = new System.Drawing.Point(0, 0);
-                            childPanel.Name = "childPanel";
-                            childPanel.Size = new System.Drawing.Size(200, 104);
-                            childPanel.TabIndex = 1;
+                            CustomWorkspacePanel childPanel = new CustomWorkspacePanel();                          
                             childPanel.Controls.Add(workspaceButton);
 
                             panel.Controls.Add(childPanel);
 
-
                         }
                     }
 
-                    // mainTabPanel code below
-                    //MainTabPanel mainTabPanel = new MainTabPanel(this);
-                    //panel.Controls.Add(mainTabPanel);
 
-                    // make the backgroud color silver so that if clicks for wits
-                    // backgroud should should not look odd
+                    // make the backgroud color WhiteSmoke so that if clicks for wits
+                    // backgroud should should not look un even
                     this.BackColor = System.Drawing.Color.WhiteSmoke;
 
-                    // clear all the controls from the widget and show only listview
+                    // clear all the controls from the widget and show only Workspace panel
+                    // workspace panel is the starting point (iniital screen) 
                     afterLogin();
+                    mainTabPanel.Visible = true;
 
 
                     // save all the images needed to show to the widget
@@ -385,19 +343,50 @@ namespace _OutlookAddIn1
             }
             catch (SQLiteException sqlException)
             {
-                MessageBox.Show("Error occured: " + sqlException.Message);
+                MessageBox.Show("Error occured: " + sqlException.ToString());
             }
             catch (System.ApplicationException appException)
             {
-                MessageBox.Show("Error occured: "+ appException.Message);
+                MessageBox.Show("Error occured: "+ appException.ToString());
             }
             catch (Exception ew) {
 
-                MessageBox.Show("Error occured: "+ ew.Message);
+                MessageBox.Show("Error occured: "+ ew.ToString());
             }
 
         }
 
+        // Hiding all the login controls from the myUsercontrol 
+        private void afterLogin()
+        {
+            this.Controls.Remove(textBox1);
+            this.Controls.Remove(textBox2);
+            this.Controls.Remove(button1);
+            this.Controls.Remove(label1);
+
+            this.Controls.Remove(checkBox1);
+            myCustomTreeView.Visible = true;
+        }
+
+
+        // show all the login controls
+        private void logout()
+        {
+
+            this.pnlMenu.Visible = false;
+            this.witsPanel.Visible = false;
+            this.myCustomTreeView.Visible = false;
+
+            this.Controls.Add(textBox1);
+            this.Controls.Add(textBox2);
+            this.Controls.Add(button1);
+            this.Controls.Add(label1);
+            this.Controls.Add(checkBox1);
+
+
+        }
+
+        // Not yet implemented, key down even 
         void searchTextBoxHandler(object sender, EventArgs e)
         {
             CustomSearchTextBox searchTextBox = (CustomSearchTextBox)sender;
@@ -442,7 +431,9 @@ namespace _OutlookAddIn1
 
         }
 
-        // It is used to collapse and expand the workspaces to show and hide folders
+        // It is used to collapse and expand the workspaces's associated folders 
+        // When we click on particular workspace control it pulls up the folder of that workspace
+        // and show in the Tree view heirarchy
         void workspaceButtonHandler(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
@@ -479,6 +470,7 @@ namespace _OutlookAddIn1
 
         }
 
+        // When the user hits Enter, when submitting username password
         private void loginWhenEnter(object sender, KeyEventArgs e) {
 
             if (e.KeyCode == Keys.Enter)
@@ -488,6 +480,7 @@ namespace _OutlookAddIn1
 
         }
 
+        // Create Folder heirarchy using customtreeview control 
         private void prepareTreeNodeHeirarchy(String selectedWSid)
         {
             FolderDao folderDao = new FolderDao();
@@ -504,6 +497,8 @@ namespace _OutlookAddIn1
             }          
         }
 
+        
+        // populate the folders as tree nodes
         private CustomTreeNode createNodes(Folder folder) {
 
             // first create the root node

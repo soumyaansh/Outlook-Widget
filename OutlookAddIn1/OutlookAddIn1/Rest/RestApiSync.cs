@@ -23,7 +23,7 @@ namespace _OutlookAddIn1.Rest
                 currentTime = String.Format("{0:yyyy-MM-ddTHH:mm:ss.000Z}", DateTime.Now.AddDays(-2));
             }
 
-            String url = "http://52.3.104.221:8080/wittyparrot/api/sync?from=" + currentTime + "&maxLimit=" + maxLimit + "";
+            String url = Resource.endpoint + "wittyparrot/api/sync?from=" + currentTime + "&maxLimit=" + maxLimit + "";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 

@@ -21,12 +21,13 @@ namespace _OutlookAddIn1.Rest
     class RestClientAttachment
     {
 
+        // download all the attachments of a wit to the local folders
         public void getAttachment(String witId, String fileAssociationId, String fileName, String userProfilepath)
         {
             AccessTokenDao accesstokenDao = new AccessTokenDao();
             String token = accesstokenDao.getAccessToken(Common.userName);
 
-            String url = "http://52.3.104.221:8080/wittyparrot/api/attachments/associationId/" + fileAssociationId + "";
+            String url = Resource.endpoint + "wittyparrot/api/attachments/associationId/" + fileAssociationId + "";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 

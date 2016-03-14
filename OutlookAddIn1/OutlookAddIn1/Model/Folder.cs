@@ -15,7 +15,7 @@ namespace _OutlookAddIn1
         public string name { get; set; }
         public string type { get; set; }
         public object parentId { get; set; }
-        public object children { get; set; }
+        public List<Folder> children { get; set; }
         public bool hasChildren { get; set; }
         public int updateNumber { get; set; }
         public string folderType { get; set; }

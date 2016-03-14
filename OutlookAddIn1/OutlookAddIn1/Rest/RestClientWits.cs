@@ -13,7 +13,6 @@ using _OutlookAddIn1.Model;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using _OutlookAddIn1.Utilities;
-using _OutlookAddIn1.Dao;
 
 namespace _OutlookAddIn1
 {
@@ -25,7 +24,7 @@ namespace _OutlookAddIn1
             AccessTokenDao accesstokenDao = new AccessTokenDao();
             String token = accesstokenDao.getAccessToken(Common.userName);
 
-            String url = "http://52.3.104.221:8080/wittyparrot/api/wits/folder/" + parentFolderId + "/children";
+            String url = Resource.endpoint + "wittyparrot/api/wits/folder/" + parentFolderId + "/children";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 
@@ -35,7 +34,7 @@ namespace _OutlookAddIn1
             request.AddParameter("Authorization", "Bearer " + token, ParameterType.HttpHeader);
             request.RequestFormat = DataFormat.Json;
 
-            // execute the request
+           
             IRestResponse response = client.Execute(request);
             String content = response.Content;
 
@@ -71,7 +70,7 @@ namespace _OutlookAddIn1
             AccessTokenDao accesstokenDao = new AccessTokenDao();
             String token = accesstokenDao.getAccessToken(Common.userName);
 
-            String url = "http://52.3.104.221:8080/wittyparrot/api/wits/" + witId + "";
+            String url = Resource.endpoint + "wittyparrot/api/wits/" + witId + "";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 
@@ -96,16 +95,31 @@ namespace _OutlookAddIn1
             WitsInfo info = JsonConvert.DeserializeObject<WitsInfo>(content);
             if (info != null){return info;} return null;
         }
+      
+
+        private String getCombowitContent(WitsInfo witInfo)
+        {
+            String content = "";
+
+            if (witInfo.comboWit != null) {
+                
+                 foreach (ComboWit comboWit in witInfo.comboWit) {
+                    content +=  getWitContent(comboWit.associatedWitId);
+                }
+            }
+
+            return content;
+        }
 
 
-
+        // We are tackling the combowits
         public String getWitContent(string witId)
         {
 
             AccessTokenDao accesstokenDao = new AccessTokenDao();
             String token = accesstokenDao.getAccessToken(Common.userName);
 
-            String url = "http://52.3.104.221:8080/wittyparrot/api/wits/" + witId + "";
+            String url = Resource.endpoint + "wittyparrot/api/wits/" + witId + "";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 
@@ -127,9 +141,10 @@ namespace _OutlookAddIn1
                 throw myException;
             }
 
-           
+
             WitsInfo witInfo = JsonConvert.DeserializeObject<WitsInfo>(content);
-            if (witInfo != null) {
+            if (witInfo != null)
+            {
 
                 String witContent = witInfo.content;
                 if (witContent != null)
@@ -138,40 +153,26 @@ namespace _OutlookAddIn1
                 }
 
                 String witType = witInfo.witType;
-                // check the type of the wit if its combo then we need to call the associated
-                // wits and get the content to merge it and then return the content from this method
+                // check the type of the wit if its combo then we need to call the associated wits
+                // get the content of associated wits to merge it and then return the content 
 
                 if (witType == WitType.COMBO.Value)
                 {
-                    return getCombowitContent(witInfo); // return the combined wit content
+                    return getCombowitContent(witInfo); // return the combined wit contents of all the associated wits
                 }
             }
-                   
+
             return null;
-    
-    }
 
-        private String getCombowitContent(WitsInfo witInfo)
-        {
-            String content = "";
-
-            if (witInfo.comboWit != null) {
-                
-                 foreach (ComboWit comboWit in witInfo.comboWit) {
-                    content +=  getWitContent(comboWit.associatedWitId);
-                }
-            }
-
-            return content;
         }
 
-       
-    public List<AttachmentDetail> getWitsInfo(String witId)
+        // Get the attachment details of the wit
+        public List<AttachmentDetail> getWitsInfo(String witId)
         {
             AccessTokenDao accesstokenDao = new AccessTokenDao();
             String token = accesstokenDao.getAccessToken(Common.userName);
 
-            String url = "http://52.3.104.221:8080/wittyparrot/api/wits/" + witId + "";
+            String url = Resource.endpoint + "wittyparrot/api/wits/" + witId + "";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 

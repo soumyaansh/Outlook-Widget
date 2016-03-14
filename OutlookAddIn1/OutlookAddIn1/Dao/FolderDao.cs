@@ -132,7 +132,7 @@ namespace _OutlookAddIn1
                 ws.enterpriseId = StringUtils.ConvertFromDBVal<string>(reader["enterprise_id"]);
                 ws.folderType = StringUtils.ConvertFromDBVal<string>(reader["folderType"]);
                 ws.parentId = StringUtils.ConvertFromDBVal<string>(reader["parentId"]);
-                ws.children = StringUtils.ConvertFromDBVal<string>(reader["children"]);
+                ws.children = StringUtils.ConvertFromDBVal<List<Folder>>(reader["children"]);
                 folders.Add(ws);
             }
 

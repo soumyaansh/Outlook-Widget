@@ -227,11 +227,11 @@ namespace _OutlookAddIn1 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mandatory parameter is missing.
+        ///   Looks up a localized string similar to http://wittyapi.wittyparrot.com:8080/.
         /// </summary>
-        internal static string E99_003 {
+        internal static string endpoint {
             get {
-                return ResourceManager.GetString("E99-003", resourceCulture);
+                return ResourceManager.GetString("endpoint", resourceCulture);
             }
         }
         
@@ -342,6 +342,16 @@ namespace _OutlookAddIn1 {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap forward {
+            get {
+                object obj = ResourceManager.GetObject("forward", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon grayfolder {
@@ -435,6 +445,16 @@ namespace _OutlookAddIn1 {
         internal static System.Drawing.Bitmap mail_24px1 {
             get {
                 object obj = ResourceManager.GetObject("mail_24px1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap meeting {
+            get {
+                object obj = ResourceManager.GetObject("meeting", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -625,6 +645,16 @@ namespace _OutlookAddIn1 {
             get {
                 object obj = ResourceManager.GetObject("refreshgray", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap reply_all {
+            get {
+                object obj = ResourceManager.GetObject("reply_all", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -923,24 +953,6 @@ namespace _OutlookAddIn1 {
             get {
                 object obj = ResourceManager.GetObject("wp", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Provided user doesn&apos;t exists in Search scope..
-        /// </summary>
-        internal static string WPES_002 {
-            get {
-                return ResourceManager.GetString("WPES-002", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unable to properly parse the provided query.
-        /// </summary>
-        internal static string WPES_004 {
-            get {
-                return ResourceManager.GetString("WPES-004", resourceCulture);
             }
         }
         

@@ -13,9 +13,6 @@ using System.IO;
 using UserContext;
 using _OutlookAddIn1.Model;
 using _OutlookAddIn1.Utilities;
-using _OutlookAddIn1.Dao;
-using _OutlookAddIn1.Rest;
-using System.Threading;
 
 namespace _OutlookAddIn1
 {
@@ -24,42 +21,45 @@ namespace _OutlookAddIn1
 
         SQLiteConnection sql_con;
         SQLiteCommand sql_cmd;
-       
+        RestClientWits restWit = new RestClientWits();
 
+        // save collection of wits with wit attachments
         public void saveAllWits(List<Wits> wits)
-        {         
-            foreach (var wit in wits)
+        {
+           
+            foreach (var Wits in wits)
             {
-                // create new thread for every wit creation to improve the loading time
-                Thread thread = new Thread(() => saveWitsAndAttachmentDeatials(wit));
-                thread.Start();               
+                saveWits(Wits);
+                if (restWit.getWitsInfo(Wits.id) != null)
+                {
+                    saveWitAttachments(restWit.getWitsInfo(Wits.id));
+                }
             }
         }
 
+        // Wit attachment is the table which will hold the attachment details
+        // This does not download the actual attachments
+        public void saveWitAttachments(List<AttachmentDetail> witsAttachments)
+        {
+            if (witsAttachments != null && witsAttachments.Count>0) {
 
-        private void saveWitsAndAttachmentDeatials(Wits wit) {
-            WitsDao witDao = new WitsDao();
-            witDao.saveWits(wit);
-
-            RestClientWits restWit = new RestClientWits();
-            if (restWit.getWitsInfo(wit.id) != null)
-            {
-                AttachmentDao attachmentDao = new AttachmentDao();
-                attachmentDao.saveWitAttachments(restWit.getWitsInfo(wit.id));
+                foreach (var witsAtt in witsAttachments)
+                {
+                    saveWitAttachment((AttachmentDetail)witsAtt);
+                }
             }
+            
         }
 
+        // This method is used for Sync (WIT_CREATED,WIT_SHARED,WIT_COPIED..)
         public void saveSingleWit(Wits wit)
         {
-            WitsDao witDao = new WitsDao();
-            witDao.saveWits(wit);
-            AttachmentDao attachmentDao = new AttachmentDao();
-
-            RestClientWits restWit = new RestClientWits();
-            attachmentDao.saveWitAttachments(restWit.getWitsInfo(wit.id));
+            saveWits(wit);
+            saveWitAttachments(restWit.getWitsInfo(wit.id));
 
         }
 
+        // This method is used for Sync (WIT_MOVED,WIT_DELETED,WIT_UNSHARED)
         public void deleteWit(String witId) {
 
             try
@@ -101,19 +101,69 @@ namespace _OutlookAddIn1
                     doc.localPath = StringUtils.ConvertFromDBVal<string>(reader["local_path"]);
                     docs.Add(doc);
 
-                }
-
-
-            
+                }          
             }
             catch (SQLiteException e) {  throw e; }
             finally { sql_con.Close(); }
 
             return docs;
 
-        }       
+        }
 
-      
+        // save the attachment details to the db
+        public void saveWitAttachment(AttachmentDetail witsAttachment)
+        {
+            try { 
+
+            var witAttachmentsQuery = Resource.ResourceManager.GetString("wit_attachments_insert");
+            sql_con = new SQLiteConnection(Common.localDatabasePath, true);
+            sql_cmd = new SQLiteCommand(witAttachmentsQuery, sql_con);
+
+            sql_cmd.Parameters.Add("@id", DbType.String);
+            sql_cmd.Parameters["@id"].Value = Utilities.GUIDGenerator.getGUID();
+
+            sql_cmd.Parameters.Add("@file_id", DbType.String);
+            sql_cmd.Parameters["@file_id"].Value = witsAttachment.fileId;
+
+            sql_cmd.Parameters.Add("@wit_id", DbType.String);
+            sql_cmd.Parameters["@wit_id"].Value = witsAttachment.witId;
+
+            sql_cmd.Parameters.Add("@file_name", DbType.String);
+            sql_cmd.Parameters["@file_name"].Value = witsAttachment.fileName;
+
+            sql_cmd.Parameters.Add("@file_mime_type", DbType.String);
+            sql_cmd.Parameters["@file_mime_type"].Value = witsAttachment.fileMimeType;
+
+            sql_cmd.Parameters.Add("@file_association_id", DbType.String);
+            sql_cmd.Parameters["@file_association_id"].Value = witsAttachment.fileAssociationId;
+
+            sql_cmd.Parameters.Add("@seq_number", DbType.String);
+            sql_cmd.Parameters["@seq_number"].Value = witsAttachment.seqNumber;
+
+            sql_cmd.Parameters.Add("@is_inline", DbType.String);
+            sql_cmd.Parameters["@is_inline"].Value = witsAttachment.inline;
+
+            sql_cmd.Parameters.Add("@source", DbType.String);
+            sql_cmd.Parameters["@source"].Value = witsAttachment.source;
+
+            sql_cmd.Parameters.Add("@extention", DbType.String);
+            sql_cmd.Parameters["@extention"].Value = witsAttachment.extention;
+
+            sql_cmd.Parameters.Add("@fileSize", DbType.String);
+            sql_cmd.Parameters["@fileSize"].Value = witsAttachment.fileSize;
+
+            sql_cmd.Parameters.Add("@attachment_type", DbType.String);
+            sql_cmd.Parameters["@attachment_type"].Value = witsAttachment.attachmentType;
+
+
+            sql_con.Open();
+            sql_cmd.ExecuteNonQuery();
+
+        }
+            catch (SQLiteException e) {  throw e; }
+            finally { sql_con.Close(); }
+        }
+
 
         public List<Wits> getWits(String parentFolderId)
         {
@@ -145,7 +195,7 @@ namespace _OutlookAddIn1
             return wits;
         }
 
-
+        // not implemented/used
         public List<Wits> getAllWits(String parentFolderId)
         {
 
@@ -175,6 +225,7 @@ namespace _OutlookAddIn1
             return wits;
         }
 
+        //Get wits details
         public Wits getWit(String witId)
         {
             Wits wit;
@@ -209,8 +260,7 @@ namespace _OutlookAddIn1
         }
 
 
-       
-
+        // Save wits 
         public void saveWits(Wits wits)
         {
             try { 

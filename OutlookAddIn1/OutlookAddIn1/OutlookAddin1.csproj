@@ -240,13 +240,7 @@
     <Compile Include="Auth\AccessToken.cs" />
     <Compile Include="Auth\AccessTokenDao.cs" />
     <Compile Include="CheckNetConnection.cs" />
-    <Compile Include="controls\CustomSearchCheckBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="controls\CustomMainButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="controls\CustomSearchLabel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="controls\CustomSearchTextBox.cs">
@@ -273,16 +267,11 @@
     <Compile Include="Model\Docs.cs" />
     <Compile Include="Model\ProfileSync.cs" />
     <Compile Include="Model\ProfileSyncObject.cs" />
-    <Compile Include="Model\SearchInputJson.cs" />
-    <Compile Include="Model\SearchOutputJson.cs" />
     <Compile Include="Model\SyncEventCode.cs" />
     <Compile Include="Model\TagVo.cs" />
-    <Compile Include="Model\WitResult.cs" />
     <Compile Include="Model\WitsInfo.cs" />
     <Compile Include="Rest\RestApiSync.cs" />
     <Compile Include="Rest\RestClientAttachment.cs" />
-    <Compile Include="Rest\RestClientSearch.cs" />
-    <Compile Include="search\SearchPanel.cs" />
     <Compile Include="Service\FolderService.cs" />
     <Compile Include="Service\WitsService.cs" />
     <Compile Include="Settings1.Designer.cs">
@@ -554,6 +543,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\list_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\reply_all.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\forward.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meeting.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\forward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meeting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\reply_all.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

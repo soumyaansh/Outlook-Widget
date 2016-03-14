@@ -10,12 +10,12 @@ using RestSharp.Authenticators;
 using Newtonsoft.Json;
 using _OutlookAddIn1.Auth;
 using _OutlookAddIn1.Utilities;
+using System.Threading;
 
 namespace _OutlookAddIn1
 {
     class RestClientFolder
     {
-
 
             public Folder getFolderDetails(String folderId)
         {
@@ -23,7 +23,7 @@ namespace _OutlookAddIn1
             AccessTokenDao accesstokenDao = new AccessTokenDao();
             String token = accesstokenDao.getAccessToken(Common.userName);
 
-            String url = "http://52.3.104.221:8080/wittyparrot/api/folders/" + folderId + "";
+            String url = Resource.endpoint + "wittyparrot/api/folders/" + folderId + "";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 
@@ -49,18 +49,19 @@ namespace _OutlookAddIn1
            Folder  folderDetails = JsonConvert.DeserializeObject<Folder>(content);
            return folderDetails;
 
-        }
+        } 
 
-
-        public List<Folder> getAllFolders(String token, String workspaceId, Int16 level, List<Folder> allFolderList)
+        // This method fetches only the first level folders , and further calls the child folders of the
+        // first level folders
+        public void getAllFolders(String token, String workspaceId,int level)
         {
 
             // used class objects defined below
-            RestClientWits restWits = new RestClientWits();
+           
             List<Folder> firstLevelFolders = new List<Folder>();
-            WitsDao witsDao = new WitsDao();
+          
 
-            String url = "http://52.3.104.221:8080/wittyparrot/api/folders/workspaceId/"+ workspaceId + "/level/"+ level + "";
+            String url = Resource.endpoint + "wittyparrot/api/folders/workspaceId/" + workspaceId + "/level/" + level + "";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 
@@ -85,41 +86,64 @@ namespace _OutlookAddIn1
                 throw myException;
             }
 
+            // This method pulls the first level folder
             firstLevelFolders = JsonConvert.DeserializeObject<List<Folder>>(content);
-            allFolderList.AddRange(firstLevelFolders);        
+            if (firstLevelFolders != null && firstLevelFolders.Count > 0)
+            {
+                // save the folders into db
 
+                FolderDao folderDao = new FolderDao();
+                folderDao.saveAllFolders(firstLevelFolders);
 
-                foreach (var folder in firstLevelFolders){
-                if (folder.hasChildren == false)
+                foreach (var folder in firstLevelFolders)
                 {
-                    // in this scenario wits can be present in the folders
-                    // query for the wits in the folder
-                    List<Wits> wits = restWits.getFolderWits(folder.id);
-                    if (wits!= null && wits.Count > 0) {
-                        witsDao.saveAllWits(wits);
-                    }
 
-
-                }
-                else if(folder.hasChildren == true)
-                {
-                    // in this scenario wits wont be there in the folder
-                    getChildFolders(token, folder.id, allFolderList);
-                    List<Wits> wits = restWits.getFolderWits(folder.id);
-                    if (wits.Count > 0)
+                    if (folder.hasChildren == false)
                     {
-                        witsDao.saveAllWits(wits);
+                        // in this scenario child folders wont be present 
+                        // query for the wits in the folder
+                        // Implimenting thread to improve the performance
+                        
+                        Thread thread = new Thread(() => getFolderWitsThread(folder));
+                        thread.Start();
+
+                    }
+                    else if (folder.hasChildren == true)
+                    {
+                        // in this scenario child folders will be there                 
+                        getChildFolders(token, folder.id,1);
+
+
+                        // Implimenting thread to improve the performance
+                        Thread thread = new Thread(() => getFolderWitsThread(folder));
+                        thread.Start();
                     }
                 }
-                }
-                return allFolderList;
+
+            }         
+        }
+
+
+        // Fetch all the wits of the folder
+        private void getFolderWitsThread(Folder folder)
+        {
+            RestClientWits restWits = new RestClientWits();
+            WitsDao witsDao = new WitsDao();
+
+
+            List<Wits> wits = restWits.getFolderWits(folder.id);
+            if (wits != null && wits.Count > 0)
+            {
+                witsDao.saveAllWits(wits);
+            }
+
         }
 
         
-
-        public void getChildFolders(String token, String folderId, List<Folder> allFolderList)
+        // This method will fetch all the child folders of the parent folder
+        public void getChildFolders(String token, String folderId,int level)
         {
-            String url = "http://52.3.104.221:8080/wittyparrot/api/folders/" + folderId + "/children";
+            String url = Resource.endpoint + "wittyparrot/api/folders/" + folderId + "/hierarchy/level/" + level ;
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 
@@ -141,28 +165,51 @@ namespace _OutlookAddIn1
                 throw myException;
             }
 
-            List<Folder> childFolders = new List<Folder>();
-            childFolders = JsonConvert.DeserializeObject<List<Folder>>(content);
-            allFolderList.AddRange(childFolders);
-
-            if (childFolders != null && childFolders.Count > 0) {
+            
+            Folder parentfolder = JsonConvert.DeserializeObject<Folder>(content);
+            List<Folder> childFolders = parentfolder.children;
+            if (childFolders != null && childFolders.Count > 0)
+            {
                 foreach (var folder in childFolders)
                 {
-                    if (folder.children != null)
+                    // save the folders into db
+
+                    FolderDao folderDao = new FolderDao();
+                    folderDao.saveFolder(folder);
+
+                    WitsDao witsDao = new WitsDao();
+                    RestClientWits restWits = new RestClientWits();
+
+
+                    List<Wits> wits = restWits.getFolderWits(folder.id);
+                    if (wits != null && wits.Count > 0)
                     {
-                        getChildFolders(token, folder.id, allFolderList);
+                        witsDao.saveAllWits(wits);
                     }
+
+
+                  
+                    if (folder.hasChildren != null && folder.hasChildren == true)
+                    {
+                        // This is a self loop code where it check if a folder is having child folders
+                        // loop itself get all the child folders and the wits of that folder
+                        getChildFolders(token, folder.id, level);
+                    }
+
                 }
-            }     
+            }
+
+
         }
 
+        // not implemented/used
         public List<Folder> getChildFolders(String parentFolderId)
         {
 
             AccessTokenDao accesstokenDao = new AccessTokenDao();
             String token = accesstokenDao.getAccessToken(Common.userName);
 
-            String url = "http://52.3.104.221:8080/wittyparrot/api/folders/" + parentFolderId + "/children";
+            String url = Resource.endpoint + "wittyparrot/api/folders/" + parentFolderId + "/children";
             var client = new RestClient();
             client.BaseUrl = new Uri(url);
 

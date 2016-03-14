@@ -83,6 +83,7 @@ namespace _OutlookAddIn1.Dao
             }
         }
 
+        // Download the attachments to the local folder
         public void downloadAttachment(AttachmentDetail witsAtt) {
 
             //save file in the folder structure locally
@@ -91,6 +92,7 @@ namespace _OutlookAddIn1.Dao
 
         }
 
+        // Saves the doc info into the db, it includes the name, mime and local path of the attchment files
         public void saveDocs(Docs docs)
         {
             try
@@ -128,6 +130,7 @@ namespace _OutlookAddIn1.Dao
             finally { sql_con.Close(); }
         }
 
+        // This method will save the attachment details in the db, this does not saves actual attachments
         public void saveWitAttachment(AttachmentDetail witsAttachment)
         {
             try
